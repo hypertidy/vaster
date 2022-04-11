@@ -22,11 +22,12 @@
 #' @param dimension size of original grid vector of x-cells, y-cellss (number of cells in each direction)
 #' @param ... ignored
 #' @param snap one of "out" (default), "near", or "in"
+#' @export
 #' @examples
 #' ## any arbitrary extent
 #' x <- c(sort(runif(2, -180, 180)), sort(runif(2, -90, 90)))
 #' print(x)
-#' vcrop(x, c(360, 180), c(-180, 180, -90, 90))
+#' vcrop(x,  c(-180, 180, -90, 90), c(360, 180))
 vcrop <- function(x,  extent, dimension, ..., snap = "out") {
   new_extent <- align_extent(x, extent, dimension,  snap = snap)
   list(extent = new_extent,
