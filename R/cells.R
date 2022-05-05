@@ -60,7 +60,7 @@ cell_from_col <- function(dimension, col) {
   col <- round(col)
   rows <- rep(seq_len(dimension[2L]), times = length(col))
   cols <- rep(col, each = dimension[2])
-  cell_from_row_col(x, rows, cols)
+  cell_from_row_col(dimension, rows, cols)
 }
 #' Title
 #'
