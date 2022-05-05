@@ -12,7 +12,7 @@ col_from_cell <-
   function(dimension, cell) {
     cell <- round(cell)
     cell[cell < 1L | cell > prod(dimension)] <- NA
-    rownr <- trunc((cell - 1)/dimension[2L]) + 1L
+    rownr <- trunc((cell - 1)/dimension[1L]) + 1L
     as.integer(cell - ((rownr - 1) * dimension[1L]))
   }
 #' Title
