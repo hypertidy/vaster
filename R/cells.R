@@ -42,7 +42,7 @@ row_from_cell <-
 cell_from_row <- function(dimension, row) {
   row <- round(row)
   cols <- rep(seq_len(dimension[1L]), times=length(row))
-  rows <- rep(row, each=x$dimension[1])
+  rows <- rep(row, each=dimension[1])
   cell_from_row_col(dimension, rows, cols)
 }
 
