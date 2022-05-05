@@ -1,6 +1,6 @@
 Package: vaster
 Title: Virtual Raster 
-Version: 0.0.0.9004
+Version: 0.0.0.9006
 Authors@R: c(person("Michael", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2471-7511")))
 Description: Provide virtual raster facilities, grid logic and virtual format creation.
 License: MIT + file LICENSE
