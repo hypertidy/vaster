@@ -1,6 +1,24 @@
+#' Title
+#'
+#' @param extent
+#' @param dimension
+#'
+#' @return
+#' @export
+#'
+#' @examples
 x_res <- function(extent, dimension) {
   diff(extent[1:2])/dimension[1L]
 }
+#' Title
+#'
+#' @param extent
+#' @param dimension
+#'
+#' @return
+#' @export
+#'
+#' @examples
 y_res <- function(extent, dimension) {
   diff(extent[3:4])/dimension[2L]
 }
