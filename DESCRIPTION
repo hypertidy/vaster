@@ -6,6 +6,6 @@ Description: Provide virtual raster facilities, grid logic and virtual format cr
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 URL: https://github.com/hypertidy/vaster
 BugReports: https://github.com/hypertidy/vaster/issues
