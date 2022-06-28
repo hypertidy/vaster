@@ -1,3 +1,30 @@
+#' Convert to long form (XYZ[,Z2,etc])
+#'
+#' Matrix of x, y[, data] in raster order, use 'raster_order = FALSE' for traditional R matrix 'x[i], y[i]' order
+#'
+#' @param extent
+#' @param dimension
+#' @param data
+#' @param raster_order
+#'
+#' @return
+#' @export
+#'
+#' @examples
+vaster_long <- function(extent, dimension, data = NULL, raster_order = TRUE) {
+    three <- if (length(dim(data)) == 3L) 3 else NULL
+    if (!is.null(data)) {
+      data <- aperm(data, c(2, 1, three))
+      data <- matrix(data, prod(dm))
+    }
+    xyz <- cbind(xy_from_cell(ex, dm, seq_len(prod(dm))), data)
+  if (!raster_order) {
+   xyz <- xyz[order(xyz[,2L], xyz[,1L]), ]
+  }
+  xyz
+}
+
+
 #' Title
 #'
 #' @param x
