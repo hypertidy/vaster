@@ -11,6 +11,7 @@
 #' @export
 #'
 #' @examples
+#' # see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
 vaster_long <- function(extent, dimension, data = NULL, raster_order = TRUE) {
     three <- if (length(dim(data)) == 3L) 3 else NULL
     if (!is.null(data)) {
@@ -24,7 +25,28 @@ vaster_long <- function(extent, dimension, data = NULL, raster_order = TRUE) {
   xyz
 }
 
-
+#' Image trad form
+#'
+#' @param extent
+#' @param dimension
+#' @param data
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' ## see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
+vaster_listxyz <- function(extent, dimension, data = NULL) {
+  if (is.null(data)) {
+    data <- matrix(FALSE, dm[2], dm[1])
+  }
+  if (length(dim(data)) > 2) {
+    message("multi array not supported, this is trad image( ) format")
+    data <- data[,,1L]  ## should warn
+  }
+  list(x = x_from_col(extent, dimension, seq_len(dimension[1])),
+           y = rev(y_from_row(extent, dimension, seq_len(dimension[2]))), z = t(data[nrow(data):1, ]))
+}
 #' Title
 #'
 #' @param x

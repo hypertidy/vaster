@@ -12,3 +12,6 @@ vaster_long(extent, dimension, data = NULL, raster_order = TRUE)
 \description{
 Matrix of x, y\link{, data} in raster order, use 'raster_order = FALSE' for traditional R matrix 'x\link{i}, y\link{i}' order
 }
+\examples{
+# see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
+}
