@@ -115,6 +115,8 @@ y_centre <- function(extent, dimension) {
 #'
 #' @examples
 x_from_col <- function(extent, dimension, col) {
+  col[col < 1] <- NA
+  col[col > dimension[1L]] <- NA
   x_centre(extent, dimension)[col]
 }
 #' Title
@@ -127,6 +129,8 @@ x_from_col <- function(extent, dimension, col) {
 #'
 #' @examples
 y_from_row <- function(extent, dimension, row) {
+  row[row < 1] <- NA
+  row[row > dimension[2]] <- NA
   rev(y_centre(extent, dimension))[row]
 }
 
