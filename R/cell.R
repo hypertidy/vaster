@@ -107,7 +107,7 @@ cell_from_col <- function(dimension, col) {
 #'
 #' @examples
 cell_from_row_col <- function(dimension, row, col) {
-    colrow <- cbind(col, row)  ## for recycling
+    colrow <- cbind(as.vector(col), as.vector(row))  ## for recycling
     colnr <- colrow[,1L]
     rownr <- colrow[,2L]
 
