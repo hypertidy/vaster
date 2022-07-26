@@ -8,7 +8,9 @@
 #' @export
 #'
 #' @examples
-cell_from_xy <- function(dimension, extent, xy) {
+cell_from_xy <- function(dimension, extent = NULL, xy) {
+  extent <- extent %||% extent0(dimension)
+
   xx <- xy[,1L, drop = TRUE]
   yy <- xy[,2L, drop = TRUE]
 
@@ -35,114 +37,6 @@ cell_from_xy <- function(dimension, extent, xy) {
   ifelse (row < 0 || row >= nrows || col < 0 || col >= ncols, NA_real_, row * ncols + col + 1)
 }
 
-#' Title
-#'
-#' @param dimension
-#' @param cell
-#'
-#' @return
-#' @export
-#'
-#' @examples
-col_from_cell <-function(dimension, cell) {
-    cell <- round(cell)
-    cell[cell < 1L | cell > prod(dimension)] <- NA
-    rownr <- trunc((cell - 1)/dimension[1L]) + 1L
-    as.integer(cell - ((rownr - 1) * dimension[1L]))
-  }
-#' Title
-#'
-#' @param dimension
-#' @param cell
-#'
-#' @return
-#' @export
-#'
-#' @examples
-row_from_cell <-function(dimension, cell) {
-    cell <- round(cell)
-    cell[cell < 1 | cell > prod(dimension)] <- NA
-    trunc((cell - 1)/dimension[1L]) + 1
-  }
-#' Title
-#'
-#' @param dimension
-#' @param row
-#'
-#' @return
-#' @export
-#'
-#' @examples
-cell_from_row <- function(dimension, row) {
-  row <- round(row)
-  cols <- rep(seq_len(dimension[1L]), times=length(row))
-  rows <- rep(row, each=dimension[1])
-  cell_from_row_col(dimension, rows, cols)
-}
-
-
-#' Title
-#'
-#' @param dimension
-#' @param col
-#'
-#' @return
-#' @export
-#'
-#' @examples
-cell_from_col <- function(dimension, col) {
-  col <- round(col)
-  rows <- rep(seq_len(dimension[2L]), times = length(col))
-  cols <- rep(col, each = dimension[2])
-  cell_from_row_col(dimension, rows, cols)
-}
-#' Title
-#'
-#' @param dimension
-#' @param row
-#' @param col
-#'
-#' @return
-#' @export
-#'
-#' @examples
-cell_from_row_col <- function(dimension, row, col) {
-    colrow <- cbind(as.vector(col), as.vector(row))  ## for recycling
-    colnr <- colrow[,1L]
-    rownr <- colrow[,2L]
-
-    nr <- dimension[2L]
-    nc <- dimension[1L]
-    i <- seq_along(rownr)-1
-    nn <- length(rownr)
-
-    r <- rownr[ifelse(i < nn, i, i %% nn) + 1]
-    c <- colnr[ifelse(i < nn, i, i %% nn) + 1]
-    ifelse(r < 1 | r > nr | c < 1 | c > nc, NA,  (r-1) * nc + c)
-  }
-
-#' Title
-#'
-#' @param dimension
-#' @param row
-#' @param col
-#'
-#' @return
-#' @export
-#'
-#' @examples
-cell_from_row_col_combine <- function(dimension, row, col) {
-    row[row < 1 | row > n_row(dimension)] <- NA
-        col[col < 1 | col > n_col(dimension)] <- NA
-        cols <- rep(col, times = length(row))
-        dim(cols) <- c(length(col), length(row))
-        cols <- t(cols)
-        row <- (row - 1) * n_col(dimension)
-        cols <- cols + row
-        as.vector(t(cols))
-}
-
-
 
 
 #' Title
@@ -153,9 +47,11 @@ cell_from_row_col_combine <- function(dimension, row, col) {
 #' @param x_extent
 #'
 #' @export
-cell_from_extent <- function(dimension, extent, x_extent) {
-  x_extent <- align_extent(x_extent, extent, dimension)
-  inner_ext <- intersect_extent(x_extent, extent, dimension)
+cell_from_extent <- function(dimension, extent = NULL, x_extent) {
+  extent <- extent %||% extent0(dimension)
+
+  x_extent <- align_extent(x_extent, dimension, extent)
+  inner_ext <- intersect_extent(x_extent, dimension, extent)
   if (is.null(inner_ext)) {
     return(NULL)
   }
@@ -184,16 +80,18 @@ cell_from_extent <- function(dimension, extent, x_extent) {
 #' @param cells
 #'
 #' @export
-extent_from_cell <- function(extent, dimension, cells) {
+extent_from_cell <- function(dimension, extent = NULL, cells) {
+  extent <- extent %||% extent0(dimension)
+
   cells <- stats::na.omit(unique(round(cells)))
   cells <- cells[cells > 0 & cells <= n_cell(dimension)]
   if (length(cells) < 1) {
     stop('no valid cells')
   }
-  r <- c(x_res(extent, dimension), y_res(extent, dimension))
+  r <- c(x_res(dimension, extent), y_res(dimension, extent))
   dx <- r[1] * c(-0.5, 0.5)
   dy <- r[2] * c(-0.5, 0.5)
-  c(range(x_from_cell(extent, dimension, cells)) + dx, range(y_from_cell(extent, dimension, cells)) + dy)
+  c(range(x_from_cell(dimension, extent, cells)) + dx, range(y_from_cell(dimension, extent, cells)) + dy)
 }
 
 
@@ -207,7 +105,8 @@ extent_from_cell <- function(extent, dimension, cells) {
 #' @export
 #'
 #' @examples
-rowcol_from_cell <- function(extent, dimension, cell) {
+rowcol_from_cell <- function(dimension, extent = NULL, cell) {
+  extent <- extent %||% extent0(dimension)
 
   cell <- round(cell)
   ncols <- n_col(dimension)
@@ -225,7 +124,9 @@ rowcol_from_cell <- function(extent, dimension, cell) {
 #' @param cell
 #'
 #' @export
-xy_from_cell <- function(extent, dimension, cell) {
+xy_from_cell <- function(dimension, extent = NULL, cell) {
+  extent <- extent %||% extent0(dimension)
+
   xmin <- x_min(extent)
   xmax <- x_max(extent)
   ymin <- y_min(extent)
@@ -254,9 +155,11 @@ xy_from_cell <- function(extent, dimension, cell) {
 #' @export
 #'
 #' @examples
-x_from_cell <- function(extent, dimension, cell) {
+x_from_cell <- function(dimension, extent = NULL, cell) {
+  extent <- extent %||% extent0(dimension)
+
   ## improve with x_from_col
-  x_from_col(extent, dimension, col_from_cell(dimension, cell))
+  x_from_col(dimension, extent, col_from_cell(dimension, cell))
 }
 
 #' Title
@@ -269,7 +172,9 @@ x_from_cell <- function(extent, dimension, cell) {
 #' @export
 #'
 #' @examples
-y_from_cell <- function(extent, dimension, cell) {
+y_from_cell <- function(dimension, extent = NULL, cell) {
+  extent <- extent %||% extent0(dimension)
+
   ## improve with y_from_row
-  y_from_row(extent, dimension, row_from_cell(dimension, cell))
+  y_from_row(dimension, extent, row_from_cell(dimension, cell))
 }

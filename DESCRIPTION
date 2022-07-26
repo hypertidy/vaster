@@ -1,8 +1,13 @@
 Package: vaster
-Title: Virtual Raster 
+Title: Tools for Raster Grid Logic 
 Version: 0.0.0.9011
 Authors@R: c(person("Michael", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2471-7511")))
-Description: Provide virtual raster facilities, grid logic and virtual format creation.
+Description: Provides raster grid logic, the grid operations that don't require access to materialized data, i.e. most of them. 
+ Grids are arrays with dimension and extent, and many operations are functions of just the dimension 'nrows', 'ncols' or 
+ a combination of the dimension and the extent 'xmin', 'xmax', 'ymin', 'ymax'. Here we provide direct access to this logic
+ without need for connection to any materialized data or formats. Grid logic includes functions that relate the cell index to
+ row and column, or row and column to cell index, row, column or cell index to position. Cell index, and row,column posiiton
+ exist independently of any other use of a raster grid. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

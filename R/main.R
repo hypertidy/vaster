@@ -7,7 +7,8 @@
 #' @export
 #'
 #' @examples
-x_res <- function(extent, dimension) {
+x_res <- function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
   diff(extent[1:2])/dimension[1L]
 }
 #' Title
@@ -19,7 +20,8 @@ x_res <- function(extent, dimension) {
 #' @export
 #'
 #' @examples
-y_res <- function(extent, dimension) {
+y_res <- function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
   diff(extent[3:4])/dimension[2L]
 }
 

@@ -8,16 +8,19 @@
 #' @export
 #'
 #' @examples
-intersect_extent <- function(x_extent, extent, dimension) {
-  vcrop(x_extent, extent, dimension)$extent
+intersect_extent <- function(x_extent, dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+
+  vcrop(x_extent, dimension, extent)$extent
 }
 
 
 
 ## e_dim is align_extent for the dimension (input is the output of align_extent)
-e_dim <- function(x, extent, dimension) {
-  c(diff(x[1:2]) / x_res(extent, dimension),
-    diff(x[3:4]) / y_res(extent, dimension))
+e_dim <- function(x, dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+  c(diff(x[1:2]) / x_res(dimension, extent),
+    diff(x[3:4]) / y_res(dimension, extent))
 }
 
 
@@ -30,8 +33,10 @@ e_dim <- function(x, extent, dimension) {
 #' @export
 #'
 #' @examples
-origin <-   function(extent, dimension) {
-  r <- c(x_res(extent, dimension), y_res(extent, dimension))
+origin <-   function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+
+  r <- c(x_res(dimension, extent), y_res(dimension, extent))
   x <- extent[1L] - r[1]*(round(extent[1L] / r[1]))
   y <- extent[4L] - r[2]*(round(extent[4L] / r[2]))
 
@@ -56,10 +61,12 @@ origin <-   function(extent, dimension) {
 #' @export
 #'
 #' @examples
-align_extent <- function(x, extent, dimension, snap = c("out", "near", "in")) {
+align_extent <- function(x, dimension, extent = NULL, snap = c("out", "near", "in")) {
+  extent <- extent %||% extent0(dimension)
+
   snap <- match.arg(snap)
-  res <- c(x_res(extent, dimension), y_res(extent, dimension))
-  orig <- origin(extent, dimension)
+  res <- c(x_res(dimension, extent), y_res(dimension, extent))
+  orig <- origin(dimension, extent)
   xmin <- x[1L]
   xmax <- x[2L]
   ymin <- x[3L]
@@ -128,9 +135,11 @@ align_extent <- function(x, extent, dimension, snap = c("out", "near", "in")) {
 #' x <- c(sort(runif(2, -180, 180)), sort(runif(2, -90, 90)))
 #' print(x)
 #' vcrop(x,  c(-180, 180, -90, 90), c(360, 180))
-vcrop <- function(x,  extent, dimension, ..., snap = "out") {
-  new_extent <- align_extent(x, extent, dimension,  snap = snap)
+vcrop <- function(x,  dimension, extent = NULL, ..., snap = "out") {
+  extent <- extent %||% extent0(dimension)
+
+  new_extent <- align_extent(x, dimension, extent,  snap = snap)
   list(extent = new_extent,
-       dimension = e_dim(new_extent, extent, dimension))
+       dimension = e_dim(new_extent, dimension, extent))
 }
 
