@@ -2,7 +2,7 @@
 
 #' Title
 #'
-#' @param dimension
+#' @inheritParams x_res
 #' @param cell
 #'
 #' @return
@@ -10,6 +10,8 @@
 #'
 #' @examples
 col_from_cell <-function(dimension, cell) {
+  .check_args(dimension)
+
   cell <- round(cell)
   cell[cell < 1L | cell > prod(dimension)] <- NA
   rownr <- trunc((cell - 1)/dimension[1L]) + 1L
@@ -17,7 +19,7 @@ col_from_cell <-function(dimension, cell) {
 }
 #' Title
 #'
-#' @param dimension
+#' @inheritParams x_res
 #' @param cell
 #'
 #' @return
@@ -25,13 +27,14 @@ col_from_cell <-function(dimension, cell) {
 #'
 #' @examples
 row_from_cell <-function(dimension, cell) {
+  .check_args(dimension)
   cell <- round(cell)
   cell[cell < 1 | cell > prod(dimension)] <- NA
   trunc((cell - 1)/dimension[1L]) + 1
 }
 #' Title
 #'
-#' @param dimension
+#' @inheritParams x_res
 #' @param row
 #'
 #' @return
@@ -39,6 +42,7 @@ row_from_cell <-function(dimension, cell) {
 #'
 #' @examples
 cell_from_row <- function(dimension, row) {
+  .check_args(dimension)
   row <- round(row)
   cols <- rep(seq_len(dimension[1L]), times=length(row))
   rows <- rep(row, each=dimension[1])
@@ -48,7 +52,7 @@ cell_from_row <- function(dimension, row) {
 
 #' Title
 #'
-#' @param dimension
+#' @inheritParams x_res
 #' @param col
 #'
 #' @return
@@ -56,6 +60,7 @@ cell_from_row <- function(dimension, row) {
 #'
 #' @examples
 cell_from_col <- function(dimension, col) {
+  .check_args(dimension)
   col <- round(col)
   rows <- rep(seq_len(dimension[2L]), times = length(col))
   cols <- rep(col, each = dimension[2])
@@ -63,7 +68,7 @@ cell_from_col <- function(dimension, col) {
 }
 #' Title
 #'
-#' @param dimension
+#' @inheritParams x_res
 #' @param row
 #' @param col
 #'
@@ -72,6 +77,7 @@ cell_from_col <- function(dimension, col) {
 #'
 #' @examples
 cell_from_row_col <- function(dimension, row, col) {
+  .check_args(dimension)
   colrow <- cbind(as.vector(col), as.vector(row))  ## for recycling
   colnr <- colrow[,1L]
   rownr <- colrow[,2L]
@@ -88,7 +94,7 @@ cell_from_row_col <- function(dimension, row, col) {
 
 #' Title
 #'
-#' @param dimension
+#' @inheritParams x_res
 #' @param row
 #' @param col
 #'
@@ -96,7 +102,8 @@ cell_from_row_col <- function(dimension, row, col) {
 #' @export
 #'
 #' @examples
-cell_from_row_col_combine <- function(dimension, row, col) {
+cell_from_rowcol_combine <- function(dimension, row, col) {
+  .check_args(dimension)
   row[row < 1 | row > n_row(dimension)] <- NA
   col[col < 1 | col > n_col(dimension)] <- NA
   cols <- rep(col, times = length(row))

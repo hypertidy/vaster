@@ -4,10 +4,12 @@
 \alias{x_min}
 \title{Title}
 \usage{
-x_min(extent)
+x_min(dimension, extent = NULL)
 }
 \arguments{
-\item{extent}{}
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
 }
 \description{
 Title

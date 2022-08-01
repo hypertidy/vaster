@@ -1,7 +1,6 @@
 #' Title
 #'
-#' @param dimension
-#' @param extent
+#' @inheritParams x_res
 #' @param xy
 #'
 #' @return
@@ -10,7 +9,7 @@
 #' @examples
 cell_from_xy <- function(dimension, extent = NULL, xy) {
   extent <- extent %||% extent0(dimension)
-
+  .check_args(dimension, extent)
   xx <- xy[,1L, drop = TRUE]
   yy <- xy[,2L, drop = TRUE]
 
@@ -18,10 +17,10 @@ cell_from_xy <- function(dimension, extent = NULL, xy) {
   len <- length(xx)
   ncols <- n_col(dimension)
   nrows <- n_row(dimension)
-  xmin <- x_min(extent)
-  xmax <- x_max(extent)
-  ymin <- y_min(extent)
-  ymax <- y_max(extent)
+  xmin <- x_min(dimension, extent)
+  xmax <- x_max(dimension, extent)
+  ymin <- y_min(dimension, extent)
+  ymax <- y_max(dimension, extent)
   yres_inv = nrows / (ymax - ymin)
   xres_inv = ncols / (xmax - xmin)
   ## cannot use trunc here because trunc(-0.1) == 0
@@ -34,53 +33,48 @@ cell_from_xy <- function(dimension, extent = NULL, xy) {
   ## as for rows above. Go right, except for last column
   col <- ifelse (xx == xmax, ncols-1, col)
 
-  ifelse (row < 0 || row >= nrows || col < 0 || col >= ncols, NA_real_, row * ncols + col + 1)
+  ifelse (row < 0 | row >= nrows | col < 0 | col >= ncols, NA_real_, row * ncols + col + 1)
 }
 
 
 
 #' Title
 #'
-#' @param dimension
-#'
-#' @param extent
+#' @inheritParams x_res
 #' @param x_extent
 #'
 #' @export
 cell_from_extent <- function(dimension, extent = NULL, x_extent) {
   extent <- extent %||% extent0(dimension)
-
+  .check_args(dimension, extent)
+  .check_args(dimension, x_extent)
   x_extent <- align_extent(x_extent, dimension, extent)
   inner_ext <- intersect_extent(x_extent, dimension, extent)
   if (is.null(inner_ext)) {
     return(NULL)
   }
 
-  srow <- row_from_y(object, inner_ext[4L] - 0.5 * y_res(object))
-  erow <- row_from_y(object,   inner_ext[3L] + 0.5 * y_res(object))
-  scol <- col_from_x(object,   inner_ext[1L] + 0.5 * x_res(object))
-  ecol <- col_from_x(object,   inner_ext[2L] - 0.5 * x_res(object))
+  srow <- row_from_y(dimension, extent = extent, inner_ext[4L] - 0.5 * y_res(dimension, extent = extent))
+  erow <- row_from_y(dimension, extent = extent,   inner_ext[3L] + 0.5 * y_res(dimension, extent = extent))
+  scol <- col_from_x(dimension, extent = extent,   inner_ext[1L] + 0.5 * x_res(dimension, extent = extent))
+  ecol <- col_from_x(dimension, extent = extent,   inner_ext[2L] - 0.5 * x_res(dimension, extent = extent))
 
-  # if (expand) {
-  #   srow <- srow - round((extent@ymax - innerBox@ymax) / yres(object))
-  #   erow <- erow + round((innerBox@ymin - extent@ymin) / yres(object))
-  #   scol <- scol - round((innerBox@xmin - extent@xmin) / xres(object))
-  #   ecol <- ecol + round((extent@xmax - innerBox@xmax) / xres(object))
-  # }
-  #
-  return(cell_from_rowcol_combine(object, srow:erow, scol:ecol))
+
+ cell_from_rowcol_combine(dimension, seq(srow, erow, by = 1L),
+                                  seq(scol, ecol, by = 1L))
 }
 
 
 #' Title
 #'
-#' @param extent
-#'
-#' @param dimension
+#' @inheritParams x_res
 #' @param cells
 #'
 #' @export
 extent_from_cell <- function(dimension, extent = NULL, cells) {
+  extent <- extent %||% extent0(dimension)
+
+  .check_args(dimension, extent)
   extent <- extent %||% extent0(dimension)
 
   cells <- stats::na.omit(unique(round(cells)))
@@ -97,8 +91,7 @@ extent_from_cell <- function(dimension, extent = NULL, cells) {
 
 #' Title
 #'
-#' @param extent
-#' @param dimension
+#' @inheritParams x_res
 #' @param cell
 #'
 #' @return
@@ -107,7 +100,7 @@ extent_from_cell <- function(dimension, extent = NULL, cells) {
 #' @examples
 rowcol_from_cell <- function(dimension, extent = NULL, cell) {
   extent <- extent %||% extent0(dimension)
-
+  .check_args(dimension, extent)
   cell <- round(cell)
   ncols <- n_col(dimension)
   cell[cell < 1 | cell > n_cell(dimension)] <- NA
@@ -118,19 +111,18 @@ rowcol_from_cell <- function(dimension, extent = NULL, cell) {
 
 #' Title
 #'
-#' @param extent
-#'
-#' @param dimension
+#' @inheritParams x_res
 #' @param cell
 #'
 #' @export
 xy_from_cell <- function(dimension, extent = NULL, cell) {
   extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
 
-  xmin <- x_min(extent)
-  xmax <- x_max(extent)
-  ymin <- y_min(extent)
-  ymax <- y_max(extent)
+  xmin <- x_min(dimension, extent)
+  xmax <- x_max(dimension, extent)
+  ymin <- y_min(dimension, extent)
+  ymax <- y_max(dimension, extent)
   len <- length(cell)
   nrows <- n_row(dimension)
   ncols <- n_col(dimension)
@@ -147,8 +139,7 @@ xy_from_cell <- function(dimension, extent = NULL, cell) {
 
 #' Title
 #'
-#' @param extent
-#' @param dimension
+#' @inheritParams x_res
 #' @param cell
 #'
 #' @return
@@ -157,6 +148,7 @@ xy_from_cell <- function(dimension, extent = NULL, cell) {
 #' @examples
 x_from_cell <- function(dimension, extent = NULL, cell) {
   extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
 
   ## improve with x_from_col
   x_from_col(dimension, extent, col_from_cell(dimension, cell))
@@ -164,8 +156,7 @@ x_from_cell <- function(dimension, extent = NULL, cell) {
 
 #' Title
 #'
-#' @param extent
-#' @param dimension
+#' @inheritParams x_res
 #' @param cell
 #'
 #' @return
@@ -174,6 +165,7 @@ x_from_cell <- function(dimension, extent = NULL, cell) {
 #' @examples
 y_from_cell <- function(dimension, extent = NULL, cell) {
   extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
 
   ## improve with y_from_row
   y_from_row(dimension, extent, row_from_cell(dimension, cell))

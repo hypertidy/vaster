@@ -1,8 +1,7 @@
 #' Title
 #'
 #' @param x_extent
-#' @param extent
-#' @param dimension
+#' @inheritParams x_res
 #'
 #' @return
 #' @export
@@ -10,7 +9,7 @@
 #' @examples
 intersect_extent <- function(x_extent, dimension, extent = NULL) {
   extent <- extent %||% extent0(dimension)
-
+  .check_args(dimension)
   vcrop(x_extent, dimension, extent)$extent
 }
 
@@ -26,8 +25,7 @@ e_dim <- function(x, dimension, extent = NULL) {
 
 #' Title
 #'
-#' @param extent
-#' @param dimension
+#' @inheritParams x_res
 #'
 #' @return
 #' @export
@@ -35,7 +33,7 @@ e_dim <- function(x, dimension, extent = NULL) {
 #' @examples
 origin <-   function(dimension, extent = NULL) {
   extent <- extent %||% extent0(dimension)
-
+  .check_args(dimension)
   r <- c(x_res(dimension, extent), y_res(dimension, extent))
   x <- extent[1L] - r[1]*(round(extent[1L] / r[1]))
   y <- extent[4L] - r[2]*(round(extent[4L] / r[2]))
@@ -53,8 +51,7 @@ origin <-   function(dimension, extent = NULL) {
 #' Title
 #'
 #' @param x
-#' @param extent
-#' @param dimension
+#' @inheritParams x_res
 #' @param snap
 #'
 #' @return
@@ -63,7 +60,7 @@ origin <-   function(dimension, extent = NULL) {
 #' @examples
 align_extent <- function(x, dimension, extent = NULL, snap = c("out", "near", "in")) {
   extent <- extent %||% extent0(dimension)
-
+  .check_args(dimension)
   snap <- match.arg(snap)
   res <- c(x_res(dimension, extent), y_res(dimension, extent))
   orig <- origin(dimension, extent)
@@ -125,8 +122,7 @@ align_extent <- function(x, dimension, extent = NULL, snap = c("out", "near", "i
 #'
 #'
 #' @param x extent of candidate grid (vector of xmin,xmax,ymin,ymax)
-#' @param extent extent of original grid (vector of xmin,xmax,ymin,ymax)
-#' @param dimension size of original grid vector of x-cells, y-cellss (number of cells in each direction)
+#' @inheritParams x_res
 #' @param ... ignored
 #' @param snap one of "out" (default), "near", or "in"
 #' @export
@@ -134,10 +130,10 @@ align_extent <- function(x, dimension, extent = NULL, snap = c("out", "near", "i
 #' ## any arbitrary extent
 #' x <- c(sort(runif(2, -180, 180)), sort(runif(2, -90, 90)))
 #' print(x)
-#' vcrop(x,  c(-180, 180, -90, 90), c(360, 180))
+#' vcrop(x,  c(360, 180), c(-180, 180, -90, 90))
 vcrop <- function(x,  dimension, extent = NULL, ..., snap = "out") {
   extent <- extent %||% extent0(dimension)
-
+  .check_args(dimension)
   new_extent <- align_extent(x, dimension, extent,  snap = snap)
   list(extent = new_extent,
        dimension = e_dim(new_extent, dimension, extent))

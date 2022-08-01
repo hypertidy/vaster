@@ -4,10 +4,12 @@
 \alias{intersect_extent}
 \title{Title}
 \usage{
-intersect_extent(x_extent, extent, dimension)
+intersect_extent(x_extent, dimension, extent = NULL)
 }
 \arguments{
-\item{dimension}{}
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
 }
 \description{
 Title

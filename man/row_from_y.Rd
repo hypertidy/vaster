@@ -4,10 +4,12 @@
 \alias{row_from_y}
 \title{Title}
 \usage{
-row_from_y(extent, dimension, y)
+row_from_y(dimension, extent = NULL, y)
 }
 \arguments{
-\item{extent}{}
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
 
 \item{y}{}
 }

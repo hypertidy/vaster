@@ -4,14 +4,14 @@
 \alias{vcrop}
 \title{Virtual grid modification}
 \usage{
-vcrop(x, extent, dimension, ..., snap = "out")
+vcrop(x, dimension, extent = NULL, ..., snap = "out")
 }
 \arguments{
 \item{x}{extent of candidate grid (vector of xmin,xmax,ymin,ymax)}
 
-\item{extent}{extent of original grid (vector of xmin,xmax,ymin,ymax)}
+\item{dimension}{integer ncol, nrow}
 
-\item{dimension}{size of original grid vector of x-cells, y-cellss (number of cells in each direction)}
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
 
 \item{...}{ignored}
 
@@ -30,5 +30,5 @@ completely non-intersecting the original grid.
 ## any arbitrary extent
 x <- c(sort(runif(2, -180, 180)), sort(runif(2, -90, 90)))
 print(x)
-vcrop(x,  c(-180, 180, -90, 90), c(360, 180))
+vcrop(x,  c(360, 180), c(-180, 180, -90, 90))
 }

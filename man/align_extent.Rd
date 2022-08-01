@@ -4,9 +4,13 @@
 \alias{align_extent}
 \title{Title}
 \usage{
-align_extent(x, extent, dimension, snap = c("out", "near", "in"))
+align_extent(x, dimension, extent = NULL, snap = c("out", "near", "in"))
 }
 \arguments{
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
+
 \item{snap}{}
 }
 \description{

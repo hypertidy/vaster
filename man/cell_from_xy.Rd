@@ -4,9 +4,13 @@
 \alias{cell_from_xy}
 \title{Title}
 \usage{
-cell_from_xy(dimension, extent, xy)
+cell_from_xy(dimension, extent = NULL, xy)
 }
 \arguments{
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
+
 \item{xy}{}
 }
 \description{

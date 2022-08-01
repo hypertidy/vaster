@@ -4,10 +4,12 @@
 \alias{col_from_x}
 \title{Title}
 \usage{
-col_from_x(extent, dimension, x)
+col_from_x(dimension, extent = NULL, x)
 }
 \arguments{
-\item{extent}{}
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
 
 \item{x}{}
 }

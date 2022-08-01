@@ -4,10 +4,12 @@
 \alias{ylim}
 \title{Title}
 \usage{
-ylim(extent)
+ylim(dimension, extent = NULL)
 }
 \arguments{
-\item{extent}{}
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
 }
 \description{
 Title

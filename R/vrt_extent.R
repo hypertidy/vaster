@@ -7,13 +7,13 @@
 #'
 #' @export
 #' @examples
-#' src <- "https://opentopography.s3.sdsc.edu/raster/NASADEM/NASADEM_be.vrt"
-#' src <- "https://opentopography.s3.sdsc.edu/raster/SRTM_GL1/SRTM_GL1_srtm.vrt"
-#' ex <- extent_vrt(src)
-#' op <- par(mar = rep(0, 4))
-#' plot(range(ex[,1:2]), range(ex[,3:4]), xlab = "", ylab = "", asp = "", type = "n")
-#' rect(ex[,1], ex[,3], ex[, 2], ex[,4])
-#' par(op)
+#' #src <- "https://opentopography.s3.sdsc.edu/raster/NASADEM/NASADEM_be.vrt"
+#' #src <- "https://opentopography.s3.sdsc.edu/raster/SRTM_GL1/SRTM_GL1_srtm.vrt"
+#' #ex <- extent_vrt(src)
+#' #op <- par(mar = rep(0, 4))
+#' #plot(range(ex[,1:2]), range(ex[,3:4]), xlab = "", ylab = "", asp = "", type = "n")
+#' #rect(ex[,1], ex[,3], ex[, 2], ex[,4])
+#' #par(op)
 extent_vrt <- function(x) {
   vrt <- readr::read_lines(x)
 
@@ -26,9 +26,9 @@ extent_vrt <- function(x) {
 
 
   vinfo <- vapour::vapour_raster_info(x)
-  xmin <- vaster::x_from_col(vinfo$extent, vinfo$dimXY, xOff + 1)
-  xmax <- vaster::x_from_col(vinfo$extent, vinfo$dimXY, xOff + xSize)
-  ymin <- vaster::y_from_row(vinfo$extent, vinfo$dimXY, yOff + 1)
-  ymax <- vaster::y_from_row(vinfo$extent, vinfo$dimXY, yOff +  ySize)
+  xmin <- vaster::x_from_col(vinfo$dimXY, vinfo$extent, xOff + 1)
+  xmax <- vaster::x_from_col(vinfo$dimXY, vinfo$extent, xOff + xSize)
+  ymin <- vaster::y_from_row(vinfo$dimXY, vinfo$extent, yOff + 1)
+  ymax <- vaster::y_from_row(vinfo$dimXY, vinfo$extent, yOff +  ySize)
   cbind(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)
 }

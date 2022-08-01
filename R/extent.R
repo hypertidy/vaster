@@ -1,70 +1,88 @@
 #' Title
 #'
-#' @param extent
+#' @inheritParams x_res
 #'
 #' @return
 #' @export
 #'
 #' @examples
-xlim <- function(extent) {
+xlim <- function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
+
   extent[c(1L, 2L)]
 }
 #' Title
 #'
-#' @param extent
+#' @inheritParams x_res
 #'
 #' @return
 #' @export
 #'
 #' @examples
-ylim <- function(extent) {
+ylim <- function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
+
   extent[c(3L, 4L)]
 }
 #' Title
 #'
-#' @param extent
+#' @inheritParams x_res
 #'
 #' @return
 #' @export
 #'
 #' @examples
-x_min <- function(extent) {
+x_min <- function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
+
   extent[1L]
 }
 #' Title
 #'
-#' @param extent
+#' @inheritParams x_res
 #'
 #' @return
 #' @export
 #'
 #' @examples
 
-x_max <- function(extent) {
+x_max <- function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
+
   extent[2L]
 }
 #' Title
 #'
-#' @param extent
+#' @inheritParams x_res
 #'
 #' @return
 #' @export
 #'
 #' @examples
 
-y_min <- function(extent) {
+y_min <- function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
+
   extent[3L]
 }
 
 #' Title
 #'
-#' @param extent
+#' @inheritParams x_res
 #'
 #' @return
 #' @export
 #'
 #' @examples
-y_max <- function(extent) {
+y_max <- function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
+
   extent[4L]
 }
 

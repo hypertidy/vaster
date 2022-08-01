@@ -4,9 +4,13 @@
 \alias{rowcol_from_cell}
 \title{Title}
 \usage{
-rowcol_from_cell(extent, dimension, cell)
+rowcol_from_cell(dimension, extent = NULL, cell)
 }
 \arguments{
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
+
 \item{cell}{}
 }
 \description{

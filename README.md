@@ -51,7 +51,7 @@ print(x)
 #>       xmin       xmax       ymin       ymax 
 #>  27.791559  46.982302 -28.443197   1.738701
 ## all we need is a extent and dimension, we want to align to that grid
-v <- vcrop(x,  c(-180, 180, -90, 90), c(360, 180) /3)
+v <- vcrop(x,  c(360, 180) /3, extent = c(-180, 180, -90, 90))
 plot(NA, xlim = v$extent[1:2], ylim = v$extent[3:4], asp = "")
 g_along <- function(x, n) seq(x[1], x[2], length.out = n)
 abline(v = v$extent[1:2], h = v$extent[3:4], lwd = 2)

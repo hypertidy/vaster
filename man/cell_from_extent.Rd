@@ -4,10 +4,12 @@
 \alias{cell_from_extent}
 \title{Title}
 \usage{
-cell_from_extent(dimension, extent, x_extent)
+cell_from_extent(dimension, extent = NULL, x_extent)
 }
 \arguments{
-\item{dimension}{}
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
 
 \item{x_extent}{}
 }

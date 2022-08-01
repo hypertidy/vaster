@@ -14,7 +14,7 @@
 
 #' convert cell to windows c(offset, dim) - 0-based for vapour_read_raster
 #'
-#' @param dimension dimension of raster
+#' @inheritParams x_res
 #' @param cell cell to convert (not vectorize)
 #' @param size size of kernel (1 is 3x3)
 #'
@@ -24,6 +24,7 @@
 #' @examples
 #' cell_kernel(c(100, 50), 3)
 cell_kernel <- function(dimension, cell, size = 1) {
+  .check_args(dimension)
   ## offset is
   row <- row_from_cell(dimension, cell)
   col <- col_from_cell(dimension, cell)
@@ -37,7 +38,7 @@ cell_kernel <- function(dimension, cell, size = 1) {
 
 #' Vectorized kernel to cell index
 #'
-#' @param dimension dimension of data
+#' @inheritParams x_res
 #' @param cell cells to obtain kernel index of
 #' @param size size of kernel (1 is 3x3)
 #'
@@ -71,6 +72,7 @@ cell_kernel <- function(dimension, cell, size = 1) {
 #' ximage(matrix(d$data, dimension[2], byrow = TRUE))
 
 kernel_group_cell <- function(dimension, cell, size = 1) {
+  .check_args(dimension)
   len <- (size + 2)^2
   row <- row_from_cell(dimension, cell)
   col <- col_from_cell(dimension, cell)

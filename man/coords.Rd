@@ -4,10 +4,12 @@
 \alias{coords}
 \title{Title}
 \usage{
-coords(extent, dimension)
+coords(dimension, extent = NULL)
 }
 \arguments{
-\item{dimension}{}
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
 }
 \description{
 Title

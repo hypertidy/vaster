@@ -4,10 +4,12 @@
 \alias{x_corner}
 \title{Title}
 \usage{
-x_corner(x)
+x_corner(dimension, extent = NULL)
 }
 \arguments{
-\item{x}{}
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
 }
 \description{
 Title

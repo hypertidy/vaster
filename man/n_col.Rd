@@ -7,7 +7,7 @@
 n_col(dimension)
 }
 \arguments{
-\item{dimension}{}
+\item{dimension}{integer ncol, nrow}
 }
 \description{
 Title

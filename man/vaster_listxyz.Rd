@@ -4,9 +4,13 @@
 \alias{vaster_listxyz}
 \title{Image trad form}
 \usage{
-vaster_listxyz(extent, dimension, data = NULL)
+vaster_listxyz(dimension, extent = NULL, data = NULL)
 }
 \arguments{
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
+
 \item{data}{}
 }
 \description{
