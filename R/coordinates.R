@@ -22,7 +22,8 @@ vaster_long <- function(extent, dimension, data = NULL, raster_order = TRUE) {
   if (!raster_order) {
    xyz <- xyz[order(xyz[,2L], xyz[,1L]), ]
   }
-  xyz
+  colnames(xyz) <- c("x", "y", "z")
+    xyz
 }
 
 #' Image trad form
