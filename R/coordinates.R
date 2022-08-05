@@ -18,7 +18,7 @@ vaster_long <- function(extent, dimension, data = NULL, raster_order = TRUE) {
       data <- aperm(data, c(2, 1, three))
       data <- matrix(data, prod(dimension))
     }
-    xyz <- cbind(xy_from_cell(ex, dimension, seq_len(prod(dimension))), data)
+    xyz <- cbind(xy_from_cell(extent, dimension, seq_len(prod(dimension))), data)
   if (!raster_order) {
    xyz <- xyz[order(xyz[,2L], xyz[,1L]), ]
   }
