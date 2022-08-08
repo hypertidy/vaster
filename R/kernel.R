@@ -86,7 +86,16 @@ kernel_group_cell <- function(dimension, cell, size = 1) {
 
 
 
+#f <- "inst/misc/etopo2.tif"
+#dimension <- vapour::vapour_raster_info(f)$dimension
+#cell <- sample(1:prod(dimension), 1)
+#ck <- cell_kernel(dimension, cell)
+#library(furrr)
+#plan(multisession)
+#system.time({
+#out <- future_map_int(sample(1:prod(dimension), dimension[1]),
+#           function(.x) max(vapour::vapour_read_raster_int(f, window = cell_kernel(dimension, .x))))
 
-
+#})
 
 

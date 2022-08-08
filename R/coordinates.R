@@ -16,13 +16,14 @@ vaster_long <- function(extent, dimension, data = NULL, raster_order = TRUE) {
     three <- if (length(dim(data)) == 3L) 3 else NULL
     if (!is.null(data)) {
       data <- aperm(data, c(2, 1, three))
-      data <- matrix(data, prod(dm))
+      data <- matrix(data, prod(dimension))
     }
-    xyz <- cbind(xy_from_cell(ex, dm, seq_len(prod(dm))), data)
+    xyz <- cbind(xy_from_cell(extent, dimension, seq_len(prod(dimension))), data)
   if (!raster_order) {
    xyz <- xyz[order(xyz[,2L], xyz[,1L]), ]
   }
-  xyz
+  colnames(xyz) <- c("x", "y", "z")
+    xyz
 }
 
 #' Image trad form
@@ -38,7 +39,7 @@ vaster_long <- function(extent, dimension, data = NULL, raster_order = TRUE) {
 #' ## see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
 vaster_listxyz <- function(extent, dimension, data = NULL) {
   if (is.null(data)) {
-    data <- matrix(FALSE, dm[2], dm[1])
+    data <- matrix(FALSE, dimension[2], dimension[1])
   }
   if (length(dim(data)) > 2) {
     message("multi array not supported, this is trad image( ) format")
