@@ -1,3 +1,15 @@
+#' Draw extent
+#'
+#' Draw an extent with two clicks
+draw_extent <- function(show = TRUE, ...) {
+  x <- unlist(lapply(locator(2L), sort), use.names = FALSE)
+  if (show) rect(x[1L], x[3L], x[2L], x[4L], ...)
+  x
+}
+
+# draw <- function(n = Inf, close = FALSE, ...) {
+#   for (i)
+# }
 #' Convert to long form '(XYZ[,Z2,etc])'
 #'
 #' Matrix of 'x, y[, data]' in raster order, use 'raster_order = FALSE' for traditional R matrix 'x[i], y[i]' order

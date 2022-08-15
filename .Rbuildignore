@@ -4,3 +4,4 @@
 ^README\.Rmd$
 ^inst/misc/etopo2.tif$
 ^data-raw$
+^gdalwmscache$

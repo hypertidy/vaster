@@ -1,27 +1,42 @@
 #' Title
 #'
-#' @param x_extent
+#' @param x extent to intersect
 #' @inheritParams x_res
 #'
 #' @return
 #' @export
 #'
 #' @examples
-intersect_extent <- function(x_extent, dimension, extent = NULL) {
+intersect_extent <- function(x, dimension, extent = NULL) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension)
-  vcrop(x_extent, dimension, extent)$extent
+  vcrop(x, dimension, extent)$extent
 }
 
 
 
-## e_dim is align_extent for the dimension (input is the output of align_extent)
-e_dim <- function(x, dimension, extent = NULL) {
+#' Dimension for an aligned extent
+#'
+#' input is the output of align_extent
+#'
+#'
+#' @param x and aligned extent
+#' @param dimension dimension of parent
+#' @param extent of parent
+#'
+#' @return
+#' @export
+#'
+#' @examples
+extent_dimension <- function(x, dimension, extent = NULL) {
   extent <- extent %||% extent0(dimension)
-  c(diff(x[1:2]) / x_res(dimension, extent),
-    diff(x[3:4]) / y_res(dimension, extent))
+  ## avoid truncation by rounding
+  as.integer(round(c(diff(x[1:2]) / x_res(dimension, extent),
+    diff(x[3:4]) / y_res(dimension, extent))))
 }
 
+#' @aliases extent_dimension
+e_dim <- extent_dimension
 
 #' Title
 #'
@@ -135,6 +150,9 @@ vcrop <- function(x,  dimension, extent = NULL, ..., snap = "out") {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension)
   new_extent <- align_extent(x, dimension, extent,  snap = snap)
+  badx <- all(new_extent[1:2] <= extent[1L]) || all(new_extent[1:2] >= extent[2L])
+  bady <- all(new_extent[3:4] <= extent[3L]) || all(new_extent[3:4] >= extent[4L])
+  if (badx || bady) message("extents do not overlap")
   list(extent = new_extent,
        dimension = e_dim(new_extent, dimension, extent))
 }
