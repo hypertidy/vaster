@@ -3,7 +3,7 @@
 #' @inheritParams x_res
 #' @param xy
 #'
-#' @return
+#' @return cell index
 #' @export
 #'
 #' @examples

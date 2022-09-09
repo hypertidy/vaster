@@ -1,5 +1,7 @@
 # vaster dev
 
+* Better argument consistency, dimension first, then extent. 
+
 * New function `extent_vrt()` to obtain tile extents from VRT text. 
 
 * New function `vaster_listxyz()` to convert extent, dimension, and optionally data to trad `image()` format. 

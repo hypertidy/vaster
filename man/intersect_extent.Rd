@@ -4,9 +4,11 @@
 \alias{intersect_extent}
 \title{Title}
 \usage{
-intersect_extent(x_extent, dimension, extent = NULL)
+intersect_extent(x, dimension, extent = NULL)
 }
 \arguments{
+\item{x}{extent to intersect}
+
 \item{dimension}{integer ncol, nrow}
 
 \item{extent}{numeric extent xmin,xmax,ymin,ymax}

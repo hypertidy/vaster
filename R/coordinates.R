@@ -1,6 +1,7 @@
 #' Draw extent
 #'
 #' Draw an extent with two clicks
+#' @importFrom graphics locator rect
 draw_extent <- function(show = TRUE, ...) {
   x <- unlist(lapply(locator(2L), sort), use.names = FALSE)
   if (show) rect(x[1L], x[3L], x[2L], x[4L], ...)

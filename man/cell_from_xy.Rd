@@ -13,6 +13,9 @@ cell_from_xy(dimension, extent = NULL, xy)
 
 \item{xy}{}
 }
+\value{
+cell index
+}
 \description{
 Title
 }
