@@ -1,5 +1,7 @@
 # vaster dev
 
+* New function `snap_extent()` to replace `spex::buffer_extent()`, aliased to `buffer_extent()` in this package. 
+
 * Better argument consistency, dimension first, then extent. 
 
 * New function `extent_vrt()` to obtain tile extents from VRT text. 

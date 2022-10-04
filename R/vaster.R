@@ -1,3 +1,29 @@
+#' Snap extent to resolution (buffer extent)
+#'
+#' Whole grain buffers.
+#'
+#' @param x extent (xmin, xmax, ymin, ymax)
+#' @param res resolution (a grain to align to)
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' snap_extent(sort(rnorm(4)), 0.01)
+snap_extent <-  function(x, res) {
+  if (missing(res) || length(res) < 1 || is.null(res) || res[1L] == 0 || is.na(res[1L])) {
+    return(x)
+  }
+  (x %/% res) * res + c(0, res, 0, res)
+}
+
+#' @name snap_extent
+#' @export
+buffer_extent <- function(x, res) {
+  snap_extent(x, res)
+}
+
+
 #' Title
 #'
 #' @param x extent to intersect
