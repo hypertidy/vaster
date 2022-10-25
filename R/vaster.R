@@ -54,11 +54,14 @@ intersect_extent <- function(x, dimension, extent = NULL) {
 #' @export
 #'
 #' @examples
-extent_dimension <- function(x, dimension, extent = NULL) {
+extent_dimension <- function(x, dimension, extent = NULL, snap = "out") {
   extent <- extent %||% extent0(dimension)
   ## avoid truncation by rounding
-  as.integer(round(c(diff(x[1:2]) / x_res(dimension, extent),
-    diff(x[3:4]) / y_res(dimension, extent))))
+  # as.integer(round(c(diff(x[1:2]) / x_res(dimension, extent),
+  #   diff(x[3:4]) / y_res(dimension, extent))))
+  ex <- align_extent(x, dimension, extent, snap = snap)
+  as.integer(round(c(diff(ex[1:2]) / x_res(dimension, extent),
+                     diff(ex[3:4]) / y_res(dimension, extent))))
 }
 
 #' @aliases extent_dimension
@@ -180,6 +183,6 @@ vcrop <- function(x,  dimension, extent = NULL, ..., snap = "out") {
   bady <- all(new_extent[3:4] <= extent[3L]) || all(new_extent[3:4] >= extent[4L])
   if (badx || bady) message("extents do not overlap")
   list(extent = new_extent,
-       dimension = e_dim(new_extent, dimension, extent))
+       dimension = e_dim(new_extent, dimension, extent, snap = snap))
 }
 
