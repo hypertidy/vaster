@@ -12,7 +12,15 @@ extent_dimension(x, dimension, extent = NULL, snap = "out")
 \item{dimension}{dimension of parent}
 
 \item{extent}{of parent}
+
+\item{snap}{out by default, may be near or in}
+}
+\value{
+dimension
 }
 \description{
 input is the output of align_extent
+}
+\examples{
+extent_dimension(c(.2, .8, 1.8, 3.2), c(10, 5), c(0, 10, 0, 5))
 }

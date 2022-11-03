@@ -50,7 +50,7 @@ test_that("bad inputs fail", {
 
   expect_error(cell_from_xy(dm, ex_bad, xy))
   expect_error(col_from_x(dm, ex_bad, xy[,1]))
-  expect_error(coords(dm, ex_bad))
+  expect_error(xy(dm, ex_bad))
   expect_error(extent_from_cell(dm, ex_bad, 10:1))
   expect_error(row_from_y(dm, ex_bad, xy[,2]))
   expect_error(rowcol_from_cell(dm, ex_bad, 20:30))
@@ -62,7 +62,7 @@ test_that("bad inputs fail", {
 
   expect_error(cell_from_xy(dm, ex_ord))
   expect_error(col_from_x(dm, ex_ord))
-  expect_error(coords(dm, ex_ord))
+  expect_error(xy(dm, ex_ord))
   expect_error(extent_from_cell(dm, ex_ord))
   expect_error(row_from_y(dm, ex_ord))
   expect_error(rowcol_from_cell(dm, ex_ord))
@@ -90,7 +90,7 @@ test_that("cell funcs work", {
 
   expect_equal(cell_from_xy(dm, ex, xy), c(32581, 3881, 61281, 39751, 41606))
   expect_equal(col_from_x(dm, ex, xy[,1]), c(181, 281, 81, 151, 206))
-  expect_equal(dim(coords(dm, ex)), c(64800L, 2))
+  expect_equal(dim(xy(dm, ex)), c(64800L, 2))
   expect_equal(extent_from_cell(dm, ex, 10:1), c(-180, -170,   89,   90))
 
   expect_equal(row_from_y(dm, ex, xy[,2]), c(91, 11, 171, 111, 116))

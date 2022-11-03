@@ -2,7 +2,7 @@
 % Please edit documentation in R/vaster.R
 \name{origin}
 \alias{origin}
-\title{Title}
+\title{Origin of grid alignment}
 \usage{
 origin(dimension, extent = NULL)
 }
@@ -11,6 +11,12 @@ origin(dimension, extent = NULL)
 
 \item{extent}{numeric extent xmin,xmax,ymin,ymax}
 }
+\value{
+coordinate of grid origin
+}
 \description{
-Title
+Origin of grid alignment
+}
+\examples{
+origin(c(10, 5), c(0, 10, 0, 5))
 }

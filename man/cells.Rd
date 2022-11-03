@@ -88,6 +88,12 @@ cell of row,col combined
 \description{
 Functions that work with cells.
 }
+\details{
+The cell is indexed from the top left corner and proceeds to the right, and
+then down scanning by rows. The n cell is a the bottom right corner.
+Orientation is different to R's native matrix order, but see (WiP doc and
+helpers for conversion).
+}
 \examples{
 cell_from_xy(c(10, 5), extent = c(0, 10, 0, 5), cbind(5, 4))
 cell_from_extent(c(10, 5), c(0, 10, 0, 5), c(6, 7, 2, 3))

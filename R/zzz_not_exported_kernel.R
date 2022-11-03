@@ -14,11 +14,11 @@
 
 #' convert cell to windows c(offset, dim) - 0-based for vapour_read_raster
 #'
-#' @inheritParams x_res
+#' @inheritParams grid
 #' @param cell cell to convert (not vectorize)
 #' @param size size of kernel (1 is 3x3)
 #'
-#' @return
+#' @return window (offset, dim)
 #' @noRd
 #'
 #' @examples
@@ -38,11 +38,11 @@ cell_kernel <- function(dimension, cell, size = 1) {
 
 #' Vectorized kernel to cell index
 #'
-#' @inheritParams x_res
+#' @inheritParams grid
 #' @param cell cells to obtain kernel index of
 #' @param size size of kernel (1 is 3x3)
 #'
-#' @return
+#' @return cells defining kernel
 #' @noRd
 #'
 #' @examples

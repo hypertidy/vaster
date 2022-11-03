@@ -14,6 +14,9 @@ buffer_extent(x, res)
 
 \item{res}{resolution (a grain to align to)}
 }
+\value{
+extent, snapped to the resolution
+}
 \description{
 Whole grain buffers.
 }

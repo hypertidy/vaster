@@ -2,7 +2,7 @@
 % Please edit documentation in R/coordinates.R
 \name{vaster_listxyz}
 \alias{vaster_listxyz}
-\title{Image trad form}
+\title{Image xyz list}
 \usage{
 vaster_listxyz(dimension, extent = NULL, data = NULL)
 }
@@ -11,11 +11,18 @@ vaster_listxyz(dimension, extent = NULL, data = NULL)
 
 \item{extent}{numeric extent xmin,xmax,ymin,ymax}
 
-\item{data}{}
+\item{data}{data values (length of the product of 'dimension')}
+}
+\value{
+list with elementx x,y,z as per \link[graphics:image]{graphics::image}
 }
 \description{
-Image trad form
+Generate list of x and y rectilinear coordinates with z matrix.
+}
+\details{
+The rectilinear coordinates are degenerate (just a product of extent/dimension).
 }
 \examples{
+vaster_listxyz(c(10, 5), c(0, 10, 0, 5))
 ## see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
 }

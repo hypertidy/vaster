@@ -6,3 +6,4 @@
 ^data-raw$
 ^gdalwmscache$
 ^CODE_OF_CONDUCT\.md$
+^\.github$

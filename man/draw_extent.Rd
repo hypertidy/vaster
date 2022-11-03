@@ -7,9 +7,9 @@
 draw_extent(show = TRUE, ...)
 }
 \arguments{
-\item{...}{arguments pass to \code{\link[graphics:rect]{graphics::rect()}}}
+\item{show}{the drawn extent}
 
-\item{plot}{the drawn extent}
+\item{...}{arguments pass to \code{\link[graphics:rect]{graphics::rect()}}}
 }
 \description{
 Draw an extent with two clicks

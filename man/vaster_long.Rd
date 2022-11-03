@@ -2,7 +2,7 @@
 % Please edit documentation in R/coordinates.R
 \name{vaster_long}
 \alias{vaster_long}
-\title{Convert to long form '(XYZ\link{,Z2,etc})'}
+\title{Convert to long form coordinates}
 \usage{
 vaster_long(dimension, extent = NULL, data = NULL, raster_order = TRUE)
 }
@@ -11,11 +11,20 @@ vaster_long(dimension, extent = NULL, data = NULL, raster_order = TRUE)
 
 \item{extent}{numeric extent xmin,xmax,ymin,ymax}
 
-\item{raster_order}{}
+\item{data}{data values}
+
+\item{raster_order}{use raster order or native R matrix order}
+}
+\value{
+matrix of coordinates x,y
 }
 \description{
-Matrix of 'x, y\link{, data}' in raster order, use 'raster_order = FALSE' for traditional R matrix 'x\link{i}, y\link{i}' order
+Matrix of xyz values in raster order.
+}
+\details{
+Use 'raster_order = FALSE' for traditional R matrix x,y order
 }
 \examples{
+vaster_long(c(10, 5), c(0, 10, 0, 5))
 # see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
 }

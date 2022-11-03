@@ -15,7 +15,7 @@
 #' #rect(ex[,1], ex[,3], ex[, 2], ex[,4])
 #' #par(op)
 extent_vrt <- function(x) {
-  vrt <- readr::read_lines(x)
+  vrt <- readLines(x)
 
   dimension <- as.integer(c(strsplit(strsplit(vrt[1], "rasterXSize=\"")[[1]][2], "\"")[[1]][1],
                  strsplit(strsplit(vrt[1], "rasterYSize=\"")[[1]][2], "\"")[[1]][1]))

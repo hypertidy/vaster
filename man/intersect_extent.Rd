@@ -2,7 +2,7 @@
 % Please edit documentation in R/vaster.R
 \name{intersect_extent}
 \alias{intersect_extent}
-\title{Title}
+\title{Intersect extent}
 \usage{
 intersect_extent(x, dimension, extent = NULL)
 }
@@ -13,6 +13,12 @@ intersect_extent(x, dimension, extent = NULL)
 
 \item{extent}{numeric extent xmin,xmax,ymin,ymax}
 }
+\value{
+extent
+}
 \description{
-Title
+Return the overlapping extent.
+}
+\examples{
+intersect_extent(c(0.5, 2.3, 1.2, 5), c(10, 5), c(0, 10, 0, 5))
 }

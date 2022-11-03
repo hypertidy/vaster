@@ -4,6 +4,8 @@
 # vaster
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/hypertidy/vaster/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hypertidy/vaster/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of vaster is to provide grid logic without complication added

@@ -5,7 +5,7 @@
 #' @param x extent (xmin, xmax, ymin, ymax)
 #' @param res resolution (a grain to align to)
 #'
-#' @return
+#' @return extent, snapped to the resolution
 #' @export
 #'
 #' @examples
@@ -19,20 +19,24 @@ snap_extent <-  function(x, res) {
 
 #' @name snap_extent
 #' @export
+#' @aliases snap_extent
 buffer_extent <- function(x, res) {
   snap_extent(x, res)
 }
 
 
-#' Title
+#' Intersect extent
+#'
+#' Return the overlapping extent.
 #'
 #' @param x extent to intersect
-#' @inheritParams x_res
+#' @inheritParams grid
 #'
-#' @return
+#' @return extent
 #' @export
 #'
 #' @examples
+#' intersect_extent(c(0.5, 2.3, 1.2, 5), c(10, 5), c(0, 10, 0, 5))
 intersect_extent <- function(x, dimension, extent = NULL) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension)
@@ -49,11 +53,12 @@ intersect_extent <- function(x, dimension, extent = NULL) {
 #' @param x and aligned extent
 #' @param dimension dimension of parent
 #' @param extent of parent
-#'
-#' @return
+#' @param snap out by default, may be near or in
+#' @return dimension
 #' @export
 #'
 #' @examples
+#' extent_dimension(c(.2, .8, 1.8, 3.2), c(10, 5), c(0, 10, 0, 5))
 extent_dimension <- function(x, dimension, extent = NULL, snap = "out") {
   extent <- extent %||% extent0(dimension)
   ## avoid truncation by rounding
@@ -69,17 +74,20 @@ extent_dimension <- function(x, dimension, extent = NULL, snap = "out") {
   # as.integer((c(diff(ex[1:2]) / x_res(dimension, extent),
   #                      diff(ex[3:4]) / y_res(dimension, extent))))
 }
+
+
 #' @aliases extent_dimension
 e_dim <- extent_dimension
 
-#' Title
+#' Origin of grid alignment
 #'
-#' @inheritParams x_res
+#' @inheritParams grid
 #'
-#' @return
+#' @return coordinate of grid origin
 #' @export
 #'
 #' @examples
+#' origin(c(10, 5), c(0, 10, 0, 5))
 origin <-   function(dimension, extent = NULL) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension)
@@ -96,17 +104,21 @@ origin <-   function(dimension, extent = NULL) {
   return(c(x, y))
 }
 
-## align_extent is a crop (or extend), it snaps the input extent to the origin of the input extent (based on the dimension)
-#' Title
+#' Crop an extent, snapped to the grain
 #'
-#' @param x
-#' @inheritParams x_res
-#' @param snap
+#' A crop (or extend), it snaps the input extent to the origin of the input
+#' extent (based on the dimension) #' Note that snap is modelled on the
+#' behaviour of the raster package, and is different from projwin in GDAL (WIP
+#' to illustrate).
+#' @param x extent
+#' @inheritParams grid
+#' @param snap out by default, may be near or in
 #'
-#' @return
+#' @return aligned extent
 #' @export
 #'
 #' @examples
+#' align_extent(c(4.5, 5.6, 2, 4), c(10, 5), c(0, 10, 0, 5))
 align_extent <- function(x, dimension, extent = NULL, snap = c("out", "near", "in")) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension)
@@ -171,7 +183,7 @@ align_extent <- function(x, dimension, extent = NULL, snap = c("out", "near", "i
 #'
 #'
 #' @param x extent of candidate grid (vector of xmin,xmax,ymin,ymax)
-#' @inheritParams x_res
+#' @inheritParams grid
 #' @param ... ignored
 #' @param snap one of "out" (default), "near", or "in"
 #' @export

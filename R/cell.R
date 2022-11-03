@@ -2,7 +2,11 @@
 #'
 #' Functions that work with cells.
 #'
-#' @inheritParams x_res
+#' The cell is indexed from the top left corner and proceeds to the right, and
+#' then down scanning by rows. The n cell is a the bottom right corner.
+#' Orientation is different to R's native matrix order, but see (WiP doc and
+#' helpers for conversion).
+#' @inheritParams grid
 #' @param xy matrix of coordinates
 #' @param x_extent extent to find cells of
 #' @param cell cells to find extent, or row,col, or xy of

@@ -17,5 +17,3 @@ BugReports: https://github.com/hypertidy/vaster/issues
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-Imports: 
-    readr

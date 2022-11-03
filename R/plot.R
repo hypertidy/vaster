@@ -5,7 +5,6 @@
 #' @param asp aspect ratio (1 by default)
 #' @param add add to plot or initiated one, `FALSE` by default
 #' @param border colour of lines of extent
-#'
 #' @return nothing, used for plot side effect
 #' @export
 #'
@@ -26,7 +25,7 @@ plot_extent <- function(x, ..., asp = 1, add = FALSE,  border = "black") {
 #'
 #' Draw an extent with two clicks
 #'
-#' @param plot the drawn extent
+#' @param show the drawn extent
 #' @param ... arguments pass to [graphics::rect()]
 #'
 #' @importFrom graphics locator rect
