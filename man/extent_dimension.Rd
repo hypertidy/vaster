@@ -4,7 +4,7 @@
 \alias{extent_dimension}
 \title{Dimension for an aligned extent}
 \usage{
-extent_dimension(x, dimension, extent = NULL)
+extent_dimension(x, dimension, extent = NULL, snap = "out")
 }
 \arguments{
 \item{x}{and aligned extent}

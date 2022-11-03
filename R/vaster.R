@@ -62,8 +62,13 @@ extent_dimension <- function(x, dimension, extent = NULL, snap = "out") {
   ex <- align_extent(x, dimension, extent, snap = snap)
   as.integer(round(c(diff(ex[1:2]) / x_res(dimension, extent),
                      diff(ex[3:4]) / y_res(dimension, extent))))
-}
 
+  # as.integer(ceiling(c(diff(ex[1:2]) / x_res(dimension, extent),
+  #                    diff(ex[3:4]) / y_res(dimension, extent))))
+  #
+  # as.integer((c(diff(ex[1:2]) / x_res(dimension, extent),
+  #                      diff(ex[3:4]) / y_res(dimension, extent))))
+}
 #' @aliases extent_dimension
 e_dim <- extent_dimension
 
@@ -182,7 +187,12 @@ vcrop <- function(x,  dimension, extent = NULL, ..., snap = "out") {
   badx <- all(new_extent[1:2] <= extent[1L]) || all(new_extent[1:2] >= extent[2L])
   bady <- all(new_extent[3:4] <= extent[3L]) || all(new_extent[3:4] >= extent[4L])
   if (badx || bady) message("extents do not overlap")
-  list(extent = new_extent,
-       dimension = e_dim(new_extent, dimension, extent, snap = snap))
+#   print(new_extent)
+#   print(snap)
+#   print(dimension)
+#   print(extent)
+# print(  extent_dimension(new_extent, dimension, extent, snap = snap))
+ list(extent = new_extent,
+       dimension = extent_dimension(new_extent, dimension, extent, snap = snap))
 }
 

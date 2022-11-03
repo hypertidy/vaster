@@ -17,6 +17,14 @@
 extent_vrt <- function(x) {
   vrt <- readr::read_lines(x)
 
+  dimension <- as.integer(c(strsplit(strsplit(vrt[1], "rasterXSize=\"")[[1]][2], "\"")[[1]][1],
+                 strsplit(strsplit(vrt[1], "rasterYSize=\"")[[1]][2], "\"")[[1]][1]))
+  geot <- as.numeric(unlist(strsplit(gsub("</GeoTransform>", "", gsub("<GeoTransform>", "",
+                                           grep("GeoTransform", vrt, value = TRUE))), ",")))
+  xx <- c(geot[1], geot[1] + dimension[1] * geot[2])
+  yy <- c(geot[4] + dimension[2] * geot[6], geot[4])
+  extent <- c(xx, yy)
+
   vrt1 <- grep("DstRect xOff=\"", vrt, value = TRUE)
   xOff <- as.integer(unlist(lapply(strsplit(unlist(lapply(strsplit(vrt1, "DstRect xOff=\""), "[", 2)), "\" yOff"), "[", 1)))
   yOff <- as.integer(unlist(lapply(strsplit(unlist(lapply(strsplit(vrt1, "yOff=\""), "[", 2)), "\".*xSize"), "[", 1)))
@@ -25,10 +33,9 @@ extent_vrt <- function(x) {
   ySize <- as.integer(unlist(lapply(strsplit(unlist(lapply(strsplit(vrt1, "ySize=\""), "[", 2)), "\""), "[", 1)))
 
 
-  vinfo <- vapour::vapour_raster_info(x)
-  xmin <- vaster::x_from_col(vinfo$dimXY, vinfo$extent, xOff + 1)
-  xmax <- vaster::x_from_col(vinfo$dimXY, vinfo$extent, xOff + xSize)
-  ymin <- vaster::y_from_row(vinfo$dimXY, vinfo$extent, yOff + 1)
-  ymax <- vaster::y_from_row(vinfo$dimXY, vinfo$extent, yOff +  ySize)
+  xmin <- vaster::x_from_col(dimension, extent, xOff + 1)
+  xmax <- vaster::x_from_col(dimension, extent, xOff + xSize)
+  ymin <- vaster::y_from_row(dimension, extent, yOff + 1)
+  ymax <- vaster::y_from_row(dimension, extent, yOff +  ySize)
   cbind(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)
 }

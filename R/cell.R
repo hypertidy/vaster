@@ -1,12 +1,22 @@
-#' Title
+#' Cells
+#'
+#' Functions that work with cells.
 #'
 #' @inheritParams x_res
-#' @param xy
-#'
+#' @param xy matrix of coordinates
+#' @param x_extent extent to find cells of
+#' @param cell cells to find extent, or row,col, or xy of
+#' @param row row to find cell of
+#' @param col column to find cell of
+#' @name cells
+NULL
+
+#' @name cells
 #' @return cell index
 #' @export
 #'
 #' @examples
+#' cell_from_xy(c(10, 5), extent = c(0, 10, 0, 5), cbind(5, 4))
 cell_from_xy <- function(dimension, extent = NULL, xy) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension, extent)
@@ -38,12 +48,11 @@ cell_from_xy <- function(dimension, extent = NULL, xy) {
 
 
 
-#' Title
-#'
-#' @inheritParams x_res
-#' @param x_extent
-#'
+#' @name cells
+#' @return cells of extent
 #' @export
+#' @examples
+#' cell_from_extent(c(10, 5), c(0, 10, 0, 5), c(6, 7, 2, 3))
 cell_from_extent <- function(dimension, extent = NULL, x_extent) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension, extent)
@@ -65,39 +74,35 @@ cell_from_extent <- function(dimension, extent = NULL, x_extent) {
 }
 
 
-#' Title
-#'
-#' @inheritParams x_res
-#' @param cells
-#'
+#' @name cells
+#' @return extent of cells
 #' @export
-extent_from_cell <- function(dimension, extent = NULL, cells) {
+#' @examples
+#' extent_from_cell(c(10, 5), c(0, 10, 0, 5), c(4, 5))
+extent_from_cell <- function(dimension, extent = NULL, cell) {
   extent <- extent %||% extent0(dimension)
 
   .check_args(dimension, extent)
   extent <- extent %||% extent0(dimension)
 
-  cells <- stats::na.omit(unique(round(cells)))
-  cells <- cells[cells > 0 & cells <= n_cell(dimension)]
-  if (length(cells) < 1) {
+  cell <- stats::na.omit(unique(round(cell)))
+  cell <- cell[cell > 0 & cell <= n_cell(dimension)]
+  if (length(cell) < 1) {
     stop('no valid cells')
   }
   r <- c(x_res(dimension, extent), y_res(dimension, extent))
   dx <- r[1] * c(-0.5, 0.5)
   dy <- r[2] * c(-0.5, 0.5)
-  c(range(x_from_cell(dimension, extent, cells)) + dx, range(y_from_cell(dimension, extent, cells)) + dy)
+  c(range(x_from_cell(dimension, extent, cell)) + dx, range(y_from_cell(dimension, extent, cell)) + dy)
 }
 
 
-#' Title
-#'
-#' @inheritParams x_res
-#' @param cell
-#'
-#' @return
+#' @name cells
+#' @return row,col of cells
 #' @export
 #'
 #' @examples
+#' rowcol_from_cell(c(10, 5), c(0, 10, 0, 5), 3:5)
 rowcol_from_cell <- function(dimension, extent = NULL, cell) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension, extent)
@@ -109,12 +114,11 @@ rowcol_from_cell <- function(dimension, extent = NULL, cell) {
   return(cbind(row, col))
 }
 
-#' Title
-#'
-#' @inheritParams x_res
-#' @param cell
-#'
+#' @name cells
+#' @return xy from cells
 #' @export
+#' @examples
+#' xy_from_cell(c(10, 5), c(0, 10, 0, 5), 4:6)
 xy_from_cell <- function(dimension, extent = NULL, cell) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension, extent)
@@ -137,15 +141,12 @@ xy_from_cell <- function(dimension, extent = NULL, cell) {
 
 }
 
-#' Title
-#'
-#' @inheritParams x_res
-#' @param cell
-#'
-#' @return
+#' @name cells
+#' @return x of cells
 #' @export
 #'
 #' @examples
+#' x_from_cell(c(10, 5), c(0, 10, 0, 5), 4:7)
 x_from_cell <- function(dimension, extent = NULL, cell) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension, extent)
@@ -154,19 +155,116 @@ x_from_cell <- function(dimension, extent = NULL, cell) {
   x_from_col(dimension, extent, col_from_cell(dimension, cell))
 }
 
-#' Title
-#'
-#' @inheritParams x_res
-#' @param cell
-#'
-#' @return
+#' @name cells
+#' @return y of cells
 #' @export
 #'
 #' @examples
+#' y_from_cell(c(10, 5), c(0, 10, 0, 5), 4:7)
 y_from_cell <- function(dimension, extent = NULL, cell) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension, extent)
 
   ## improve with y_from_row
   y_from_row(dimension, extent, row_from_cell(dimension, cell))
+}
+
+
+
+
+#' @name cells
+#' @return col of cells
+#' @export
+#'
+#' @examples
+#' col_from_cell(c(10, 5),  4:7)
+col_from_cell <-function(dimension, cell) {
+  .check_args(dimension)
+
+  cell <- round(cell)
+  cell[cell < 1L | cell > prod(dimension)] <- NA
+  rownr <- trunc((cell - 1)/dimension[1L]) + 1L
+  as.integer(cell - ((rownr - 1) * dimension[1L]))
+}
+
+#' @name cells
+#' @return row of cells
+#' @export
+#'
+#' @examples
+#' row_from_cell(c(10, 5),  4:7)
+row_from_cell <-function(dimension, cell) {
+  .check_args(dimension)
+  cell <- round(cell)
+  cell[cell < 1 | cell > prod(dimension)] <- NA
+  trunc((cell - 1)/dimension[1L]) + 1
+}
+
+#' @name cells
+#' @return cell of rows
+#' @export
+#'
+#' @examples
+#' cell_from_row(c(10, 5), 4:7)
+cell_from_row <- function(dimension, row) {
+  .check_args(dimension)
+  row <- round(row)
+  cols <- rep(seq_len(dimension[1L]), times=length(row))
+  rows <- rep(row, each=dimension[1])
+  cell_from_row_col(dimension, rows, cols)
+}
+
+
+#' @name cells
+#' @return cell of cols
+#' @export
+#'
+#' @examples
+#' cell_from_col(c(10, 5), 4:7)
+cell_from_col <- function(dimension, col) {
+  .check_args(dimension)
+  col <- round(col)
+  rows <- rep(seq_len(dimension[2L]), times = length(col))
+  cols <- rep(col, each = dimension[2])
+  cell_from_row_col(dimension, rows, cols)
+}
+
+#' @name cells
+#' @return cell of row,col
+#' @export
+#'
+#' @examples
+#' cell_from_row_col(c(10, 5), 1:4, 4:7)
+cell_from_row_col <- function(dimension, row, col) {
+  .check_args(dimension)
+  colrow <- cbind(as.vector(col), as.vector(row))  ## for recycling
+  colnr <- colrow[,1L]
+  rownr <- colrow[,2L]
+
+  nr <- dimension[2L]
+  nc <- dimension[1L]
+  i <- seq_along(rownr)-1
+  nn <- length(rownr)
+
+  r <- rownr[ifelse(i < nn, i, i %% nn) + 1]
+  c <- colnr[ifelse(i < nn, i, i %% nn) + 1]
+  ifelse(r < 1 | r > nr | c < 1 | c > nc, NA,  (r-1) * nc + c)
+}
+
+#' @name cells
+#' @return cell of row,col combined
+#' @export
+#'
+#' @examples
+#' cell_from_rowcol_combine(c(10, 5), 1:4, 4:7)
+cell_from_rowcol_combine <- function(dimension, row, col) {
+  .check_args(dimension)
+  row[row < 1 | row > n_row(dimension)] <- NA
+  col[col < 1 | col > n_col(dimension)] <- NA
+  cols <- rep(col, times = length(row))
+  dim(cols) <- c(length(col), length(row))
+  cols <- t(cols)
+  row <- (row - 1) * n_col(dimension)
+  cols <- cols + row
+  as.vector(t(cols))
 }
