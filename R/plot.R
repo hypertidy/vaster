@@ -12,11 +12,13 @@
 #' plot_extent(c(-180, 180, -90, 90))
 #' plot_extent(c(100, 150, -60, -30), add = TRUE, border = "firebrick")
 plot_extent <- function(x, ..., asp = 1, add = FALSE,  border = "black") {
+  x <- matrix(unlist(x, use.names = FALSE), ncol = 4L)
+
   if (!add) {
     xlab = ""; ylab = ""
-    plot(x[1:2], x[3:4],  type = "n", xlab = xlab, ylab = ylab, asp = asp)
+    plot(range(x[,1:2], na.rm = TRUE), range(x[,3:4], na.rm = TRUE),  type = "n", xlab = xlab, ylab = ylab, asp = asp)
   }
-  rect(x[1L], x[3L], x[2L], x[4L], border = border, ...)
+  rect(x[,1L], x[,3L], x[,2L], x[,4L], border = border, ...)
 
 }
 
