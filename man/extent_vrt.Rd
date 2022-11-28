@@ -13,7 +13,7 @@ extent_vrt(x)
 Get extent from index values in VRT text.
 }
 \details{
-(I can't understand XML tech for the life of me so I hack the text as lines with strsplit)
+(I can't understand XML tech  so I hack the text as lines with strsplit)
 }
 \examples{
 #src <- "https://opentopography.s3.sdsc.edu/raster/NASADEM/NASADEM_be.vrt"
