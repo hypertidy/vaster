@@ -2,7 +2,7 @@
 #'
 #' Get extent from index values in VRT text.
 #'
-#' (I can't understand XML tech for the life of me so I hack the text as lines with strsplit)
+#' (I can't understand XML tech  so I hack the text as lines with strsplit)
 #' @param x url or file path to VRT file
 #'
 #' @export
@@ -31,4 +31,9 @@ extent_vrt <- function(x) {
   ymin <- vaster::y_from_row(vinfo$extent, vinfo$dimXY, yOff + 1)
   ymax <- vaster::y_from_row(vinfo$extent, vinfo$dimXY, yOff +  ySize)
   cbind(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)
+}
+
+
+show_tiling <- function(overviews, extent) {
+
 }
