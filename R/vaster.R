@@ -1,37 +1,97 @@
-#' Title
+#' Snap extent to resolution (buffer extent)
 #'
-#' @param x_extent
-#' @param extent
-#' @param dimension
+#' Whole grain buffers.
 #'
-#' @return
+#' @param x extent (xmin, xmax, ymin, ymax)
+#' @param res resolution (a grain to align to)
+#'
+#' @return extent, snapped to the resolution
 #' @export
 #'
 #' @examples
-intersect_extent <- function(x_extent, extent, dimension) {
-  vcrop(x_extent, extent, dimension)$extent
+#' snap_extent(sort(rnorm(4)), 0.01)
+snap_extent <-  function(x, res) {
+  if (missing(res) || length(res) < 1 || is.null(res) || res[1L] == 0 || is.na(res[1L])) {
+    return(x)
+  }
+  (x %/% res) * res + c(0, res, 0, res)
+}
+
+#' @name snap_extent
+#' @export
+#' @aliases snap_extent
+buffer_extent <- function(x, res) {
+  snap_extent(x, res)
+}
+
+
+#' Intersect extent
+#'
+#' Return the overlapping extent.
+#'
+#' @param x extent to intersect
+#' @inheritParams grid
+#'
+#' @return extent
+#' @export
+#'
+#' @examples
+#' intersect_extent(c(0.5, 2.3, 1.2, 5), c(10, 5), c(0, 10, 0, 5))
+intersect_extent <- function(x, dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension)
+  vcrop(x, dimension, extent)$extent
 }
 
 
 
-## e_dim is align_extent for the dimension (input is the output of align_extent)
-e_dim <- function(x, extent, dimension) {
-  c(diff(x[1:2]) / x_res(extent, dimension),
-    diff(x[3:4]) / y_res(extent, dimension))
-}
-
-
-#' Title
+#' Dimension for an aligned extent
 #'
-#' @param extent
-#' @param dimension
+#' input is the output of align_extent
 #'
-#' @return
+#'
+#' @param x and aligned extent
+#' @param dimension dimension of parent
+#' @param extent of parent
+#' @param snap out by default, may be near or in
+#' @return dimension
 #' @export
 #'
 #' @examples
-origin <-   function(extent, dimension) {
-  r <- c(x_res(extent, dimension), y_res(extent, dimension))
+#' extent_dimension(c(.2, .8, 1.8, 3.2), c(10, 5), c(0, 10, 0, 5))
+extent_dimension <- function(x, dimension, extent = NULL, snap = "out") {
+  extent <- extent %||% extent0(dimension)
+  ## avoid truncation by rounding
+  # as.integer(round(c(diff(x[1:2]) / x_res(dimension, extent),
+  #   diff(x[3:4]) / y_res(dimension, extent))))
+  ex <- align_extent(x, dimension, extent, snap = snap)
+  as.integer(round(c(diff(ex[1:2]) / x_res(dimension, extent),
+                     diff(ex[3:4]) / y_res(dimension, extent))))
+
+  # as.integer(ceiling(c(diff(ex[1:2]) / x_res(dimension, extent),
+  #                    diff(ex[3:4]) / y_res(dimension, extent))))
+  #
+  # as.integer((c(diff(ex[1:2]) / x_res(dimension, extent),
+  #                      diff(ex[3:4]) / y_res(dimension, extent))))
+}
+
+
+#' @aliases extent_dimension
+e_dim <- extent_dimension
+
+#' Origin of grid alignment
+#'
+#' @inheritParams grid
+#'
+#' @return coordinate of grid origin
+#' @export
+#'
+#' @examples
+#' origin(c(10, 5), c(0, 10, 0, 5))
+origin <-   function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension)
+  r <- c(x_res(dimension, extent), y_res(dimension, extent))
   x <- extent[1L] - r[1]*(round(extent[1L] / r[1]))
   y <- extent[4L] - r[2]*(round(extent[4L] / r[2]))
 
@@ -44,22 +104,27 @@ origin <-   function(extent, dimension) {
   return(c(x, y))
 }
 
-## align_extent is a crop (or extend), it snaps the input extent to the origin of the input extent (based on the dimension)
-#' Title
+#' Crop an extent, snapped to the grain
 #'
-#' @param x
-#' @param extent
-#' @param dimension
-#' @param snap
+#' A crop (or extend), it snaps the input extent to the origin of the input
+#' extent (based on the dimension) #' Note that snap is modelled on the
+#' behaviour of the raster package, and is different from projwin in GDAL (WIP
+#' to illustrate).
+#' @param x extent
+#' @inheritParams grid
+#' @param snap out by default, may be near or in
 #'
-#' @return
+#' @return aligned extent
 #' @export
 #'
 #' @examples
-align_extent <- function(x, extent, dimension, snap = c("out", "near", "in")) {
+#' align_extent(c(4.5, 5.6, 2, 4), c(10, 5), c(0, 10, 0, 5))
+align_extent <- function(x, dimension, extent = NULL, snap = c("out", "near", "in")) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension)
   snap <- match.arg(snap)
-  res <- c(x_res(extent, dimension), y_res(extent, dimension))
-  orig <- origin(extent, dimension)
+  res <- c(x_res(dimension, extent), y_res(dimension, extent))
+  orig <- origin(dimension, extent)
   xmin <- x[1L]
   xmax <- x[2L]
   ymin <- x[3L]
@@ -118,8 +183,7 @@ align_extent <- function(x, extent, dimension, snap = c("out", "near", "in")) {
 #'
 #'
 #' @param x extent of candidate grid (vector of xmin,xmax,ymin,ymax)
-#' @param extent extent of original grid (vector of xmin,xmax,ymin,ymax)
-#' @param dimension size of original grid vector of x-cells, y-cellss (number of cells in each direction)
+#' @inheritParams grid
 #' @param ... ignored
 #' @param snap one of "out" (default), "near", or "in"
 #' @export
@@ -127,10 +191,20 @@ align_extent <- function(x, extent, dimension, snap = c("out", "near", "in")) {
 #' ## any arbitrary extent
 #' x <- c(sort(runif(2, -180, 180)), sort(runif(2, -90, 90)))
 #' print(x)
-#' vcrop(x,  c(-180, 180, -90, 90), c(360, 180))
-vcrop <- function(x,  extent, dimension, ..., snap = "out") {
-  new_extent <- align_extent(x, extent, dimension,  snap = snap)
-  list(extent = new_extent,
-       dimension = e_dim(new_extent, extent, dimension))
+#' vcrop(x,  c(360, 180), c(-180, 180, -90, 90))
+vcrop <- function(x,  dimension, extent = NULL, ..., snap = "out") {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension)
+  new_extent <- align_extent(x, dimension, extent,  snap = snap)
+  badx <- all(new_extent[1:2] <= extent[1L]) || all(new_extent[1:2] >= extent[2L])
+  bady <- all(new_extent[3:4] <= extent[3L]) || all(new_extent[3:4] >= extent[4L])
+  if (badx || bady) message("extents do not overlap")
+#   print(new_extent)
+#   print(snap)
+#   print(dimension)
+#   print(extent)
+# print(  extent_dimension(new_extent, dimension, extent, snap = snap))
+ list(extent = new_extent,
+       dimension = extent_dimension(new_extent, dimension, extent, snap = snap))
 }
 

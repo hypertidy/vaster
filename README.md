@@ -4,9 +4,12 @@
 # vaster
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/hypertidy/vaster/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hypertidy/vaster/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of vaster is to …
+The goal of vaster is to provide grid logic without complication added
+by data and format details.
 
 ## Installation
 
@@ -17,28 +20,6 @@ You can install the development version of vaster from
 # install.packages("devtools")
 devtools::install_github("hypertidy/vaster")
 ```
-
-# vaster
-
-<!-- badges: start -->
-<!-- badges: end -->
-
-The goal of vaster is to …
-
-This is *very* barebones, while I work on related things.
-
-There’s affinity, vapour, gdalio, and granulated - all having a say in
-this. I want this basically to do
-
-``` r
-r <- raster()                                 ## or rast() for terra
-r1 <- crop(r, extent(xmin, xmax, ymin, ymax)) ## ext() for terra
-```
-
-*without* all the unnecessary spatial guff. (It does what raster’s
-alignExtent does, and what raster/stars/terra/spatstat/GDAL and your GIS
-all do with a discretized domain when you crop it - it snaps to the
-grid: in, out, or near).
 
 See?
 
@@ -51,7 +32,7 @@ print(x)
 #>       xmin       xmax       ymin       ymax 
 #>  27.791559  46.982302 -28.443197   1.738701
 ## all we need is a extent and dimension, we want to align to that grid
-v <- vcrop(x,  c(-180, 180, -90, 90), c(360, 180) /3)
+v <- vcrop(x,  c(360, 180) /3, extent = c(-180, 180, -90, 90))
 plot(NA, xlim = v$extent[1:2], ylim = v$extent[3:4], asp = "")
 g_along <- function(x, n) seq(x[1], x[2], length.out = n)
 abline(v = v$extent[1:2], h = v$extent[3:4], lwd = 2)
@@ -63,11 +44,58 @@ points(x[1:2], x[3:4], pch = "+")
 
 <img src="man/figures/README-vaster-1.png" width="100%" />
 
-There is also the cells-from stuff, implemented but not checked well in
-hypertidy/granulated. I’ve come just just thinking about functions with
-arguments extent,dimension, because that’s all a raster is.
+All of the helper functions from the raster package are included, and
+every function is one of dimension, extent (when needed) in that order.
 
-I might use this to create VRT templates for some cases, and possibly we
-should have rasterio-alike affine support in this package.
+A grid of the world in 9x5 degree squares, we only need the dimension
+and extent to get the corners in x, y.
 
-get in touch IYI
+``` r
+ex <- c(-180, 180, -90, 90)
+dm <- c(40, 36)
+
+plot_extent(ex)
+abline(v = x_corner(dm, ex), h = y_corner(dm, ex))
+```
+
+<img src="man/figures/README-world-1.png" width="100%" />
+
+Now add the centre points.
+
+``` r
+plot_extent(ex)
+points(x_centre(dm, ex), rep(y_centre(dm, ex)[1], length.out = dm[1]))
+```
+
+<img src="man/figures/README-points-1.png" width="100%" />
+
+We only get the margins from x_corner/x_centre so we go to a cell based
+function.
+
+``` r
+## how many cells?
+cells <- seq_len(prod(dm))
+plot_extent(ex)
+points(xy_from_cell(dm, ex, cells))
+```
+
+<img src="man/figures/README-cells-1.png" width="100%" />
+
+Other functions return cells.
+
+``` r
+xy <- cbind(runif(50, -180, 180), runif(50, -90, 90))
+cells <- cell_from_xy(dm, ex, xy)
+plot_extent(ex)
+points(xy_from_cell(dm, ex, cells), col = "red")
+points(xy, pch = "+")
+```
+
+<img src="man/figures/README-query-1.png" width="100%" />
+
+## Code of Conduct
+
+Please note that the vaster project is released with a [Contributor Code
+of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.

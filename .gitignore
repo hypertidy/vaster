@@ -1,2 +1,4 @@
 .Rproj.user
 .Rhistory
+inst/misc/etopo2.tif
+gdalwmscache

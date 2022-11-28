@@ -7,15 +7,23 @@
 #'
 #' @export
 #' @examples
-#' src <- "https://opentopography.s3.sdsc.edu/raster/NASADEM/NASADEM_be.vrt"
-#' src <- "https://opentopography.s3.sdsc.edu/raster/SRTM_GL1/SRTM_GL1_srtm.vrt"
-#' ex <- extent_vrt(src)
-#' op <- par(mar = rep(0, 4))
-#' plot(range(ex[,1:2]), range(ex[,3:4]), xlab = "", ylab = "", asp = "", type = "n")
-#' rect(ex[,1], ex[,3], ex[, 2], ex[,4])
-#' par(op)
+#' #src <- "https://opentopography.s3.sdsc.edu/raster/NASADEM/NASADEM_be.vrt"
+#' #src <- "https://opentopography.s3.sdsc.edu/raster/SRTM_GL1/SRTM_GL1_srtm.vrt"
+#' #ex <- extent_vrt(src)
+#' #op <- par(mar = rep(0, 4))
+#' #plot(range(ex[,1:2]), range(ex[,3:4]), xlab = "", ylab = "", asp = "", type = "n")
+#' #rect(ex[,1], ex[,3], ex[, 2], ex[,4])
+#' #par(op)
 extent_vrt <- function(x) {
-  vrt <- readr::read_lines(x)
+  vrt <- readLines(x)
+
+  dimension <- as.integer(c(strsplit(strsplit(vrt[1], "rasterXSize=\"")[[1]][2], "\"")[[1]][1],
+                 strsplit(strsplit(vrt[1], "rasterYSize=\"")[[1]][2], "\"")[[1]][1]))
+  geot <- as.numeric(unlist(strsplit(gsub("</GeoTransform>", "", gsub("<GeoTransform>", "",
+                                           grep("GeoTransform", vrt, value = TRUE))), ",")))
+  xx <- c(geot[1], geot[1] + dimension[1] * geot[2])
+  yy <- c(geot[4] + dimension[2] * geot[6], geot[4])
+  extent <- c(xx, yy)
 
   vrt1 <- grep("DstRect xOff=\"", vrt, value = TRUE)
   xOff <- as.integer(unlist(lapply(strsplit(unlist(lapply(strsplit(vrt1, "DstRect xOff=\""), "[", 2)), "\" yOff"), "[", 1)))
@@ -25,11 +33,10 @@ extent_vrt <- function(x) {
   ySize <- as.integer(unlist(lapply(strsplit(unlist(lapply(strsplit(vrt1, "ySize=\""), "[", 2)), "\""), "[", 1)))
 
 
-  vinfo <- vapour::vapour_raster_info(x)
-  xmin <- vaster::x_from_col(vinfo$extent, vinfo$dimXY, xOff + 1)
-  xmax <- vaster::x_from_col(vinfo$extent, vinfo$dimXY, xOff + xSize)
-  ymin <- vaster::y_from_row(vinfo$extent, vinfo$dimXY, yOff + 1)
-  ymax <- vaster::y_from_row(vinfo$extent, vinfo$dimXY, yOff +  ySize)
+  xmin <- vaster::x_from_col(dimension, extent, xOff + 1)
+  xmax <- vaster::x_from_col(dimension, extent, xOff + xSize)
+  ymin <- vaster::y_from_row(dimension, extent, yOff + 1)
+  ymax <- vaster::y_from_row(dimension, extent, yOff +  ySize)
   cbind(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)
 }
 

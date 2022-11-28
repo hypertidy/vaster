@@ -1,4 +1,9 @@
-^gdalvrt\.Rproj$
+^vaster\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
+^inst/misc/etopo2.tif$
+^data-raw$
+^gdalwmscache$
+^CODE_OF_CONDUCT\.md$
+^\.github$

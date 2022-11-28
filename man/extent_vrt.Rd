@@ -16,11 +16,11 @@ Get extent from index values in VRT text.
 (I can't understand XML tech for the life of me so I hack the text as lines with strsplit)
 }
 \examples{
-src <- "https://opentopography.s3.sdsc.edu/raster/NASADEM/NASADEM_be.vrt"
-src <- "https://opentopography.s3.sdsc.edu/raster/SRTM_GL1/SRTM_GL1_srtm.vrt"
-ex <- extent_vrt(src)
-op <- par(mar = rep(0, 4))
-plot(range(ex[,1:2]), range(ex[,3:4]), xlab = "", ylab = "", asp = "", type = "n")
-rect(ex[,1], ex[,3], ex[, 2], ex[,4])
-par(op)
+#src <- "https://opentopography.s3.sdsc.edu/raster/NASADEM/NASADEM_be.vrt"
+#src <- "https://opentopography.s3.sdsc.edu/raster/SRTM_GL1/SRTM_GL1_srtm.vrt"
+#ex <- extent_vrt(src)
+#op <- par(mar = rep(0, 4))
+#plot(range(ex[,1:2]), range(ex[,3:4]), xlab = "", ylab = "", asp = "", type = "n")
+#rect(ex[,1], ex[,3], ex[, 2], ex[,4])
+#par(op)
 }

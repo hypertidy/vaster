@@ -2,13 +2,28 @@
 % Please edit documentation in R/vaster.R
 \name{align_extent}
 \alias{align_extent}
-\title{Title}
+\title{Crop an extent, snapped to the grain}
 \usage{
-align_extent(x, extent, dimension, snap = c("out", "near", "in"))
+align_extent(x, dimension, extent = NULL, snap = c("out", "near", "in"))
 }
 \arguments{
-\item{snap}{}
+\item{x}{extent}
+
+\item{dimension}{integer ncol, nrow}
+
+\item{extent}{numeric extent xmin,xmax,ymin,ymax}
+
+\item{snap}{out by default, may be near or in}
+}
+\value{
+aligned extent
 }
 \description{
-Title
+A crop (or extend), it snaps the input extent to the origin of the input
+extent (based on the dimension) #' Note that snap is modelled on the
+behaviour of the raster package, and is different from projwin in GDAL (WIP
+to illustrate).
+}
+\examples{
+align_extent(c(4.5, 5.6, 2, 4), c(10, 5), c(0, 10, 0, 5))
 }
