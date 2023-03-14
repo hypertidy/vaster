@@ -13,7 +13,7 @@
 #' @param xyz set of points xy or xyz (matrix or data frame)
 #' @param digits argument passed to [round()]
 #'
-#' @return
+#' @return list with elements 'dimension', 'extent'
 #' @export
 #'
 #' @examples
