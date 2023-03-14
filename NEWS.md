@@ -1,5 +1,9 @@
 # vaster dev
 
+* New function `from_xyz()` to return a grid (dimension and extent) derived from "XYZ" points,
+basically are the points (in whatever order, and may be incomplete) on a regular
+grid within the rounding threshold of the 'digits' parameter.
+
 * New functions `ts()`, `te()`, and `ts_te()` to format dimension,extent for use with GDAL options. 
 
 * `plot_extent()` is now vectorized, just give it xmin, xmax, ymin, ymax in that order in vector, matrix, or data frame. 

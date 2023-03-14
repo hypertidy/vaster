@@ -22,6 +22,11 @@ plot_extent <- function(x, ..., asp = 1, add = FALSE,  border = "black") {
 
 }
 
+plot_grid <- function(dimension, extent = NULL, ...) {
+  if (is.null(extent)) extent <- c(0, dimension[1L], 0, dimension[2L])
+  plot_extent(extent, ...)
+  abline(v = x_corner(dimension, extent), h = y_corner(dimension, extent))
+}
 
 #' Draw extent
 #'
