@@ -93,13 +93,13 @@ completely non-intersecting the original grid.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## any arbitrary extent</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">180</span>, <span class="fl">180</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">90</span>, <span class="fl">90</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -77.99345 142.13968 -85.18490  23.27133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 155.04792 156.37286 -35.21947  58.14018</span>
 <span class="r-in"><span><span class="fu">vcrop</span><span class="op">(</span><span class="va">x</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">360</span>, <span class="fl">180</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">180</span>, <span class="fl">180</span>, <span class="op">-</span><span class="fl">90</span>, <span class="fl">90</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $extent</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -78 143 -86  24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 155 157 -36  59</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dimension</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 221 110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  2 95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
