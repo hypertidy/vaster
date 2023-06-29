@@ -9,6 +9,7 @@
 #'
 #' bl, tl, br, and tr originally lived in affinity
 #'
+#' @param x a matrix
 #' @export
 #' @name adjacencies
 #' @return matrix, padded by one row and one column relative to input
@@ -28,7 +29,9 @@
 #' matrix(c(t(la(m)), t(ta(m)), t(ra(m)), t(ba(m))), ncol = 4)
 #'
 #' ## this gives neighbours in all 8 adjacent and diagonal positions
-#' ximage(matrix(rowMeans(matrix(c(t(la(m)), t(ta(m)), t(ra(m)), t(ba(m)), t(bal(m)), t(tal(m)), t(bar(m)), t(tar(m))),  ncol = 8), na.rm = TRUE), 4, byrow = TRUE))
+#' image(matrix(rowMeans(matrix(c(t(la(m)), t(ta(m)), t(ra(m)),
+#'  t(ba(m)), t(bl(m)), t(tl(m)), t(br(m)), t(tr(m))),  ncol = 8), na.rm = TRUE),
+#'  4, byrow = TRUE))
 bl <- function(x) {
   cbind(NA_integer_, rbind(NA_integer_, x))[-(dim(x)[1] + 1), - (dim(x)[2] + 1)]
 }
@@ -64,3 +67,22 @@ ra <- function(x) (cbind(x[,-1L], NA))      ## rhm() right middle
 #' @name adjacencies
 ba <- function(x) (rbind(x[-1L,], NA) )    ## bm()  bottom middle
 
+
+
+
+#' @export
+#' @name adjacencies
+#' @param x matrix
+#' @param ... arguments passed to image()
+image0 <- function(x, ...) image(seq(0, nrow(x)), seq(0, ncol(x)), x, ...)
+#' @export
+#' @name adjacencies
+#' @importFrom graphics image text
+image1 <- function(x, ...) image(seq(1, nrow(x) + 1), seq(1, ncol(x) + 1), x, ...)
+#' @export
+#' @name adjacencies
+text0 <- function(x, ...) {
+  text(expand.grid(seq(0.5, by = 1, length.out = nrow(x)),
+                   seq(0.5, by = 1, length.out = nrow(x))), lab = x,
+       ...)
+}

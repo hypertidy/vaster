@@ -1,4 +1,4 @@
-# vaster dev
+# vaster 0.0.1
 
 * New functions `tl()`, `ta()`, `tr()`, `ra()`, `br()`, `ba()`. `br()`, `la()`
 which are top left, top, top right, right, bottom right, bottom, bottom right,

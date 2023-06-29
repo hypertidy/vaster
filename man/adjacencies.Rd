@@ -10,6 +10,9 @@
 \alias{ta}
 \alias{ra}
 \alias{ba}
+\alias{image0}
+\alias{image1}
+\alias{text0}
 \title{Adjacency, for use in creating area based meshes}
 \usage{
 bl(x)
@@ -27,6 +30,17 @@ ta(x)
 ra(x)
 
 ba(x)
+
+image0(x, ...)
+
+image1(x, ...)
+
+text0(x, ...)
+}
+\arguments{
+\item{x}{matrix}
+
+\item{...}{arguments passed to image()}
 }
 \value{
 matrix, padded by one row and one column relative to input
@@ -58,5 +72,7 @@ m <- matrix(1:12, ncol = 3, byrow = TRUE)
 matrix(c(t(la(m)), t(ta(m)), t(ra(m)), t(ba(m))), ncol = 4)
 
 ## this gives neighbours in all 8 adjacent and diagonal positions
-ximage(matrix(rowMeans(matrix(c(t(la(m)), t(ta(m)), t(ra(m)), t(ba(m)), t(bal(m)), t(tal(m)), t(bar(m)), t(tar(m))),  ncol = 8), na.rm = TRUE), 4, byrow = TRUE))
+image(matrix(rowMeans(matrix(c(t(la(m)), t(ta(m)), t(ra(m)),
+ t(ba(m)), t(bl(m)), t(tl(m)), t(br(m)), t(tr(m))),  ncol = 8), na.rm = TRUE),
+ 4, byrow = TRUE))
 }
