@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vaster</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1.9002</span>
       </span>
     </div>
 
@@ -47,6 +47,21 @@
       <small>Source: <a href="https://github.com/hypertidy/vaster/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.1" id="vaster-001">vaster 0.0.1<a class="anchor" aria-label="anchor" href="#vaster-001"></a></h2>
+<ul><li><p>New functions <code><a href="../reference/adjacencies.html">tl()</a></code>, <code><a href="../reference/adjacencies.html">ta()</a></code>, <code><a href="../reference/adjacencies.html">tr()</a></code>, <code><a href="../reference/adjacencies.html">ra()</a></code>, <code><a href="../reference/adjacencies.html">br()</a></code>, <code><a href="../reference/adjacencies.html">ba()</a></code>. <code><a href="../reference/adjacencies.html">br()</a></code>, <code><a href="../reference/adjacencies.html">la()</a></code> which are top left, top, top right, right, bottom right, bottom, bottom right, left. These are different from the affinity ones because they don’t keep the extra rows and columns (the variants in affinity might become options with these). The ‘a’ means adjacent, we can’t use t(), r(), l(), b() and top, right, left, bottom seems weird.</p></li>
+<li><p>New function <code><a href="../reference/from_xyz.html">from_xyz()</a></code> to return a grid (dimension and extent) derived from “XYZ” points, basically are the points (in whatever order, and may be incomplete) on a regular grid within the rounding threshold of the ‘digits’ parameter.</p></li>
+<li><p>New functions <code><a href="../reference/ts_te.html">ts()</a></code>, <code><a href="../reference/ts_te.html">te()</a></code>, and <code><a href="../reference/ts_te.html">ts_te()</a></code> to format dimension,extent for use with GDAL options.</p></li>
+<li><p><code><a href="../reference/plot_extent.html">plot_extent()</a></code> is now vectorized, just give it xmin, xmax, ymin, ymax in that order in vector, matrix, or data frame.</p></li>
+<li><p>New function <code><a href="../reference/snap_extent.html">snap_extent()</a></code> to replace <code>spex::buffer_extent()</code>, aliased to <code><a href="../reference/snap_extent.html">buffer_extent()</a></code> in this package.</p></li>
+<li><p>Better argument consistency, dimension first, then extent.</p></li>
+<li><p>New function <code><a href="../reference/extent_vrt.html">extent_vrt()</a></code> to obtain tile extents from VRT text.</p></li>
+<li><p>New function <code><a href="../reference/vaster_listxyz.html">vaster_listxyz()</a></code> to convert extent, dimension, and optionally data to trad <code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image()</a></code> format.</p></li>
+<li><p>New function <code><a href="../reference/vaster_long.html">vaster_long()</a></code> to convert extent, dimension, and optionally data to long form XYZ in raster or trad matrix order.</p></li>
+<li><p>All obvious raster functions now included (needs more testing).</p></li>
+<li><p>Version bump to allow {grout} to depend on vaster for cell and extent ops.</p></li>
+<li><p>Added a <code>NEWS.md</code> file to track changes to the package.</p></li>
+</ul></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

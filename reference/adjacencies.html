@@ -22,7 +22,7 @@ quadmesh and anglr packages, and useful for calculating neighbourhood values."><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vaster</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1.9002</span>
       </span>
     </div>
 
@@ -77,9 +77,25 @@ quadmesh and anglr packages, and useful for calculating neighbourhood values.</p
 <span></span>
 <span><span class="fu">ra</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ba</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ba</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">image0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">image1</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">text0</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>x</dt>
+<dd><p>matrix</p></dd>
+
+
+<dt>...</dt>
+<dd><p>arguments passed to image()</p></dd>
+
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     
@@ -124,9 +140,8 @@ quadmesh and anglr packages, and useful for calculating neighbourhood values.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]   NA    5    8   11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   NA   NA   NA   NA</span>
 <span class="r-in"><span><span class="fu">image0</span><span class="op">(</span><span class="fu">tl</span><span class="op">(</span><span class="fu">br</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in image0(tl(br(m))):</span> could not find function "image0"</span>
 <span class="r-in"><span><span class="fu">text0</span><span class="op">(</span><span class="fu">tl</span><span class="op">(</span><span class="fu">br</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in text0(tl(br(m))):</span> could not find function "text0"</span>
+<span class="r-plt img"><img src="adjacencies-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## this gives neighbours in adjacent positions</span></span></span>
 <span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, ncol <span class="op">=</span> <span class="fl">3</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -147,8 +162,10 @@ quadmesh and anglr packages, and useful for calculating neighbourhood values.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> [12,]   11    9   NA   NA</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## this gives neighbours in all 8 adjacent and diagonal positions</span></span></span>
-<span class="r-in"><span><span class="fu">ximage</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">la</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">ta</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">ra</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">ba</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">bal</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">tal</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">bar</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/tar.html" class="external-link">tar</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,  ncol <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ximage(matrix(rowMeans(matrix(c(t(la(m)), t(ta(m)), t(ra(m)),     t(ba(m)), t(bal(m)), t(tal(m)), t(bar(m)), t(tar(m))), ncol = 8),     na.rm = TRUE), 4, byrow = TRUE)):</span> could not find function "ximage"</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">la</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">ta</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">ra</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">ba</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">bl</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">tl</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">br</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">tr</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,  ncol <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="adjacencies-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

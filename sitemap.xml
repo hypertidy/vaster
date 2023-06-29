@@ -37,6 +37,9 @@
     <loc>/reference/draw_extent.html</loc>
   </url>
   <url>
+    <loc>/reference/extent_dim_to_gt.html</loc>
+  </url>
+  <url>
     <loc>/reference/extent_dimension.html</loc>
   </url>
   <url>
@@ -46,7 +49,16 @@
     <loc>/reference/from_xyz.html</loc>
   </url>
   <url>
+    <loc>/reference/geo_transform0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/geo_world0.html</loc>
+  </url>
+  <url>
     <loc>/reference/grid.html</loc>
+  </url>
+  <url>
+    <loc>/reference/gt_dim_to_extent.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -59,6 +71,18 @@
   </url>
   <url>
     <loc>/reference/plot_extent.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rasterio0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rasterio_idx.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rasterio_to_sfio.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sfio_to_rasterio.html</loc>
   </url>
   <url>
     <loc>/reference/snap_extent.html</loc>
@@ -74,5 +98,8 @@
   </url>
   <url>
     <loc>/reference/vcrop.html</loc>
+  </url>
+  <url>
+    <loc>/reference/world_to_geotransform.html</loc>
   </url>
 </urlset>
