@@ -1,3 +1,15 @@
+# vaster dev
+
+* New functions `rasterio_idx()` (was affinity::raster_to_rasterio), `rasterio0` (was affinity::raster_io0) and
+internal for now `rasterio_crop()`. 
+
+differences are
+- no raster objects
+- arguments dimension, extent as needed
+- there's some overlap with vcrop and so on and needs checking
+- the sf RasterIO stuff now works well with {ximage}
+- fact and dimension need some thought for how the ux should be
+
 # vaster 0.0.1
 
 * New functions `tl()`, `ta()`, `tr()`, `ra()`, `br()`, `ba()`. `br()`, `la()`

@@ -1,6 +1,6 @@
 Package: vaster
 Title: Tools for Raster Grid Logic 
-Version: 0.0.1
+Version: 0.0.1.9002
 Authors@R: c(person("Michael", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2471-7511")))
 Description: Provides raster grid logic, the grid operations that don't require access to materialized data, i.e. most of them. 
  Grids are arrays with dimension and extent, and many operations are functions of just the dimension 'nrows', 'ncols' or 
