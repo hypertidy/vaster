@@ -202,3 +202,21 @@ xy <- function(dimension, extent = NULL) {
   cbind(x = x_from_cell(dimension, extent = extent, cell),
         y = y_from_cell(dimension, extent = extent, cell))
 }
+
+
+#' Grid boundary in native resolution
+#'
+#' currently only return centre coords
+#' @inheritParams grid
+#' @export
+#' @examples
+#' vaster_boundary(c(3, 4))
+vaster_boundary <- function(dimension, extent = NULL) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
+  cell <- c(seq_len(dimension[1L]),
+            seq(dimension[1L], by = dimension[1], length.out = dimension[2L]),
+            seq(n_cell(dimension), by = -1, length.out = dimension[1L]),
+            seq(n_cell(dimension) - dimension[1L] + 1, by = -dimension[1], length.out = dimension[2L]))
+  xy_from_cell(dimension, extent, cell)
+}
