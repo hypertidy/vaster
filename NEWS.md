@@ -1,5 +1,7 @@
 # vaster dev
 
+* Speed up `x_from_col` and `y_from_row`, fixes #19. 
+
 * New functions `rasterio_idx()` (was affinity::raster_to_rasterio), `rasterio0` (was affinity::raster_io0) and
 internal for now `rasterio_crop()`. 
 

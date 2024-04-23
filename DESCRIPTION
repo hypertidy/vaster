@@ -1,6 +1,6 @@
 Package: vaster
 Title: Tools for Raster Grid Logic 
-Version: 0.0.1.9002
+Version: 0.0.1.9003
 Authors@R: c(person("Michael", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2471-7511")))
 Description: Provides raster grid logic, the grid operations that don't require access to materialized data, i.e. most of them. 
  Grids are arrays with dimension and extent, and many operations are functions of just the dimension 'nrows', 'ncols' or 
@@ -11,7 +11,7 @@ Description: Provides raster grid logic, the grid operations that don't require 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.1
 URL: https://github.com/hypertidy/vaster, https://hypertidy.github.io/vaster/
 BugReports: https://github.com/hypertidy/vaster/issues
 Suggests: 

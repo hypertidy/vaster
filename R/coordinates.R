@@ -142,7 +142,9 @@ x_from_col <- function(dimension, extent = NULL, col) {
 
   col[col < 1] <- NA
   col[col > dimension[1L]] <- NA
-  x_centre(dimension, extent = extent)[col]
+  xres <- x_res(dimension, extent)
+  extent[1] - xres/2 + col * xres
+
 }
 
 #' @name coordinates
@@ -156,7 +158,9 @@ y_from_row <- function(dimension, extent = NULL, row) {
 
   row[row < 1] <- NA
   row[row > dimension[2]] <- NA
-  rev(y_centre(dimension, extent = extent))[row]
+  yres <- y_res(dimension, extent)
+  extent[4] + yres/2 - row * yres
+
 }
 
 #' @name coordinates
