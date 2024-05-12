@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vaster</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
       </span>
     </div>
 
@@ -47,6 +47,12 @@
       <small>Source: <a href="https://github.com/hypertidy/vaster/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.2" id="vaster-002">vaster 0.0.2<a class="anchor" aria-label="anchor" href="#vaster-002"></a></h2>
+<ul><li><p>Speed up <code>x_from_col</code> and <code>y_from_row</code>, fixes <a href="https://github.com/hypertidy/vaster/issues/19" class="external-link">#19</a>.</p></li>
+<li><p>New functions <code><a href="../reference/rasterio_idx.html">rasterio_idx()</a></code> (was affinity::raster_to_rasterio), <code>rasterio0</code> (was affinity::raster_io0) and internal for now <code>rasterio_crop()</code>.</p></li>
+</ul><p>differences are - no raster objects - arguments dimension, extent as needed - there’s some overlap with vcrop and so on and needs checking - the sf RasterIO stuff now works well with {ximage} - fact and dimension need some thought for how the ux should be</p>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.1" id="vaster-001">vaster 0.0.1<a class="anchor" aria-label="anchor" href="#vaster-001"></a></h2>
 <ul><li><p>New functions <code><a href="../reference/adjacencies.html">tl()</a></code>, <code><a href="../reference/adjacencies.html">ta()</a></code>, <code><a href="../reference/adjacencies.html">tr()</a></code>, <code><a href="../reference/adjacencies.html">ra()</a></code>, <code><a href="../reference/adjacencies.html">br()</a></code>, <code><a href="../reference/adjacencies.html">ba()</a></code>. <code><a href="../reference/adjacencies.html">br()</a></code>, <code><a href="../reference/adjacencies.html">la()</a></code> which are top left, top, top right, right, bottom right, bottom, bottom right, left. These are different from the affinity ones because they don’t keep the extra rows and columns (the variants in affinity might become options with these). The ‘a’ means adjacent, we can’t use t(), r(), l(), b() and top, right, left, bottom seems weird.</p></li>
