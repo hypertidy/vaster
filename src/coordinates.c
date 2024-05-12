@@ -8,13 +8,19 @@ SEXP bin_from_float(SEXP bins, SEXP range, SEXP coord) {
   SEXP out;
   out = PROTECT(Rf_allocVector(REALSXP, nn));
 
+  // save the index, as per https://github.com/hadley/r-internals/blob/master/vectors.md#get-and-set-values
+  double* rout = REAL(out);
+  double* rcoord = REAL(coord);
+  double cmax = REAL(range)[1];
+  double cmin = REAL(range)[0];
+  double rbin = INTEGER(bins)[0];
   for (int i = 0; i < nn; i++) {
-    if (REAL(coord)[i] == REAL(range)[1]) {
-      REAL(out)[i] = INTEGER(bins)[0] - 1;
-    } else if ((REAL(coord)[i] > REAL(range)[1]) | (REAL(coord)[i] < REAL(range)[0])) {
-      REAL(out)[i] = R_NaReal;
+    if (rcoord[i] == cmax) {
+      rout[i] = rbin - 1;
+    } else if ((rcoord[i] > cmax) | (rcoord[i] < cmin)) {
+      rout[i] = R_NaReal;
     } else {
-      REAL(out)[i] =    trunc((REAL(range)[1] - REAL(coord)[i])/scl);
+      rout[i] =    trunc((cmax - rcoord[i])/scl);
     }
   }
   UNPROTECT(1);
