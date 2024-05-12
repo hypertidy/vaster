@@ -2,7 +2,9 @@
 # include <Rinternals.h>
 # include "vaster.h"
 
-SEXP bin_from_float(SEXP bins, SEXP range, SEXP coord) {
+SEXP index_from_coord_(SEXP bins, SEXP range, SEXP coord) {
+  check_size(bins);
+  check_range(range);
  int nn = LENGTH(coord);
   double scl = (REAL(range)[1] - REAL(range)[0])/INTEGER(bins)[0];
   SEXP out;
@@ -26,24 +28,11 @@ SEXP bin_from_float(SEXP bins, SEXP range, SEXP coord) {
   UNPROTECT(1);
   return out;
 }
-SEXP col_from_x_(SEXP ncol, SEXP xlim, SEXP px)
-{
-  check_size(ncol);
-  check_range(xlim);
-
- return bin_from_float(ncol, xlim, px);
-}
-SEXP row_from_y_(SEXP nrow, SEXP ylim, SEXP py)
-{
-  check_size(nrow);
-  check_range(ylim);
 
 
-  return bin_from_float(nrow, ylim, py);
-
-}
-
-SEXP coord_from_bin(SEXP bins, SEXP range, SEXP index) {
+SEXP coord_from_index_(SEXP bins, SEXP range, SEXP index) {
+  check_size(bins);
+  check_range(range);
   int nn = LENGTH(index);
   SEXP out;
   out = PROTECT(Rf_allocVector(REALSXP, nn));
@@ -63,10 +52,20 @@ SEXP coord_from_bin(SEXP bins, SEXP range, SEXP index) {
   UNPROTECT(1);
   return out;
 }
-SEXP x_from_col_(SEXP ncol, SEXP xlim, SEXP col) {
-  return coord_from_bin(ncol, xlim, col);
+
+SEXP coord_centre_(SEXP bins, SEXP range) {
+  int nn = INTEGER(bins)[0];
+  SEXP out;
+  out = PROTECT(Rf_allocVector(REALSXP, nn));
+  double cmin = REAL(range)[0];
+  double scl = (REAL(range)[1] - cmin) / nn;
+  double* rout = REAL(out);
+  for (int i = 0; i < nn; i++) {
+      rout[i] = cmin + scl/2 + i * scl;
+  }
+  UNPROTECT(1);
+  return out;
 }
 
-SEXP y_from_row_(SEXP nrow, SEXP ylim, SEXP row) {
-  return coord_from_bin(nrow, ylim, row);
-}
+
+

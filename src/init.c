@@ -8,16 +8,14 @@
 */
 
 /* .Call calls */
-extern SEXP col_from_x_(SEXP, SEXP, SEXP);
-extern SEXP row_from_y_(SEXP, SEXP, SEXP);
-extern SEXP x_from_col_(SEXP, SEXP, SEXP);
-extern SEXP y_from_row_(SEXP, SEXP, SEXP);
+extern SEXP coord_centre_(SEXP, SEXP);
+extern SEXP coord_from_index_(SEXP, SEXP, SEXP);
+extern SEXP index_from_coord_(SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"col_from_x_", (DL_FUNC) &col_from_x_, 3},
-    {"row_from_y_", (DL_FUNC) &row_from_y_, 3},
-    {"x_from_col_", (DL_FUNC) &x_from_col_, 3},
-    {"y_from_row_", (DL_FUNC) &y_from_row_, 3},
+    {"coord_centre_",     (DL_FUNC) &coord_centre_,     2},
+    {"coord_from_index_", (DL_FUNC) &coord_from_index_, 3},
+    {"index_from_coord_", (DL_FUNC) &index_from_coord_, 3},
     {NULL, NULL, 0}
 };
 

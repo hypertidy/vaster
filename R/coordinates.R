@@ -1,66 +1,4 @@
 
-
-#' Convert to long form coordinates
-#'
-#' Matrix of xyz values in raster order.
-#'
-#' Use 'raster_order = FALSE' for traditional R matrix x,y order
-#'
-#' @inheritParams grid
-#' @param data data values
-#' @param raster_order use raster order or native R matrix order
-#'
-#' @return matrix of coordinates x,y
-#' @export
-#'
-#' @examples
-#' vaster_long(c(10, 5), c(0, 10, 0, 5))
-#' # see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
-vaster_long <- function(dimension, extent = NULL, data = NULL, raster_order = TRUE) {
-  extent <- extent %||% extent0(dimension)
-  .check_args(dimension, extent)
-
-    three <- if (length(dim(data)) == 3L) 3 else NULL
-    if (!is.null(data)) {
-      data <- aperm(data, c(2, 1, three))
-      data <- matrix(data, n_cell(dimension))
-    }
-    xyz <- cbind(xy_from_cell(dimension, extent = extent, seq_len(n_cell(dimension))), data)
-  if (!raster_order) {
-   xyz <- xyz[order(xyz[,2L], xyz[,1L]), ]
-  }
-  colnames(xyz) <- if (is.null(data)) c("x", "y") else  c("x", "y", "z")
-    xyz
-}
-
-#' Image xyz list
-#'
-#' Generate list of x and y rectilinear coordinates with z matrix.
-#'
-#' The rectilinear coordinates are degenerate (just a product of extent/dimension).
-#' @inheritParams grid
-#' @param data data values (length of the product of 'dimension')
-#'
-#' @return list with elementx x,y,z as per [graphics::image]
-#' @export
-#'
-#' @examples
-#' vaster_listxyz(c(10, 5), c(0, 10, 0, 5))
-#' ## see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
-vaster_listxyz <- function(dimension, extent = NULL, data = NULL) {
-  extent <- extent %||% extent0(dimension)
-  .check_args(dimension, extent)
-
-  if (is.null(data)) {
-    data <- matrix(FALSE, dimension[2], dimension[1])
-  }
-  if (length(dim(data)) > 2) {
-    message("multi array not supported, this is trad image( ) format")
-    data <- data[,,1L]  ## should warn
-  }
-  list(x = x_from_col(dimension, extent = extent, seq_len(dimension[1])),
-           y = rev(y_from_row(dimension, extent = extent, seq_len(dimension[2]))), z = t(data[nrow(data):1, ]))
-}
 #' Coordinates
 #'
 #' Functions that work with coordinates.
@@ -208,6 +146,70 @@ xy <- function(dimension, extent = NULL) {
 }
 
 
+
+
+#' Convert to long form coordinates
+#'
+#' Matrix of xyz values in raster order.
+#'
+#' Use 'raster_order = FALSE' for traditional R matrix x,y order
+#'
+#' @inheritParams grid
+#' @param data data values
+#' @param raster_order use raster order or native R matrix order
+#'
+#' @return matrix of coordinates x,y
+#' @export
+#'
+#' @examples
+#' vaster_long(c(10, 5), c(0, 10, 0, 5))
+#' # see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
+vaster_long <- function(dimension, extent = NULL, data = NULL, raster_order = TRUE) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
+
+  three <- if (length(dim(data)) == 3L) 3 else NULL
+  if (!is.null(data)) {
+    data <- aperm(data, c(2, 1, three))
+    data <- matrix(data, n_cell(dimension))
+  }
+  xyz <- cbind(xy_from_cell(dimension, extent = extent, seq_len(n_cell(dimension))), data)
+  if (!raster_order) {
+    xyz <- xyz[order(xyz[,2L], xyz[,1L]), ]
+  }
+  colnames(xyz) <- if (is.null(data)) c("x", "y") else  c("x", "y", "z")
+  xyz
+}
+
+#' Image xyz list
+#'
+#' Generate list of x and y rectilinear coordinates with z matrix.
+#'
+#' The rectilinear coordinates are degenerate (just a product of extent/dimension).
+#' @inheritParams grid
+#' @param data data values (length of the product of 'dimension')
+#'
+#' @return list with elementx x,y,z as per [graphics::image]
+#' @export
+#'
+#' @examples
+#' vaster_listxyz(c(10, 5), c(0, 10, 0, 5))
+#' ## see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
+vaster_listxyz <- function(dimension, extent = NULL, data = NULL) {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
+
+  if (is.null(data)) {
+    data <- matrix(FALSE, dimension[2], dimension[1])
+  }
+  if (length(dim(data)) > 2) {
+    message("multi array not supported, this is trad image( ) format")
+    data <- data[,,1L]  ## should warn
+  }
+  list(x = x_from_col(dimension, extent = extent, seq_len(dimension[1])),
+       y = rev(y_from_row(dimension, extent = extent, seq_len(dimension[2]))), z = t(data[nrow(data):1, ]))
+}
+
 #' Grid boundary in native resolution
 #'
 #' currently only return centre coords
@@ -224,3 +226,7 @@ vaster_boundary <- function(dimension, extent = NULL) {
             seq(n_cell(dimension) - dimension[1L] + 1, by = -dimension[1], length.out = dimension[2L]))
   xy_from_cell(dimension, extent, cell)
 }
+
+
+
+
