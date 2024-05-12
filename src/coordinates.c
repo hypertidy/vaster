@@ -17,7 +17,7 @@ SEXP bin_from_float(SEXP bins, SEXP range, SEXP coord) {
   for (int i = 0; i < nn; i++) {
     if (rcoord[i] == cmax) {
       rout[i] = rbin - 1;
-    } else if ((rcoord[i] > cmax) | (rcoord[i] < cmin)) {
+    } else if ((rcoord[i] > cmax) || (rcoord[i] < cmin)) {
       rout[i] = R_NaReal;
     } else {
       rout[i] =    trunc((cmax - rcoord[i])/scl);
