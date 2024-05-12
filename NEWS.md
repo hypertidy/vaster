@@ -1,3 +1,9 @@
+# vaster dev
+
+* We now have internal functions `col_from_x_c()` and `row_from_y_c()` that use C under the hood, these currently return 0-based indexes. 
+
+* Package now requires compilation, with the R C api. 
+
 # vaster 0.0.2
 
 * Speed up `x_from_col` and `y_from_row`, fixes #19. 
