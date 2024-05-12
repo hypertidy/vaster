@@ -1,4 +1,4 @@
-# vaster dev
+# vaster 0.0.2
 
 * Speed up `x_from_col` and `y_from_row`, fixes #19. 
 
