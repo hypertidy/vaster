@@ -21,7 +21,7 @@ x_corner <- function(dimension, extent = NULL) {
   .check_args(dimension, extent)
 
   xl <- extent[1:2]
-  ##resx <- vaster:::x_res(x$extent, x$dimension)
+
   seq(xl[1L], xl[2L], length.out = dimension[1L] + 1L)
 }
 
@@ -35,7 +35,7 @@ y_corner <- function(dimension, extent = NULL) {
   .check_args(dimension, extent)
 
   yl <- extent[3:4]
-  ##resy <- vaster:::y_res(x$tileraster$extent, x$tileraster$dimension)
+
   seq(yl[1L], yl[2L], length.out = dimension[2L] + 1L)
 }
 
@@ -227,6 +227,19 @@ vaster_boundary <- function(dimension, extent = NULL) {
   xy_from_cell(dimension, extent, cell)
 }
 
+#' Grid boundary cell index
+#'
+#' This is for indexing coordinate arrays to get their values (it's the footprint ignoring data values)
+#' @inheritParams grid
+#' @export
+#' @examples
+#' vaster_boundary_cell(c(3, 4))
+vaster_boundary_cell <-  function(dm) {
 
+    c(cell_from_row(dm,  1),
+         cell_from_col(dm, dm[1]),
+         rev(cell_from_row(dm, dm[2])),
+         rev(cell_from_col(dm, 1)))
 
+}
 
