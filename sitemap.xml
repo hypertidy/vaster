@@ -1,111 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/adjacencies.html</loc>
-  </url>
-  <url>
-    <loc>/reference/align_extent.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cells.html</loc>
-  </url>
-  <url>
-    <loc>/reference/coordinates.html</loc>
-  </url>
-  <url>
-    <loc>/reference/draw_extent.html</loc>
-  </url>
-  <url>
-    <loc>/reference/extent_dim_to_gt.html</loc>
-  </url>
-  <url>
-    <loc>/reference/extent_dimension.html</loc>
-  </url>
-  <url>
-    <loc>/reference/extent_vrt.html</loc>
-  </url>
-  <url>
-    <loc>/reference/from_xyz.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geo_transform0.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geo_world0.html</loc>
-  </url>
-  <url>
-    <loc>/reference/grid.html</loc>
-  </url>
-  <url>
-    <loc>/reference/gt_dim_to_extent.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/intersect_extent.html</loc>
-  </url>
-  <url>
-    <loc>/reference/origin.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_extent.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rasterio0.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rasterio_idx.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rasterio_to_sfio.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sfio_to_rasterio.html</loc>
-  </url>
-  <url>
-    <loc>/reference/snap_extent.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ts_te.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vaster-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vaster_boundary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vaster_listxyz.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vaster_long.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vcrop.html</loc>
-  </url>
-  <url>
-    <loc>/reference/world_to_geotransform.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/adjacencies.html</loc></url>
+<url><loc>/reference/align_extent.html</loc></url>
+<url><loc>/reference/cells.html</loc></url>
+<url><loc>/reference/coordinates.html</loc></url>
+<url><loc>/reference/draw_extent.html</loc></url>
+<url><loc>/reference/extent_dim_to_gt.html</loc></url>
+<url><loc>/reference/extent_dimension.html</loc></url>
+<url><loc>/reference/extent_vrt.html</loc></url>
+<url><loc>/reference/from_xyz.html</loc></url>
+<url><loc>/reference/geo_transform0.html</loc></url>
+<url><loc>/reference/geo_world0.html</loc></url>
+<url><loc>/reference/grid.html</loc></url>
+<url><loc>/reference/gt_dim_to_extent.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/intersect_extent.html</loc></url>
+<url><loc>/reference/origin.html</loc></url>
+<url><loc>/reference/plot_extent.html</loc></url>
+<url><loc>/reference/rasterio0.html</loc></url>
+<url><loc>/reference/rasterio_idx.html</loc></url>
+<url><loc>/reference/rasterio_to_sfio.html</loc></url>
+<url><loc>/reference/sfio_to_rasterio.html</loc></url>
+<url><loc>/reference/snap_extent.html</loc></url>
+<url><loc>/reference/ts_te.html</loc></url>
+<url><loc>/reference/vaster-package.html</loc></url>
+<url><loc>/reference/vaster_boundary.html</loc></url>
+<url><loc>/reference/vaster_listxyz.html</loc></url>
+<url><loc>/reference/vaster_long.html</loc></url>
+<url><loc>/reference/vcrop.html</loc></url>
+<url><loc>/reference/world_to_geotransform.html</loc></url>
 </urlset>
+
