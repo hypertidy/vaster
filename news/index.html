@@ -48,6 +48,11 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.5.0" id="vaster-050">vaster 0.5.0<a class="anchor" aria-label="anchor" href="#vaster-050"></a></h2>
+<ul><li><p>We now have internal functions <code>col_from_x_c()</code> and <code>row_from_y_c()</code>, <code>x_from_col_c()</code> and <code>y_from_row_c()</code> that use C under the hood, these currently accept and return 0-based indexes.</p></li>
+<li><p>Package now requires compilation, with the R C api.</p></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.2" id="vaster-002">vaster 0.0.2<a class="anchor" aria-label="anchor" href="#vaster-002"></a></h2>
 <ul><li><p>Speed up <code>x_from_col</code> and <code>y_from_row</code>, fixes <a href="https://github.com/hypertidy/vaster/issues/19" class="external-link">#19</a>.</p></li>
 <li><p>New functions <code><a href="../reference/rasterio_idx.html">rasterio_idx()</a></code> (was affinity::raster_to_rasterio), <code>rasterio0</code> (was affinity::raster_io0) and internal for now <code>rasterio_crop()</code>.</p></li>
