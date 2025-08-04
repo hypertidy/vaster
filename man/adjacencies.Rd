@@ -54,7 +54,7 @@ continuous surface we need to find local relative values for its corners. Used i
 quadmesh and anglr packages, and useful for calculating neighbourhood values.
 }
 \details{
-bl, tl, br, and tr originally lived in affinity
+bl, tl, br, and tr originally lived in hypertidy/affinity on github.
 }
 \examples{
 (m <- matrix(1:12, 3))

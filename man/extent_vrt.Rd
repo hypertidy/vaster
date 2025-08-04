@@ -2,25 +2,30 @@
 % Please edit documentation in R/vrt_extent.R
 \name{extent_vrt}
 \alias{extent_vrt}
-\title{Extents from VRT}
+\title{Extents from VRT (virtual raster data set of GDAL)}
 \usage{
 extent_vrt(x)
 }
 \arguments{
 \item{x}{url or file path to VRT file}
 }
+\value{
+a matrix of 4 columns, xmin,xmax,ymin,ymax
+}
 \description{
-Get extent from index values in VRT text.
+Get extent from index values in VRT text, these are the individual footprints of raster
+windows in a VRT. These can be arbitrary to a specific grid, but generally are used for tiled mosaics.
 }
 \details{
-(I can't understand XML tech  so I hack the text as lines with strsplit)
+Each VRT raster element records it's relative position within the grid, so we grid logic
+to expand the actual extent of each element, and return those as a matrix of xmin,xmax,ymin,ymax.
 }
 \examples{
 #src <- "https://opentopography.s3.sdsc.edu/raster/NASADEM/NASADEM_be.vrt"
-#src <- "https://opentopography.s3.sdsc.edu/raster/SRTM_GL1/SRTM_GL1_srtm.vrt"
-#ex <- extent_vrt(src)
-#op <- par(mar = rep(0, 4))
-#plot(range(ex[,1:2]), range(ex[,3:4]), xlab = "", ylab = "", asp = "", type = "n")
-#rect(ex[,1], ex[,3], ex[, 2], ex[,4])
-#par(op)
+src <- gzfile(system.file("extdata/NASADEM_be.vrt.gz", package = "vaster"), "rt")
+## read VRT from a URL or file (we use a connection here to keep package example small)
+l <- base::readLines(src)
+ex <- extent_vrt(src)
+close(src)
+plot_extent(ex)
 }

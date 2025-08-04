@@ -32,7 +32,7 @@ buffer_extent <- function(x, res) {
 #' @param x extent to intersect
 #' @inheritParams grid
 #'
-#' @return extent
+#' @return extent, a numeric vector of xmin,xmax,ymin,ymax
 #' @export
 #'
 #' @examples
@@ -68,11 +68,7 @@ extent_dimension <- function(x, dimension, extent = NULL, snap = "out") {
   as.integer(round(c(diff(ex[1:2]) / x_res(dimension, extent),
                      diff(ex[3:4]) / y_res(dimension, extent))))
 
-  # as.integer(ceiling(c(diff(ex[1:2]) / x_res(dimension, extent),
-  #                    diff(ex[3:4]) / y_res(dimension, extent))))
-  #
-  # as.integer((c(diff(ex[1:2]) / x_res(dimension, extent),
-  #                      diff(ex[3:4]) / y_res(dimension, extent))))
+
 }
 
 

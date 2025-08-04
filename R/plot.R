@@ -36,7 +36,15 @@ plot_grid <- function(dimension, extent = NULL, ...) {
 #' @param show the drawn extent
 #' @param ... arguments pass to [graphics::rect()]
 #'
+#' @returns an extent, numeric vector of xmin,xmax,ymin,ymax
 #' @importFrom graphics locator rect
+#' @export
+#' @examples
+#' if (interactive()) {
+#' plot(1)
+#' draw_extent(show = TRUE)  ## click twice on the plot
+#' }
+#'
 draw_extent <- function(show = TRUE, ...) {
   x <- unlist(lapply(locator(2L), sort), use.names = FALSE)
   if (show) rect(x[1L], x[3L], x[2L], x[4L], ...)

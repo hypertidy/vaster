@@ -11,6 +11,16 @@ draw_extent(show = TRUE, ...)
 
 \item{...}{arguments pass to \code{\link[graphics:rect]{graphics::rect()}}}
 }
+\value{
+an extent, numeric vector of xmin,xmax,ymin,ymax
+}
 \description{
 Draw an extent with two clicks
+}
+\examples{
+if (interactive()) {
+plot(1)
+draw_extent(show = TRUE)  ## click twice on the plot
+}
+
 }

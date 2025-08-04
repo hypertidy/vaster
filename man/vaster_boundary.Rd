@@ -11,9 +11,18 @@ vaster_boundary(dimension, extent = NULL)
 
 \item{extent}{numeric extent xmin,xmax,ymin,ymax}
 }
+\value{
+matrix of xy coordinates
+}
 \description{
-currently only return centre coords
+Generates the coordinates around a grid boundary, with a coordinate for
+each grid cell corner.
+}
+\details{
+The orientation is starts along the bottom and goes counter-clockwise.
 }
 \examples{
 vaster_boundary(c(3, 4))
+
+plot(vaster_boundary(c(36, 18), c(-180, 180, -90, 90)))
 }

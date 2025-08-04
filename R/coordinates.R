@@ -212,34 +212,56 @@ vaster_listxyz <- function(dimension, extent = NULL, data = NULL) {
 
 #' Grid boundary in native resolution
 #'
-#' currently only return centre coords
+#' Generates the coordinates around a grid boundary, with a coordinate for
+#' each grid cell corner.
+#'
+#' The orientation is starts along the bottom and goes counter-clockwise.
+#'
 #' @inheritParams grid
 #' @export
+#' @return matrix of xy coordinates
 #' @examples
 #' vaster_boundary(c(3, 4))
+#'
+#' plot(vaster_boundary(c(36, 18), c(-180, 180, -90, 90)))
 vaster_boundary <- function(dimension, extent = NULL) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension, extent)
-  cell <- c(seq_len(dimension[1L]),
-            seq(dimension[1L], by = dimension[1], length.out = dimension[2L]),
-            seq(n_cell(dimension), by = -1, length.out = dimension[1L]),
-            seq(n_cell(dimension) - dimension[1L] + 1, by = -dimension[1], length.out = dimension[2L]))
-  xy_from_cell(dimension, extent, cell)
+  xc <- x_corner(dimension, extent)
+  yc <- y_corner(dimension, extent)
+  rbind(
+    cbind(xc, extent[3]),
+    cbind(extent[2], rev(yc)),
+    cbind(rev(xc), extent[4]),
+    cbind(extent[1], yc))
+
 }
 
 #' Grid boundary cell index
 #'
-#' This is for indexing coordinate arrays to get their values (it's the footprint ignoring data values)
+#' This is for indexing coordinate arrays to get their values (the cell index of the outer row and columns).
+#'
+#' The orientation is the same as for [vaster_boundary()].
 #' @inheritParams grid
 #' @export
+#' @return a matrix of xy coordinates
 #' @examples
 #' vaster_boundary_cell(c(3, 4))
+#' cell <- vaster_boundary_cell(c(3, 4))
+#' plot(vaster_boundary(c(3, 4)))
+#' text(xy <- xy_from_cell(c(3, 4), cell = vaster_boundary_cell(c(3, 4))), lab = cell)
+#' lines(xy)
 vaster_boundary_cell <-  function(dm) {
 
-    c(cell_from_row(dm,  1),
-         cell_from_col(dm, dm[1]),
-         rev(cell_from_row(dm, dm[2])),
-         rev(cell_from_col(dm, 1)))
-
+    # c(cell_from_row(dm,  1),
+    #      cell_from_col(dm, dm[1]),
+    #      rev(cell_from_row(dm, dm[2])),
+    #      rev(cell_from_col(dm, 1)))
+    #
+  c(cell_from_row(dm, dm[2]),
+    rev(cell_from_col(dm, dm[1])),
+    rev(cell_from_row(dm,  1)),
+    cell_from_col(dm, 1)
+    )
 }
 

@@ -14,7 +14,7 @@ intersect_extent(x, dimension, extent = NULL)
 \item{extent}{numeric extent xmin,xmax,ymin,ymax}
 }
 \value{
-extent
+extent, a numeric vector of xmin,xmax,ymin,ymax
 }
 \description{
 Return the overlapping extent.

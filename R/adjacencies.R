@@ -7,7 +7,7 @@
 #' continuous surface we need to find local relative values for its corners. Used in
 #' quadmesh and anglr packages, and useful for calculating neighbourhood values.
 #'
-#' bl, tl, br, and tr originally lived in affinity
+#' bl, tl, br, and tr originally lived in hypertidy/affinity on github.
 #'
 #' @param x a matrix
 #' @export

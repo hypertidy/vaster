@@ -6,7 +6,7 @@
 \alias{vaster-package}
 \title{vaster: Tools for Raster Grid Logic}
 \description{
-Provides raster grid logic, the grid operations that don't require access to materialized data, i.e. most of them. Grids are arrays with dimension and extent, and many operations are functions of just the dimension 'nrows', 'ncols' or a combination of the dimension and the extent 'xmin', 'xmax', 'ymin', 'ymax'. Here we provide direct access to this logic without need for connection to any materialized data or formats. Grid logic includes functions that relate the cell index to row and column, or row and column to cell index, row, column or cell index to position. Cell index, and row,column posiiton exist independently of any other use of a raster grid.
+Provides raster grid logic, operations that describe a discretized rectangular domain and don't require access to materialized data. Grids are arrays with dimension and extent, and many operations are functions of just the dimension 'nrows', 'ncols' or a combination of the dimension and the extent 'xmin', 'xmax', 'ymin', 'ymax'. Here we provide direct access to this logic without need for connection to any materialized data or formats. Grid logic includes functions that relate the cell index to row and column, or row and column to cell index, row, column or cell index to position.
 }
 \seealso{
 Useful links:
@@ -19,6 +19,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Michael Sumner \email{mdsumner@gmail.com} (\href{https://orcid.org/0000-0002-2471-7511}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Robert Hijmans (Wrote original versions of abstract cell operations in raster package) [contributor]
+}
 
 }
 \keyword{internal}
