@@ -7,7 +7,7 @@
 vcrop(x, dimension, extent = NULL, ..., snap = "out")
 }
 \arguments{
-\item{x}{extent of candidate grid (vector of xmin,xmax,ymin,ymax)}
+\item{x}{extent of candidate grid (vector of xmin, xmax, ymin, ymax)}
 
 \item{dimension}{integer ncol, nrow}
 
@@ -17,18 +17,36 @@ vcrop(x, dimension, extent = NULL, ..., snap = "out")
 
 \item{snap}{one of "out" (default), "near", or "in"}
 }
+\value{
+A list with two components:
+\describe{
+\item{extent}{numeric vector (xmin, xmax, ymin, ymax) - the new extent, snapped to grid alignment}
+\item{dimension}{integer vector (ncol, nrow) - the dimension of the modified grid}
+}
+}
 \description{
-To modify a grid is to align an extent to the grid origin.  Modification includes to reduce or extend the area covered,
-in either dimension.  This implies a new extent, snapped
-to the grain of the origin grid and a new size (dimension in x,y).
+To modify a grid is to align an extent to the grid origin. Modification
+includes reducing or extending the area covered in either dimension. This
+implies a new extent, snapped to the grain of the origin grid, and a new
+dimension (ncol, nrow).
 }
 \details{
-This works for any grid, the input extent can be within the original, an extension of the original, or
-completely non-intersecting the original grid.
+This works for any grid: the input extent can be within the original, an
+extension of the original, or completely non-intersecting the original grid.
 }
 \examples{
 ## any arbitrary extent
 x <- c(sort(runif(2, -180, 180)), sort(runif(2, -90, 90)))
 print(x)
-vcrop(x,  c(360, 180), c(-180, 180, -90, 90))
+vcrop(x, c(360, 180), c(-180, 180, -90, 90))
+
+## crop to a smaller region
+vcrop(c(0, 10, 0, 10), c(360, 180), c(-180, 180, -90, 90))
+
+## extend beyond original (snapped to grid)
+vcrop(c(-200, 200, -100, 100), c(360, 180), c(-180, 180, -90, 90))
+}
+\seealso{
+\code{\link[=align_extent]{align_extent()}} for just the extent snapping, \code{\link[=extent_dimension]{extent_dimension()}}
+for just the dimension calculation
 }

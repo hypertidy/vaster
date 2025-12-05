@@ -15,7 +15,6 @@
 #' #src <- "https://opentopography.s3.sdsc.edu/raster/NASADEM/NASADEM_be.vrt"
 #' src <- gzfile(system.file("extdata/NASADEM_be.vrt.gz", package = "vaster"), "rt")
 #' ## read VRT from a URL or file (we use a connection here to keep package example small)
-#' l <- base::readLines(src)
 #' ex <- extent_vrt(src)
 #' close(src)
 #' plot_extent(ex)

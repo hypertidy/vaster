@@ -6,8 +6,86 @@
 \alias{vaster-package}
 \title{vaster: Tools for Raster Grid Logic}
 \description{
-Provides raster grid logic, operations that describe a discretized rectangular domain and don't require access to materialized data. Grids are arrays with dimension and extent, and many operations are functions of just the dimension 'nrows', 'ncols' or a combination of the dimension and the extent 'xmin', 'xmax', 'ymin', 'ymax'. Here we provide direct access to this logic without need for connection to any materialized data or formats. Grid logic includes functions that relate the cell index to row and column, or row and column to cell index, row, column or cell index to position.
+Provides raster grid logic without requiring materialized data. Most raster
+operations are purely functions of dimension (ncol, nrow) and extent (xmin,
+xmax, ymin, ymax) - vaster provides these operations as simple functions on
+numbers, independent of any file format or geospatial library.
 }
+\section{Core concepts}{
+
+A raster grid is defined by two properties:
+\itemize{
+\item \strong{dimension}: \code{c(ncol, nrow)} - the number of columns and rows
+\item \strong{extent}: \code{c(xmin, xmax, ymin, ymax)} - the bounding box
+}
+
+From these six numbers, all grid geometry can be computed: cell indices,
+coordinates, resolutions, and spatial queries.
+}
+
+\section{Cell indexing}{
+
+Cells are numbered from 1, starting at the top-left corner, proceeding
+right then down (row-major order). This matches the convention used by
+the raster and terra packages.
+}
+
+\section{Main function families}{
+
+
+\strong{Cell operations} (\link{cells}):
+\itemize{
+\item \code{cell_from_xy()}, \code{cell_from_row_col()} - get cell index from position
+\item \code{xy_from_cell()}, \code{rowcol_from_cell()} - get position from cell index
+\item \code{row_from_cell()}, \code{col_from_cell()} - decompose cell to row/column
+}
+
+\strong{Coordinate operations} (\link{coordinates}):
+\itemize{
+\item \code{x_from_col()}, \code{y_from_row()} - coordinate from index
+\item \code{col_from_x()}, \code{row_from_y()} - index from coordinate
+\item \code{x_corner()}, \code{y_corner()} - corner coordinates
+\item \code{x_centre()}, \code{y_centre()} - cell centre coordinates
+}
+
+\strong{Grid properties} (\link{grid}):
+\itemize{
+\item \code{x_res()}, \code{y_res()} - cell resolution
+\item \code{n_cell()}, \code{n_row()}, \code{n_col()} - counts
+\item \code{xlim()}, \code{ylim()} - extent components
+}
+
+\strong{Grid modification}:
+\itemize{
+\item \code{\link[=vcrop]{vcrop()}} - crop/extend a grid, snapped to alignment
+\item \code{\link[=align_extent]{align_extent()}} - snap an extent to grid origin
+}
+
+\strong{Adjacency operations} (\link{adjacencies}):
+\itemize{
+\item \code{tl()}, \code{tr()}, \code{bl()}, \code{br()} - corner adjacencies
+\item \code{ta()}, \code{ba()}, \code{la()}, \code{ra()} - edge adjacencies
+}
+}
+
+\section{Extent convention}{
+
+vaster uses extent as \code{c(xmin, xmax, ymin, ymax)}, which differs from
+the bbox convention \code{c(xmin, ymin, xmax, ymax)}. Both represent the same
+information in different order.
+
+If extent is not provided, the default is \code{c(0, ncol, 0, nrow)} - matching
+the convention adopted by stars, terra, and an improvement on base R's
+\code{image()} which scales to 0-1.
+}
+
+\section{Note on stats}{
+:ts:
+This package exports a function \code{ts()} for GDAL command line formatting,
+which masks \code{\link[stats:ts]{stats::ts()}}. Use \code{stats::ts()} explicitly if you need time
+series functionality, or use \code{\link[=ts_te]{ts_te()}} instead.
+}
+
 \seealso{
 Useful links:
 \itemize{

@@ -4,27 +4,55 @@
 \alias{ts_te}
 \alias{te}
 \alias{ts}
-\title{Target size, extent}
+\title{Target size and extent for GDAL command line}
 \usage{
+ts_te(dimension, extent)
+
 te(extent)
 
 ts(dimension)
-
-ts_te(dimension, extent)
 }
 \arguments{
-\item{extent}{xmin,xmax,ymin,ymax}
+\item{dimension}{integer vector of ncol, nrow (target size)}
 
-\item{dimension}{ncol, nrow}
+\item{extent}{numeric vector of xmin, xmax, ymin, ymax (target extent)}
 }
 \value{
-string formatted for GDAL command line (-te -ts)
+A character string formatted for GDAL command line:
+\itemize{
+\item \code{ts_te()}: combined \code{-ts} and \code{-te} arguments
+\item \code{ts()}: \verb{-ts ncol nrow} string
+\item \code{te()}: \verb{-te xmin ymin xmax ymax} string (note: reordered for GDAL)
+}
 }
 \description{
-Format properties for the GDAL options.
+Format grid properties for GDAL command line options (\code{-ts} for target size,
+\code{-te} for target extent).
+}
+\details{
+These functions generate the string arguments used by GDAL utilities like
+\code{gdalwarp} and \code{gdal_translate}. The \code{ts()} function is named after the GDAL
+\code{-ts} flag and masks \code{\link[stats:ts]{stats::ts()}}; use \code{ts_te()} or qualify with
+\code{stats::ts()} if you need the time series function.
+}
+\note{
+\code{ts()} masks \code{\link[stats:ts]{stats::ts()}}. This is intentional for concise GDAL
+command building, but be aware of the conflict if you use time series
+in the same session.
 }
 \examples{
 ts_te(c(10, 100), 1:4)
+
 ts(c(10, 100))
+
 te(1:4)
+
+## use in a GDAL command (not run)
+\dontrun{
+cmd <- sprintf("gdalwarp \%s \%s input.tif output.tif",
+               ts(c(1000, 500)), te(c(-180, 180, -90, 90)))
+}
+}
+\seealso{
+\code{\link[=vcrop]{vcrop()}} for computing aligned extents
 }

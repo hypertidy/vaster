@@ -170,24 +170,40 @@ align_extent <- function(x, dimension, extent = NULL, snap = c("out", "near", "i
 
 #' Virtual grid modification
 #'
-#' To modify a grid is to align an extent to the grid origin.  Modification includes to reduce or extend the area covered,
-#' in either dimension.  This implies a new extent, snapped
-#' to the grain of the origin grid and a new size (dimension in x,y).
+#' To modify a grid is to align an extent to the grid origin. Modification
+#' includes reducing or extending the area covered in either dimension. This
+#' implies a new extent, snapped to the grain of the origin grid, and a new
+#' dimension (ncol, nrow).
 #'
-#' This works for any grid, the input extent can be within the original, an extension of the original, or
-#' completely non-intersecting the original grid.
+#' This works for any grid: the input extent can be within the original, an
+#' extension of the original, or completely non-intersecting the original grid.
 #'
-#'
-#' @param x extent of candidate grid (vector of xmin,xmax,ymin,ymax)
+#' @param x extent of candidate grid (vector of xmin, xmax, ymin, ymax)
 #' @inheritParams grid
 #' @param ... ignored
 #' @param snap one of "out" (default), "near", or "in"
+#'
+#' @return A list with two components:
+#' \describe{
+#'   \item{extent}{numeric vector (xmin, xmax, ymin, ymax) - the new extent, snapped to grid alignment}
+#'   \item{dimension}{integer vector (ncol, nrow) - the dimension of the modified grid}
+#' }
+#'
 #' @export
+#' @seealso [align_extent()] for just the extent snapping, [extent_dimension()]
+#'   for just the dimension calculation
+#'
 #' @examples
 #' ## any arbitrary extent
 #' x <- c(sort(runif(2, -180, 180)), sort(runif(2, -90, 90)))
 #' print(x)
-#' vcrop(x,  c(360, 180), c(-180, 180, -90, 90))
+#' vcrop(x, c(360, 180), c(-180, 180, -90, 90))
+#'
+#' ## crop to a smaller region
+#' vcrop(c(0, 10, 0, 10), c(360, 180), c(-180, 180, -90, 90))
+#'
+#' ## extend beyond original (snapped to grid)
+#' vcrop(c(-200, 200, -100, 100), c(360, 180), c(-180, 180, -90, 90))
 vcrop <- function(x,  dimension, extent = NULL, ..., snap = "out") {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension)
