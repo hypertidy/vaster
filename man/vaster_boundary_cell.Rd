@@ -4,7 +4,10 @@
 \alias{vaster_boundary_cell}
 \title{Grid boundary cell index}
 \usage{
-vaster_boundary_cell(dm)
+vaster_boundary_cell(dimension)
+}
+\arguments{
+\item{dimension}{integer ncol, nrow}
 }
 \value{
 a matrix of xy coordinates

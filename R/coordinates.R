@@ -251,17 +251,12 @@ vaster_boundary <- function(dimension, extent = NULL) {
 #' plot(vaster_boundary(c(3, 4)))
 #' text(xy <- xy_from_cell(c(3, 4), cell = vaster_boundary_cell(c(3, 4))), lab = cell)
 #' lines(xy)
-vaster_boundary_cell <-  function(dm) {
+vaster_boundary_cell <-  function(dimension) {
 
-    # c(cell_from_row(dm,  1),
-    #      cell_from_col(dm, dm[1]),
-    #      rev(cell_from_row(dm, dm[2])),
-    #      rev(cell_from_col(dm, 1)))
-    #
-  c(cell_from_row(dm, dm[2]),
-    rev(cell_from_col(dm, dm[1])),
-    rev(cell_from_row(dm,  1)),
-    cell_from_col(dm, 1)
+  c(cell_from_row(dimension, dimension[2]),
+    rev(cell_from_col(dimension, dimension[1])),
+    rev(cell_from_row(dimension,  1)),
+    cell_from_col(dimension, 1)
     )
 }
 
