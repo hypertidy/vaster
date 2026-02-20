@@ -116,7 +116,7 @@ the left and down, to the right and up.</p>
 <span><span class="co">#&gt;  27.791559  46.982302 -28.443197   1.738701</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">x</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/grid.html">grid</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="grid-logic_files/figure-html/vaster-1.png" class="r-plt" width="700"></p>
+<p><img src="grid-logic_files/figure-html/vaster-1.png" class="r-plt" alt="" width="700"></p>
 <p>This is where vaster comes in, tools to relate arbitrary point
 locations to an underlying grid.</p>
 <p>vaster consists of a set of low-level functions for this relationship
@@ -140,7 +140,7 @@ be completely arbitrary, as it can be in geospatial packages.</p>
 <span></span>
 <span><span class="co">## these points were used to crop the existing grid, they don't define its alignment</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, pch <span class="op">=</span> <span class="st">"+"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="grid-logic_files/figure-html/vaster1-1.png" class="r-plt" width="700"></p>
+<p><img src="grid-logic_files/figure-html/vaster1-1.png" class="r-plt" alt="" width="700"></p>
 <p>That is the core of vaster - this is <em>raster logic</em> that
 exists in geospatial libraries and packages, but it has use on its own
 without any imagery, or grid data, or files or anything else. vaster was
@@ -167,7 +167,7 @@ rectangular region with one argument.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/plot_extent.html">plot_extent</a></span><span class="op">(</span><span class="va">ex</span>, lwd <span class="op">=</span> <span class="fl">5</span>, border <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fu"><a href="../reference/coordinates.html">x_corner</a></span><span class="op">(</span><span class="va">dm</span>, <span class="va">ex</span><span class="op">)</span>, h <span class="op">=</span> <span class="fu"><a href="../reference/coordinates.html">y_corner</a></span><span class="op">(</span><span class="va">dm</span>, <span class="va">ex</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="grid-logic_files/figure-html/world-1.png" class="r-plt" width="700"></p>
+<p><img src="grid-logic_files/figure-html/world-1.png" class="r-plt" alt="" width="700"></p>
 <p>With <code><a href="../reference/coordinates.html">x_corner()</a></code>, <code><a href="../reference/coordinates.html">y_corner()</a></code>,
 <code><a href="../reference/coordinates.html">x_centre()</a></code>, and <code><a href="../reference/coordinates.html">y_centre()</a></code> we need only those
 six numbers, extent and dimension to get the corner and cell centre
@@ -176,7 +176,7 @@ positions.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_extent.html">plot_extent</a></span><span class="op">(</span><span class="va">ex</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fu"><a href="../reference/coordinates.html">x_centre</a></span><span class="op">(</span><span class="va">dm</span>, <span class="va">ex</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="../reference/coordinates.html">y_centre</a></span><span class="op">(</span><span class="va">dm</span>, <span class="va">ex</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, length.out <span class="op">=</span> <span class="va">dm</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="grid-logic_files/figure-html/points-1.png" class="r-plt" width="700"></p>
+<p><img src="grid-logic_files/figure-html/points-1.png" class="r-plt" alt="" width="700"></p>
 <p>We only get the margins from x_corner/x_centre so we go to a cell
 based function, <code><a href="../reference/cells.html">xy_from_cell()</a></code> returns any centre position
 indexed by its cell number (cell numbers are 1-based and traverse from
@@ -187,7 +187,7 @@ raster/terra and is the orientation used by most geospatial tools).</p>
 <span><span class="va">cells</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html" class="external-link">prod</a></span><span class="op">(</span><span class="va">dm</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_extent.html">plot_extent</a></span><span class="op">(</span><span class="va">ex</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fu"><a href="../reference/cells.html">xy_from_cell</a></span><span class="op">(</span><span class="va">dm</span>, <span class="va">ex</span>, <span class="va">cells</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="grid-logic_files/figure-html/cells-1.png" class="r-plt" width="700"></p>
+<p><img src="grid-logic_files/figure-html/cells-1.png" class="r-plt" alt="" width="700"></p>
 <p>Other functions return cells, here we have another kind of “snap”
 operation, which cell does the point fall it (or which cell centre is it
 closest to).</p>
@@ -197,7 +197,7 @@ closest to).</p>
 <span><span class="fu"><a href="../reference/plot_extent.html">plot_extent</a></span><span class="op">(</span><span class="va">ex</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fu"><a href="../reference/cells.html">xy_from_cell</a></span><span class="op">(</span><span class="va">dm</span>, <span class="va">ex</span>, <span class="va">cells</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">xy</span>, pch <span class="op">=</span> <span class="st">"+"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="grid-logic_files/figure-html/query-1.png" class="r-plt" width="700"></p>
+<p><img src="grid-logic_files/figure-html/query-1.png" class="r-plt" alt="" width="700"></p>
 </div>
   </div>
 
