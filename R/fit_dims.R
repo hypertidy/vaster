@@ -1,12 +1,13 @@
 ##' Aspect ratio of dimension conflated with bbox
-##' 
-##' Generate an appropriate dimension (shape, ncol,nrow) from an 
-##' input width(height). If heignt not specified we have a square. 
-##' 
+##'
+##' Generate an appropriate dimension (shape, ncol,nrow) from an
+##' input width(height). If heignt not specified we have a square.
+##'
 ##' @param size seed dimension size
 ##' @param wh distance across dimension span/s
-##' 
-##' @return description dimension `c(ncol, nrow)` 
+##'
+##' @return description dimension `c(ncol, nrow)`
+##' @export
 ##' @examples
 ##' fit_dims(256, c(10, 20))
 ##' fit_dims(1024, c(102723, 1e5))

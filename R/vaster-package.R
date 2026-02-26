@@ -42,10 +42,6 @@
 #' - [vcrop()] - crop/extend a grid, snapped to alignment
 #' - [align_extent()] - snap an extent to grid origin
 #'
-#' **Adjacency operations** ([adjacencies]):
-#' - `tl()`, `tr()`, `bl()`, `br()` - corner adjacencies
-#' - `ta()`, `ba()`, `la()`, `ra()` - edge adjacencies
-#'
 #' @section Extent convention:
 #' vaster uses extent as `c(xmin, xmax, ymin, ymax)`, which differs from
 #' the bbox convention `c(xmin, ymin, xmax, ymax)`. Both represent the same

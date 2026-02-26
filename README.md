@@ -58,7 +58,7 @@ plot(matrix(x, ncol = 2))
 grid()
 ```
 
-<img src="man/figures/README-vaster-1.png" width="100%" />
+<img src="man/figures/README-vaster-1.png" alt="" width="100%" />
 
 This is where vaster comes in, tools to relate arbitrary point locations
 to an underlying grid.
@@ -88,7 +88,7 @@ abline(v = g_along(v$extent[1:2], v$dimension[1]), h = g_along(v$extent[3:4], v$
 points(x[1:2], x[3:4], pch = "+")
 ```
 
-<img src="man/figures/README-vaster1-1.png" width="100%" />
+<img src="man/figures/README-vaster1-1.png" alt="" width="100%" />
 
 That is the core of vaster - this is *raster logic* that exists in
 geospatial libraries and packages, but it has use on its own without any
@@ -123,7 +123,7 @@ plot_extent(ex, lwd = 5, border = "firebrick")
 abline(v = x_corner(dm, ex), h = y_corner(dm, ex))
 ```
 
-<img src="man/figures/README-world-1.png" width="100%" />
+<img src="man/figures/README-world-1.png" alt="" width="100%" />
 
 With `x_corner()`, `y_corner()`, `x_centre()`, and `y_centre()` we need
 only those six numbers, extent and dimension to get the corner and cell
@@ -136,7 +136,7 @@ plot_extent(ex)
 points(x_centre(dm, ex), rep(y_centre(dm, ex)[1], length.out = dm[1]))
 ```
 
-<img src="man/figures/README-points-1.png" width="100%" />
+<img src="man/figures/README-points-1.png" alt="" width="100%" />
 
 We only get the margins from x_corner/x_centre so we go to a cell based
 function, `xy_from_cell()` returns any centre position indexed by its
@@ -151,7 +151,7 @@ plot_extent(ex)
 points(xy_from_cell(dm, ex, cells))
 ```
 
-<img src="man/figures/README-cells-1.png" width="100%" />
+<img src="man/figures/README-cells-1.png" alt="" width="100%" />
 
 Other functions return cells, here we have another kind of “snap”
 operation, which cell does the point fall it (or which cell centre is it
@@ -165,7 +165,7 @@ points(xy_from_cell(dm, ex, cells), col = "red")
 points(xy, pch = "+")
 ```
 
-<img src="man/figures/README-query-1.png" width="100%" />
+<img src="man/figures/README-query-1.png" alt="" width="100%" />
 
 ## Code of Conduct
 

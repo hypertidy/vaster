@@ -60,12 +60,6 @@ the raster and terra packages.
 \item \code{\link[=vcrop]{vcrop()}} - crop/extend a grid, snapped to alignment
 \item \code{\link[=align_extent]{align_extent()}} - snap an extent to grid origin
 }
-
-\strong{Adjacency operations} (\link{adjacencies}):
-\itemize{
-\item \code{tl()}, \code{tr()}, \code{bl()}, \code{br()} - corner adjacencies
-\item \code{ta()}, \code{ba()}, \code{la()}, \code{ra()} - edge adjacencies
-}
 }
 
 \section{Extent convention}{

@@ -1,0 +1,175 @@
+---
+title: "Grid Fundamentals & Concepts"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Grid Fundamentals & Concepts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(vaster)
+```
+
+## What is vaster?
+ 
+The **vaster** package provides pure raster grid logic without requiring actual raster data. It separates the abstract mathematical operations of raster grids—dimension, extent, cell indexing, coordinate transformations—from data formats and file I/O.
+ 
+This is useful when you need to:
+
+- Pre-compute grid operations before reading or writing data
+- Work with virtual grids and mosaics
+- Perform format-agnostic grid calculations
+- Build higher-level geospatial tools
+
+## The Virtual Grid Model
+
+A raster grid in vaster is defined by just two components:
+
+1. **Dimension**: the number of columns and rows `c(ncol, nrow)`
+2. **Extent**: the bounding box `c(xmin, xmax, ymin, ymax)`
+
+```{r}
+## a 10x5 grid covering [0, 100] x [0, 50]
+dimension <- c(10, 5)
+extent <- c(0, 100, 0, 50)
+```
+
+From these two pieces of information, all grid properties can be derived:
+
+```{r}
+n_cell(dimension)
+x_res(dimension, extent)
+y_res(dimension, extent)
+```
+
+There is no data, no file format, no CRS—just the logical grid structure. This matches how GDAL and other tools internally represent grids.
+
+## Cell Numbering Convention
+
+Cells are numbered from 1, starting at the **top-left** corner and proceeding **row-wise** (left-to-right, top-to-bottom). This matches the convention used by the `raster` and `terra` packages.
+ 
+```{r}
+## cell numbers for a 4x3 grid
+dimension <- c(4, 3)
+extent <- c(0, 4, 0, 3)
+
+## total cells
+n_cell(dimension)
+
+## cell 1 is top-left
+xy_from_cell(dimension, extent, 1)
+
+## cell 4 is top-right  
+xy_from_cell(dimension, extent, 4)
+
+## cell 12 is bottom-right
+xy_from_cell(dimension, extent, 12)
+```
+
+The cell centre coordinates reflect this ordering:
+
+```{r}
+## all cell centres
+cells <- seq_len(n_cell(dimension))
+xy_from_cell(dimension, extent, cells)
+```
+
+## Resolution and Origin
+
+**Resolution** is the cell size in x and y directions:
+
+```{r}
+dimension <- c(10, 5)
+extent <- c(0, 100, 0, 50)
+
+x_res(dimension, extent)  
+y_res(dimension, extent)  
+```
+
+The **origin** is the point where cell boundaries align. By default, vaster uses the bottom-left corner of the extent:
+
+```{r}
+origin(dimension, extent)
+```
+
+Understanding the origin is important for aligning multiple grids—covered in detail in `vignette("extent-alignment")`.
+
+## Extent Properties
+
+Extract individual extent components, dimension is obviously irrelavent for extent components but
+is included for consistency with other functions. 
+ 
+```{r}
+extent <- c(-180, 180, -90, 90)
+
+x_min(c(1, 1), extent)
+x_max(c(1, 1), extent)
+y_min(c(1, 1), extent)
+y_max(c(1, 1), extent)
+
+xlim(c(1, 1), extent)
+ylim(c(1, 1), extent)
+```
+
+## Coordinate Arrays
+
+Generate coordinate vectors for all columns or rows:
+
+```{r}
+dimension <- c(4, 3)
+extent <- c(0, 4, 0, 3)
+
+## x coordinates of cell centres (one per column)
+x_centre(dimension, extent)
+
+## y coordinates of cell centres (one per row)
+y_centre(dimension, extent)
+
+## x coordinates of cell corners/edges (ncol + 1 values)
+x_corner(dimension, extent)
+
+## y coordinates of cell corners/edges (nrow + 1 values)
+y_corner(dimension, extent)
+```
+
+For a full matrix of all cell centre coordinates:
+
+```{r}
+xy(dimension, extent)
+```
+
+## Comparison with raster/terra
+
+The vaster approach differs from `raster` and `terra` in that there is no object to create or manage. Grid operations are pure functions:
+
+```{r, eval = FALSE}
+## terra approach
+library(terra)
+r <- rast(ncol = 10, nrow = 5, xmin = 0, xmax = 100, ymin = 0, ymax = 50)
+res(r)
+ncell(r)
+xyFromCell(r, 1)
+
+## vaster approach
+dimension <- c(10, 5)
+extent <- c(0, 100, 0, 50)
+c(x_res(dimension, extent), y_res(dimension, extent))
+n_cell(dimension)
+xy_from_cell(dimension, extent, 1)
+```
+
+This functional approach is useful when you need to perform many grid calculations without the overhead of object creation, or when working in contexts where raster packages aren't available.
+
+## Next Steps
+
+- `vignette("cell-operations")`: Converting between cells, coordinates, and row/col indices
+- `vignette("extent-alignment")`: Aligning and cropping extents to grids
+- `vignette("gdal-interop")`: Working with GDAL geotransforms and RasterIO
