@@ -6,7 +6,7 @@
 ##' @param size seed dimension size
 ##' @param wh distance across dimension span/s
 ##'
-##' @return  dimension `c(ncol, nrow)`
+##' @return dimension `c(ncol, nrow)`
 ##' @export
 ##' @examples
 ##' fit_dims(256, c(10, 20))

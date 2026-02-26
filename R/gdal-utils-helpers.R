@@ -5,7 +5,7 @@
 #'
 #' These functions generate the string arguments used by GDAL utilities like
 #' `gdalwarp` and `gdal_translate`. The `gdal_ts()` function is named after the GDAL
-#' `-ts` flag aand `gdal_te()` after the GDAL `-ts` flag.
+#' `-ts` flag and `gdal_te()` after the GDAL `-te` flag.
 #'
 #' @param dimension integer vector of ncol, nrow (target size)
 #' @param extent numeric vector of xmin, xmax, ymin, ymax (target extent)

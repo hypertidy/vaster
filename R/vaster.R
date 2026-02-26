@@ -195,8 +195,8 @@ align_extent <- function(x, dimension, extent = NULL, snap = c("out", "near", "i
 #'
 #' @examples
 #' ## any arbitrary extent
-#' x <- c(sort(runif(2, -180, 180)), sort(runif(2, -90, 90)))
-#' print(x)
+#' (x <- c(sort(runif(2, -180, 180)), sort(runif(2, -90, 90))))
+#'
 #' vcrop(x, c(360, 180), c(-180, 180, -90, 90))
 #'
 #' ## crop to a smaller region

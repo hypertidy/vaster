@@ -32,7 +32,7 @@ Format grid properties for GDAL command line options (\code{-ts} for target size
 \details{
 These functions generate the string arguments used by GDAL utilities like
 \code{gdalwarp} and \code{gdal_translate}. The \code{gdal_ts()} function is named after the GDAL
-\code{-ts} flag aand \code{gdal_te()} after the GDAL \code{-ts} flag.
+\code{-ts} flag and \code{gdal_te()} after the GDAL \code{-te} flag.
 }
 \examples{
 ts_te(c(10, 100), 1:4)

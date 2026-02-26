@@ -8,7 +8,9 @@ Description: Provides raster grid logic, operations that describe a discretized 
  are functions of just the dimension 'nrows', 'ncols' or a combination of the dimension and the extent 
  'xmin', 'xmax', 'ymin', 'ymax'. Here we provide direct access to this logic without need for connection 
  to any materialized data or formats. Grid logic includes functions that relate the cell index to
- row and column, or row and column to cell index, row, column or cell index to position. 
+ row and column, or row and column to cell index, row, column or cell index to position. These methods
+ are described in Loudon, TV, Wheeler, JF, Andrew, KP (1980)  <doi:10.1016/0098-3004(80)90015-1>, and implementations
+ were in part derived from Hijmans R (2024) <doi:10.32614/CRAN.package.terra>. 
 License: MIT + file LICENSE
 NeedsCompilation: yes
 Encoding: UTF-8
