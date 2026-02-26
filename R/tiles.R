@@ -42,8 +42,6 @@ cell2cell <- function(dimension, extent, ## that's the parent
                               row_from_y_inf(dimension, extent, ext0[4]))
 
 
-
-                     # print(cr)
                       rc0 <- rowcol_from_cell(dim0, ext0, cell0)
 
                       cr_global <- cbind(cr[1] + rc0[,2] - 1,

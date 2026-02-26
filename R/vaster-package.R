@@ -51,11 +51,6 @@
 #' the convention adopted by stars, terra, and an improvement on base R's
 #' `image()` which scales to 0-1.
 #'
-#' @section Note on stats::ts:
-#' This package exports a function `ts()` for GDAL command line formatting,
-#' which masks [stats::ts()]. Use `stats::ts()` explicitly if you need time
-#' series functionality, or use [ts_te()] instead.
-#'
 #' @keywords internal
 #' @aliases vaster-package
 #' @useDynLib vaster, .registration = TRUE

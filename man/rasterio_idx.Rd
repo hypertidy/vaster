@@ -3,8 +3,7 @@
 \name{rasterio_idx}
 \alias{rasterio_idx}
 \alias{raster_sfio}
-\title{The sf RasterIO is the RasterIO window in a list format used by the sf package, it contains the same
-information, and is created by \code{\link[=raster_sfio]{raster_sfio()}}.}
+\title{RasterIO index window}
 \usage{
 rasterio_idx(dimension, extent)
 

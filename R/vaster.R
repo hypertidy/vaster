@@ -211,11 +211,6 @@ vcrop <- function(x,  dimension, extent = NULL, ..., snap = "out") {
   badx <- all(new_extent[1:2] <= extent[1L]) || all(new_extent[1:2] >= extent[2L])
   bady <- all(new_extent[3:4] <= extent[3L]) || all(new_extent[3:4] >= extent[4L])
   if (badx || bady) message("extents do not overlap")
-#   print(new_extent)
-#   print(snap)
-#   print(dimension)
-#   print(extent)
-# print(  extent_dimension(new_extent, dimension, extent, snap = snap))
  list(extent = new_extent,
        dimension = extent_dimension(new_extent, dimension, extent, snap = snap))
 }

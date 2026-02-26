@@ -189,7 +189,7 @@ vaster_long <- function(dimension, extent = NULL, data = NULL, raster_order = TR
 #' @inheritParams grid
 #' @param data data values (length of the product of 'dimension')
 #'
-#' @return list with elementx x,y,z as per [graphics::image]
+#' @return list with elements x,y,z as per [graphics::image]
 #' @export
 #'
 #' @examples

@@ -1,4 +1,4 @@
-## vast 0.5.0
+## vaster 0.6.0
 
 First submission, thanks so much. 
 

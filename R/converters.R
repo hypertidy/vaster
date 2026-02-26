@@ -1,3 +1,4 @@
+#' RasterIO index window
 #'
 #' The sf RasterIO is the RasterIO window in a list format used by the sf package, it contains the same
 #' information, and is created by [raster_sfio()].
@@ -213,7 +214,6 @@ world_to_geotransform <- function(x) {
 #' Note that xmin/xmax are _centre_of_cell_ (of top-left cell) unlike the geotransform which is
 #' top-left _corner_of_cell_. The parameters are otherwise the same, but in a different order.
 #' @inheritParams geo_transform0
-#' @export
 #' @seealso [geo_transform0]
 #' @return vector of parameters xres, yskew, xskew, yres, xmin, ymax
 #' @export

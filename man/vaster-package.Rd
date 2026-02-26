@@ -73,13 +73,6 @@ the convention adopted by stars, terra, and an improvement on base R's
 \code{image()} which scales to 0-1.
 }
 
-\section{Note on stats}{
-:ts:
-This package exports a function \code{ts()} for GDAL command line formatting,
-which masks \code{\link[stats:ts]{stats::ts()}}. Use \code{stats::ts()} explicitly if you need time
-series functionality, or use \code{\link[=ts_te]{ts_te()}} instead.
-}
-
 \seealso{
 Useful links:
 \itemize{

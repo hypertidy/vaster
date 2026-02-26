@@ -63,7 +63,7 @@ x maximum (right edge)
 
 y minimum (bottom edge)
 
-ymaximum (top edge)
+y maximum (top edge)
 }
 \description{
 Basic grid tools, cell, resolution, dimension, extent.

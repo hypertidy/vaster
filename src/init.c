@@ -3,10 +3,6 @@
 #include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
 
-/* FIXME: 
-   Check these declarations against the C/Fortran source code.
-*/
-
 /* .Call calls */
 extern SEXP coord_centre_(SEXP, SEXP);
 extern SEXP coord_from_index_(SEXP, SEXP, SEXP);

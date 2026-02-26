@@ -35,7 +35,7 @@ extent_dimension(ex, dimension = c(4320, 2160), c(-180, 180, -90, 90))
 
 ## vcrop is WRONG
 vcrop(ex, dimension = c(4320, 2160), c(-180, 180, -90, 90))
-vaster::x_res(c(4320, 2160), c(-180, 180, -90, 90))
+x_res(c(4320, 2160), c(-180, 180, -90, 90))
 
 
 

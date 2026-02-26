@@ -1,3 +1,6 @@
+# vaster 0.6.0
+
+* Renamed `gdal_ts()` and `gdal_te()` from 'ts()` and `te()`. 
 
 # vaster 0.5.0
 

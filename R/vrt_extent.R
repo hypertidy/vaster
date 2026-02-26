@@ -37,10 +37,10 @@ extent_vrt <- function(x) {
   ySize <- as.integer(unlist(lapply(strsplit(unlist(lapply(strsplit(vrt1, "ySize=\""), "[", 2)), "\""), "[", 1)))
 
 
-  xmin <- vaster::x_from_col(dimension, extent, xOff + 1)
-  xmax <- vaster::x_from_col(dimension, extent, xOff + xSize)
-  ymin <- vaster::y_from_row(dimension, extent, yOff + 1)
-  ymax <- vaster::y_from_row(dimension, extent, yOff +  ySize)
+  xmin <- x_from_col(dimension, extent, xOff + 1)
+  xmax <- x_from_col(dimension, extent, xOff + xSize)
+  ymin <- y_from_row(dimension, extent, yOff + 1)
+  ymax <- y_from_row(dimension, extent, yOff +  ySize)
   cbind(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)
 }
 

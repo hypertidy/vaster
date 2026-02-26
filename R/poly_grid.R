@@ -4,8 +4,8 @@ expgrid <- function(x, y) cbind(x, rep(y, each = length(x)))
 poly_grid <- function(dimension, extent = NULL, cell= NULL) {
   dimension <- rep(dimension, length.out = 2L)
   if (is.null(extent)) extent <- c(0, dimension[1L], 0, dimension[2L])
-  xc <- vaster::x_corner(extent = extent, dimension = dimension)
-  yc <- rev(vaster::y_corner(extent = extent, dimension = dimension))
+  xc <- x_corner(extent = extent, dimension = dimension)
+  yc <- rev(y_corner(extent = extent, dimension = dimension))
   xlen <- dimension[1L] + 1
   ylen <- dimension[2L] + 1
   cds <- cbind(

@@ -123,7 +123,7 @@ y_min <- function(dimension, extent = NULL) {
 }
 
 #' @name grid
-#' @return ymaximum (top edge)
+#' @return y maximum (top edge)
 #' @export
 #' @examples
 #' y_max(c(10, 5), c(0, 10, 0, 5))

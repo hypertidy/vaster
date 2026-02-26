@@ -1,3 +1,6 @@
+# All definitions here are for comparing results with R versions, and are placeholder
+# for future work on perfomance for many conversions.
+
 row_from_y_c <- function(dimension, extent, y) {
   .Call("index_from_coord_", as.integer(dimension[2L]), as.double(extent[3:4]), as.double(y), PACKAGE = "vaster")
 }

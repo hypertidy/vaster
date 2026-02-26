@@ -12,11 +12,11 @@ fit_dims(size = 1024L, wh = c(size, size))
 \item{wh}{distance across dimension span/s}
 }
 \value{
-description dimension \code{c(ncol, nrow)}
+dimension \code{c(ncol, nrow)}
 }
 \description{
 Generate an appropriate dimension (shape, ncol,nrow) from an
-input width(height). If heignt not specified we have a square.
+input width(height). If height not specified we have a square.
 }
 \examples{
 fit_dims(256, c(10, 20))

@@ -2,15 +2,15 @@
 % Please edit documentation in R/gdal-utils-helpers.R
 \name{ts_te}
 \alias{ts_te}
-\alias{te}
-\alias{ts}
+\alias{gdal_te}
+\alias{gdal_ts}
 \title{Target size and extent for GDAL command line}
 \usage{
 ts_te(dimension, extent)
 
-te(extent)
+gdal_te(extent)
 
-ts(dimension)
+gdal_ts(dimension)
 }
 \arguments{
 \item{dimension}{integer vector of ncol, nrow (target size)}
@@ -21,8 +21,8 @@ ts(dimension)
 A character string formatted for GDAL command line:
 \itemize{
 \item \code{ts_te()}: combined \code{-ts} and \code{-te} arguments
-\item \code{ts()}: \verb{-ts ncol nrow} string
-\item \code{te()}: \verb{-te xmin ymin xmax ymax} string (note: reordered for GDAL)
+\item \code{gdal_ts()}: \verb{-ts ncol nrow} string
+\item \code{gdal_te()}: \verb{-te xmin ymin xmax ymax} string (note: reordered for GDAL)
 }
 }
 \description{
@@ -31,26 +31,20 @@ Format grid properties for GDAL command line options (\code{-ts} for target size
 }
 \details{
 These functions generate the string arguments used by GDAL utilities like
-\code{gdalwarp} and \code{gdal_translate}. The \code{ts()} function is named after the GDAL
-\code{-ts} flag and masks \code{\link[stats:ts]{stats::ts()}}; use \code{ts_te()} or qualify with
-\code{stats::ts()} if you need the time series function.
-}
-\note{
-\code{ts()} masks \code{\link[stats:ts]{stats::ts()}}. This is intentional for concise GDAL
-command building, but be aware of the conflict if you use time series
-in the same session.
+\code{gdalwarp} and \code{gdal_translate}. The \code{gdal_ts()} function is named after the GDAL
+\code{-ts} flag aand \code{gdal_te()} after the GDAL \code{-ts} flag.
 }
 \examples{
 ts_te(c(10, 100), 1:4)
 
-ts(c(10, 100))
+gdal_ts(c(10, 100))
 
-te(1:4)
+gdal_te(1:4)
 
 ## use in a GDAL command (not run)
 \dontrun{
 cmd <- sprintf("gdalwarp \%s \%s input.tif output.tif",
-               ts(c(1000, 500)), te(c(-180, 180, -90, 90)))
+               gdal_ts(c(1000, 500)), gdal_te(c(-180, 180, -90, 90)))
 }
 }
 \seealso{

@@ -14,7 +14,7 @@ vaster_listxyz(dimension, extent = NULL, data = NULL)
 \item{data}{data values (length of the product of 'dimension')}
 }
 \value{
-list with elementx x,y,z as per \link[graphics:image]{graphics::image}
+list with elements x,y,z as per \link[graphics:image]{graphics::image}
 }
 \description{
 Generate list of x and y rectilinear coordinates with z matrix.
