@@ -20,7 +20,7 @@ numbers, independent of any file format or geospatial library."><!-- mathjax -->
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vaster</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0</span>
       </span>
     </div>
 
@@ -126,13 +126,6 @@ information in different order.</p>
 <p>If extent is not provided, the default is <code>c(0, ncol, 0, nrow)</code> - matching
 the convention adopted by stars, terra, and an improvement on base R's
 <code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image()</a></code> which scales to 0-1.</p>
-    </div>
-    <div id="note-on-stats">
-    <h2>Note on stats</h2>
-    <p>:ts:
-This package exports a function <code><a href="ts_te.html">ts()</a></code> for GDAL command line formatting,
-which masks <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">stats::ts()</a></code>. Use <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">stats::ts()</a></code> explicitly if you need time
-series functionality, or use <code><a href="ts_te.html">ts_te()</a></code> instead.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vaster</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0</span>
       </span>
     </div>
 
@@ -70,6 +70,10 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.6.0" id="vaster-060">vaster 0.6.0<a class="anchor" aria-label="anchor" href="#vaster-060"></a></h2>
+<ul><li>Renamed <code><a href="../reference/ts_te.html">gdal_ts()</a></code> and <code><a href="../reference/ts_te.html">gdal_te()</a></code> from ’ts()<code>and</code>te()`.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.0" id="vaster-050">vaster 0.5.0<a class="anchor" aria-label="anchor" href="#vaster-050"></a></h2>
 <ul><li><p>We now have internal functions <code>col_from_x_c()</code> and <code>row_from_y_c()</code>, <code>x_from_col_c()</code> and <code>y_from_row_c()</code> that use C under the hood, these currently accept and return 0-based indexes.</p></li>
 <li><p>Package now requires compilation, with the R C api.</p></li>
@@ -84,7 +88,7 @@
 <h2 class="page-header" data-toc-text="0.0.1" id="vaster-001">vaster 0.0.1<a class="anchor" aria-label="anchor" href="#vaster-001"></a></h2>
 <ul><li><p>New functions <code>tl()</code>, <code>ta()</code>, <code>tr()</code>, <code>ra()</code>, <code>br()</code>, <code>ba()</code>. <code>br()</code>, <code>la()</code> which are top left, top, top right, right, bottom right, bottom, bottom right, left. These are different from the affinity ones because they don’t keep the extra rows and columns (the variants in affinity might become options with these). The ‘a’ means adjacent, we can’t use t(), r(), l(), b() and top, right, left, bottom seems weird.</p></li>
 <li><p>New function <code><a href="../reference/from_xyz.html">from_xyz()</a></code> to return a grid (dimension and extent) derived from “XYZ” points, basically are the points (in whatever order, and may be incomplete) on a regular grid within the rounding threshold of the ‘digits’ parameter.</p></li>
-<li><p>New functions <code><a href="../reference/ts_te.html">ts()</a></code>, <code><a href="../reference/ts_te.html">te()</a></code>, and <code><a href="../reference/ts_te.html">ts_te()</a></code> to format dimension,extent for use with GDAL options.</p></li>
+<li><p>New functions <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts()</a></code>, <code>te()</code>, and <code><a href="../reference/ts_te.html">ts_te()</a></code> to format dimension,extent for use with GDAL options.</p></li>
 <li><p><code><a href="../reference/plot_extent.html">plot_extent()</a></code> is now vectorized, just give it xmin, xmax, ymin, ymax in that order in vector, matrix, or data frame.</p></li>
 <li><p>New function <code><a href="../reference/snap_extent.html">snap_extent()</a></code> to replace <code>spex::buffer_extent()</code>, aliased to <code><a href="../reference/snap_extent.html">buffer_extent()</a></code> in this package.</p></li>
 <li><p>Better argument consistency, dimension first, then extent.</p></li>
