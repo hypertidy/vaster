@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">vaster</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9001</span>
       </span>
     </div>
 
@@ -32,6 +32,18 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/cell-operations.html">Cell Operations</a>
+    </li>
+    <li>
+      <a href="../articles/extent-alignment.html">Extent Alignment &amp; Cropping</a>
+    </li>
+    <li>
+      <a href="../articles/gdal-interop.html">GDAL Interoperability</a>
+    </li>
+    <li>
+      <a href="../articles/grid-fundamentals.html">Grid Fundamentals &amp; Concepts</a>
+    </li>
+    <li>
       <a href="../articles/grid-logic.html">grid-logic</a>
     </li>
   </ul></li>
@@ -70,7 +82,7 @@
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.1" id="vaster-001">vaster 0.0.1<a class="anchor" aria-label="anchor" href="#vaster-001"></a></h2>
-<ul><li><p>New functions <code><a href="../reference/adjacencies.html">tl()</a></code>, <code><a href="../reference/adjacencies.html">ta()</a></code>, <code><a href="../reference/adjacencies.html">tr()</a></code>, <code><a href="../reference/adjacencies.html">ra()</a></code>, <code><a href="../reference/adjacencies.html">br()</a></code>, <code><a href="../reference/adjacencies.html">ba()</a></code>. <code><a href="../reference/adjacencies.html">br()</a></code>, <code><a href="../reference/adjacencies.html">la()</a></code> which are top left, top, top right, right, bottom right, bottom, bottom right, left. These are different from the affinity ones because they don’t keep the extra rows and columns (the variants in affinity might become options with these). The ‘a’ means adjacent, we can’t use t(), r(), l(), b() and top, right, left, bottom seems weird.</p></li>
+<ul><li><p>New functions <code>tl()</code>, <code>ta()</code>, <code>tr()</code>, <code>ra()</code>, <code>br()</code>, <code>ba()</code>. <code>br()</code>, <code>la()</code> which are top left, top, top right, right, bottom right, bottom, bottom right, left. These are different from the affinity ones because they don’t keep the extra rows and columns (the variants in affinity might become options with these). The ‘a’ means adjacent, we can’t use t(), r(), l(), b() and top, right, left, bottom seems weird.</p></li>
 <li><p>New function <code><a href="../reference/from_xyz.html">from_xyz()</a></code> to return a grid (dimension and extent) derived from “XYZ” points, basically are the points (in whatever order, and may be incomplete) on a regular grid within the rounding threshold of the ‘digits’ parameter.</p></li>
 <li><p>New functions <code><a href="../reference/ts_te.html">ts()</a></code>, <code><a href="../reference/ts_te.html">te()</a></code>, and <code><a href="../reference/ts_te.html">ts_te()</a></code> to format dimension,extent for use with GDAL options.</p></li>
 <li><p><code><a href="../reference/plot_extent.html">plot_extent()</a></code> is now vectorized, just give it xmin, xmax, ymin, ymax in that order in vector, matrix, or data frame.</p></li>
