@@ -18,13 +18,13 @@ rasterio0(
 
 \item{out_dim}{output dimension (XY, optional src_dim will be used if not set)}
 
-\item{resample}{resampling algorith for GDAL see details}
+\item{resample}{resampling algorithm for GDAL see details}
 }
 \value{
 numeric vector of values specifying offset, source dimension, output dimension
 }
 \description{
-Basic function to create the window paramers as used by GDAL RasterIO.
+Basic function to create the window parameters as used by GDAL RasterIO.
 }
 \details{
 Resampling algorithm is one of 'NearestNeighbour' (default), 'Average', 'Bilinear', 'Cubic', 'CubicSpline', 'Gauss', 'Lanczos', 'Mode', but

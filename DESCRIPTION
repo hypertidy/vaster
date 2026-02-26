@@ -21,6 +21,8 @@ BugReports: https://github.com/hypertidy/vaster/issues
 Suggests: 
     knitr,
     rmarkdown,
+    spelling,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Language: en-US

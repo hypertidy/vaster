@@ -79,14 +79,14 @@ extent_dim_to_gt <- function(x, dimension) {
 
 #' GDAL RasterIO parameter creator
 #'
-#' Basic function to create the window paramers as used by GDAL RasterIO.
+#' Basic function to create the window parameters as used by GDAL RasterIO.
 #'
 #' Resampling algorithm is one of 'NearestNeighbour' (default), 'Average', 'Bilinear', 'Cubic', 'CubicSpline', 'Gauss', 'Lanczos', 'Mode', but
 #' more may be available given the version of GDAL in use.
 #' @param src_offset index offset (0-based, top left)
 #' @param src_dim source dimension (XY)
 #' @param out_dim output dimension (XY, optional src_dim will be used if not set)
-#' @param resample resampling algorith for GDAL see details
+#' @param resample resampling algorithm for GDAL see details
 #' @return numeric vector of values specifying offset, source dimension, output dimension
 #' @name rasterio0
 #' @export
