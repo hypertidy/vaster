@@ -163,21 +163,6 @@ rasterio_to_sfio <- function(x) {
 }
 
 
-rasterio_crop <- function(dimension, extent, crop = NULL, outsize = NULL, resample = "NearestNeighbour") {
-  offset <- c(0L, 0L)
-  srcdim <- dimension
-  if (!is.null(crop)) {
-    offset <- c(col_from_x(dimension, extent, crop[1]),
-                row_from_y(dimension, extent, crop[4])) - 1
-    srcdim <- c(col_from_x(dimension, extent, crop[2]),
-                row_from_y(dimension, extent, crop[3]))
-
-    print(offset)
-    print(srcdim - offset)
-  }
-
-  rasterio0(offset, srcdim - offset, out_dim = outsize, resample  = resample)
-}
 #' Geo transform parameter creator
 #'
 #' Basic function to create a geotransform as used by GDAL.
