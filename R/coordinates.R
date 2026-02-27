@@ -229,11 +229,11 @@ vaster_boundary <- function(dimension, extent = NULL) {
   .check_args(dimension, extent)
   xc <- x_corner(dimension, extent)
   yc <- y_corner(dimension, extent)
-  rbind(
-    cbind(xc, extent[3]),
-    cbind(extent[2], rev(yc)),
-    cbind(rev(xc), extent[4]),
-    cbind(extent[1], yc))
+  rbind(cbind(xc, extent[3])  ,                          # L->R along ymin
+  cbind(extent[2], yc[-1])     ,                    # B->T, skip ymin corner
+  cbind(rev(xc[-length(xc)]), extent[4])  ,         # R->L, skip xmax corner
+  cbind(extent[1], rev(yc[-c(1, length(yc))])),    # T->B, skip both corners
+  cbind(xc[1], extent[3]))
 
 }
 
