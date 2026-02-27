@@ -60,14 +60,14 @@ and anglr).
 \examples{
 ## 4x3 grid (4 columns, 3 rows), 12 cells
 adjacency(c(4, 3), cell = 6)
-adjacencyc(4, 3), cell = 6, directions = "rook")
-adjacencyc(4, 3), cell = 6, directions = "bishop")
+adjacency(c(4, 3), cell = 6, directions = "rook")
+adjacency(c(4, 3), cell = 6, directions = "bishop")
 
 ## corner cell has fewer valid neighbours
-adjacencyc(4, 3), cell = 1)
+adjacency(c(4, 3), cell = 1)
 
 ## multiple cells at once
-adjacencyc(4, 3), cell = 1:12)
+adjacency(c(4, 3), cell = 1:12)
 
 ## ------------------------------------------------
 ## Corner vertex interpolation from area values

@@ -35,30 +35,68 @@ the raster and terra packages.
 
 \strong{Cell operations} (\link{cells}):
 \itemize{
-\item \code{cell_from_xy()}, \code{cell_from_row_col()} - get cell index from position
-\item \code{xy_from_cell()}, \code{rowcol_from_cell()} - get position from cell index
-\item \code{row_from_cell()}, \code{col_from_cell()} - decompose cell to row/column
+\item \code{cell_from_xy()}, \code{cell_from_row_col()}, \code{cell_from_rowcol_combine()} - cell index from position
+\item \code{cell_from_row()}, \code{cell_from_col()} - all cells in a row or column
+\item \code{cell_from_extent()}, \code{extent_from_cell()} - cell/extent conversion
+\item \code{xy_from_cell()}, \code{x_from_cell()}, \code{y_from_cell()} - coordinates from cell
+\item \code{rowcol_from_cell()}, \code{row_from_cell()}, \code{col_from_cell()} - row/column from cell
 }
 
 \strong{Coordinate operations} (\link{coordinates}):
 \itemize{
 \item \code{x_from_col()}, \code{y_from_row()} - coordinate from index
 \item \code{col_from_x()}, \code{row_from_y()} - index from coordinate
-\item \code{x_corner()}, \code{y_corner()} - corner coordinates
-\item \code{x_centre()}, \code{y_centre()} - cell centre coordinates
+\item \code{x_corner()}, \code{y_corner()} - corner coordinates of all cells
+\item \code{x_centre()}, \code{y_centre()} - centre coordinates of all cells
+\item \code{xy()} - centre coordinates of all cells as a matrix
 }
 
 \strong{Grid properties} (\link{grid}):
 \itemize{
 \item \code{x_res()}, \code{y_res()} - cell resolution
 \item \code{n_cell()}, \code{n_row()}, \code{n_col()} - counts
-\item \code{xlim()}, \code{ylim()} - extent components
+\item \code{xlim()}, \code{ylim()} - extent as 2-element ranges
+\item \code{x_min()}, \code{x_max()}, \code{y_min()}, \code{y_max()} - individual extent edges
+\item \code{origin()} - grid origin (alignment anchor)
 }
 
 \strong{Grid modification}:
 \itemize{
-\item \code{\link[=vcrop]{vcrop()}} - crop/extend a grid, snapped to alignment
-\item \code{\link[=align_extent]{align_extent()}} - snap an extent to grid origin
+\item \code{vcrop()} - crop or extend a grid, snapped to alignment
+\item \code{align_extent()} - snap an extent to grid origin
+\item \code{extent_dimension()} - dimension for an aligned extent
+\item \code{intersect_extent()} - overlapping extent of two grids
+\item \code{snap_extent()} / \code{buffer_extent()} - snap extent to resolution
+}
+
+\strong{Cell adjacency} (\link{adjacency}):
+\itemize{
+\item \code{adjacency()} - neighbour cell indices (queen, rook, or bishop)
+}
+
+\strong{GDAL interoperability}:
+\itemize{
+\item \code{geo_transform0()}, \code{geo_world0()} - create geotransform / world file vectors
+\item \code{world_to_geotransform()}, \code{geotransform_to_world()} - convert between formats
+\item \code{extent_dim_to_gt()}, \code{gt_dim_to_extent()} - convert extent/dimension to/from geotransform
+\item \code{rasterio0()}, \code{rasterio_idx()}, \code{raster_sfio()} - GDAL RasterIO parameters
+\item \code{rasterio_to_sfio()}, \code{sfio_to_rasterio()} - convert between RasterIO formats
+\item \code{ts_te()}, \code{gdal_ts()}, \code{gdal_te()} - format dimension/extent for GDAL command line
+}
+
+\strong{Output and display}:
+\itemize{
+\item \code{vaster_long()} - cell coordinates as long-form matrix
+\item \code{vaster_listxyz()} - grid as x, y, z list for \code{\link[graphics:image]{graphics::image()}}
+\item \code{vaster_boundary()}, \code{vaster_boundary_cell()} - boundary coordinates
+\item \code{plot_extent()}, \code{draw_extent()} - plot and interactively draw extents
+\item \code{extent_vrt()} - tile extents from VRT files
+}
+
+\strong{Utilities}:
+\itemize{
+\item \code{from_xyz()} - derive grid dimension and extent from XYZ points
+\item \code{fit_dims()} - compute dimension from aspect ratio and target size
 }
 }
 

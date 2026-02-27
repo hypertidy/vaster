@@ -1,6 +1,14 @@
 # vaster 0.6.0
 
-* Renamed `gdal_ts()` and `gdal_te()` from 'ts()` and `te()`. 
+* New function `adjacency()` for cell-based neighbourhood lookup, replacing the
+  old matrix shift functions (`tl()`, `bl()`, `tr()`, `br()`, `la()`, `ta()`,
+  `ra()`, `ba()`). The new function takes `dimension` and `cell` arguments
+  consistent with the rest of vaster, returning a matrix of neighbour cell
+  indices with named columns for direction. Supports `"queen"`, `"rook"`, and
+  `"bishop"` neighbourhood types.
+
+* Renamed `ts()` and `te()` to `gdal_ts()` and `gdal_te()` to avoid masking
+  `stats::ts()`. 
 
 # vaster 0.5.0
 
