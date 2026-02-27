@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/hypertidy/vaster/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hypertidy/vaster/actions/workflows/R-CMD-check.yaml)
+[![CRAN status](https://www.r-pkg.org/badges/version/vaster)](https://CRAN.R-project.org/package=vaster)
 <!-- badges: end -->
 
 The goal of vaster is to provide grid logic without complication added by data and format details.

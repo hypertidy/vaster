@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/hypertidy/vaster/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hypertidy/vaster/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/vaster)](https://CRAN.R-project.org/package=vaster)
 <!-- badges: end -->
 
 The goal of vaster is to provide grid logic without complication added
@@ -43,11 +45,6 @@ left and down, to the right and up.
 
 ``` r
 library(vaster)
-#> 
-#> Attaching package: 'vaster'
-#> The following object is masked from 'package:stats':
-#> 
-#>     ts
 set.seed(1)
 x <- c(sort(runif(2, -20, 160)), sort(runif(2, -80, 10)))
 names(x) <- c("xmin", "xmax", "ymin", "ymax")
