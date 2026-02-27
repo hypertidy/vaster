@@ -2,7 +2,7 @@
 % Please edit documentation in R/converters.R
 \name{gt_dim_to_extent}
 \alias{gt_dim_to_extent}
-\title{Determine extent from eotransform vector and dimension}
+\title{Determine extent from geotransform vector and dimension}
 \usage{
 gt_dim_to_extent(x, dim)
 }

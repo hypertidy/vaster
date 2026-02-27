@@ -41,7 +41,7 @@ raster_sfio <- function(dimension, fact = 1, resample = "Nearest") {
 ##  sfio_to_rasterio TODO
 ##  gt_dim_to_extent
 
-#' Determine extent from eotransform vector and dimension
+#' Determine extent from geotransform vector and dimension
 #'
 #' Create the extent (xlim, ylim) from the geotransform and dimensions
 #' of the grid.

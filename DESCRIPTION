@@ -11,7 +11,6 @@ Description: Provides raster grid logic, operations that describe a discretized 
  row and column, or row and column to cell index, row, column or cell index to position. These methods
  are described in Loudon, TV, Wheeler, JF, Andrew, KP (1980)  <doi:10.1016/0098-3004(80)90015-1>, and implementations
  were in part derived from Hijmans R (2024) <doi:10.32614/CRAN.package.terra>. 
-License: MIT + file LICENSE
 NeedsCompilation: yes
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -26,3 +25,4 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Language: en-US
+License: MIT + file LICENSE
