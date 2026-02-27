@@ -81,7 +81,6 @@
 #' the convention adopted by stars, terra, and an improvement on base R's
 #' `image()` which scales to 0-1.
 #'
-#' @keywords internal
 #' @aliases vaster-package
 #' @useDynLib vaster, .registration = TRUE
 "_PACKAGE"
