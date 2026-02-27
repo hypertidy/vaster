@@ -115,7 +115,7 @@ rasterio0 <- function(src_offset, src_dim, out_dim = src_dim, resample = "Neares
 #' @examples
 #' sfio_to_rasterio(rasterio_to_sfio(rasterio0(c(0L, 0L), src_dim = c(24L, 10L))))
 sfio_to_rasterio <- function(x) {
-  rasterio0(unlist(x[c("nXOff", "nYOff")]),
+  rasterio0(unlist(x[c("nXOff", "nYOff")]) - 1,
              unlist(x[c("nXSize", "nYSize")]),
              unlist(x[c("nBufXSize", "nBufYSize")]),
              resample = x[["resample"]])

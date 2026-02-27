@@ -19,6 +19,7 @@ WiP
 XY
 XYZ
 affine
+anglr
 api
 bbox
 behaviour
@@ -27,6 +28,7 @@ centres
 colour
 dimension’
 doi
+downleft
 eotransform
 extent’
 gdal
@@ -36,11 +38,14 @@ geospatial
 geotransform
 geotransforms
 io
-irrelavent
 longlat
 modelled
 ncol
 ncols
+neighbour
+neighbourhood
+neighbouring
+neighbours
 nrow
 nrows
 nx
@@ -48,12 +53,13 @@ ny
 params
 pre
 projwin
+quadmesh
 rasterio
 rasters
 src
-te
 terra
 topleft
+upleft
 ux
 vapour
 vaster's

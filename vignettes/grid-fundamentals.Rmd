@@ -104,7 +104,7 @@ Understanding the origin is important for aligning multiple grids—covered in d
 
 ## Extent Properties
 
-Extract individual extent components, dimension is obviously irrelavent for extent components but
+Extract individual extent components, dimension is obviously irrelevant for extent components but
 is included for consistency with other functions. 
  
 ```{r}
