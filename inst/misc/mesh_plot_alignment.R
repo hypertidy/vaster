@@ -104,7 +104,7 @@ ex_plot <- function(x, ...) {
 }
 
 share <- c(-123.22327, -123.22273,   42.30314,   42.30369)
-par(mfrow = c(2, 2))
+op <- par(mfrow = c(2, 2))
 for (snap in c("out", "near", "in")) {
   al_ex <- align_extent(usr_ex, src_dm, src_ex, snap = snap)
   al_dm <- extent_dimension(al_ex, src_dm, src_ex)
@@ -121,7 +121,7 @@ for (snap in c("out", "near", "in")) {
   ex_plot(usr_ex, lty = 2)
 }
 
-
+par(op)
 
 
 # xmin, xmax, ymin, ymax (gdal_translate -projwin is xmin ymax xmax ymin)

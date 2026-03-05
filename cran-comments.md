@@ -1,7 +1,12 @@
 ## vaster 0.6.0
 
-First submission, thanks so much. 
+Second round submission, after feedback and changes made. 
 
+* Removed single quotes from DESCRIPTION. 
+* Fixed reset of par() in inst/ code. 
+
+
+Thanks!
 
 ## R CMD check results
 
