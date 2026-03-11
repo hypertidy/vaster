@@ -3,14 +3,17 @@ Title: Tools for Raster Grid Logic
 Version: 0.6.0
 Authors@R: c(person("Michael", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2471-7511")), 
              person("Robert", "Hijmans", role = "ctb", comment = "Wrote original versions of abstract cell operations in raster package"))
-Description: Provides raster grid logic, operations that describe a discretized rectangular domain and 
- do not require access to materialized data. Grids are arrays with dimension and extent, and many operations 
- are functions of just the dimension ncols, nrows or a combination of the dimension and the extent 
- xmin, xmax, ymin, ymax. Here we provide direct access to this logic without need for connection 
- to any materialized data or formats. Grid logic includes functions that relate the cell index to
- row and column, or row and column to cell index, row, column or cell index to position. These methods
- are described in Loudon, TV, Wheeler, JF, Andrew, KP (1980)  <doi:10.1016/0098-3004(80)90015-1>, and implementations
- were in part derived from Hijmans R (2024) <doi:10.32614/CRAN.package.terra>. 
+Description: Provides raster grid logic, operations that describe a discretized
+ rectangular domain and do not require access to materialized data. Grids are
+ arrays with dimension and extent, and many operations are functions of dimension
+ only: number of columns, number of rows, or they are a combination of the
+ dimension and the extent the range in x and the range in y in that order. Here
+ we provide direct access to this logic without need for connection to any
+ materialized data or formats. Grid logic includes functions that relate the cell
+ index to row and column, or row and column to cell index, row, column or cell
+ index to position. These methods are described in Loudon, TV, Wheeler, JF,
+ Andrew, KP (1980)  <doi:10.1016/0098-3004(80)90015-1>, and implementations were
+ in part derived from Hijmans R (2024) <doi:10.32614/CRAN.package.terra>.
 NeedsCompilation: yes
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
