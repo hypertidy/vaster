@@ -1,3 +1,12 @@
+# vaster dev
+
+* Fixed: `extent_vrt()` took ymin from the first (top) row and ymax from the last row, so
+ymin > ymax for every tile, and used cell centres as edges, so each tile was
+half a cell short on every side. The bundled NASADEM example hid the second
+problem (3601 px tiles with a one-pixel overlap put the end centres on whole
+degrees) and `plot_extent()`/`rect()` is indifferent to corner order. Now uses the
+end-cell centres pushed out by half a cell, with y taken the right way round.
+
 # vaster 0.6.0
 
 * New function `adjacency()` for cell-based neighbourhood lookup, replacing the

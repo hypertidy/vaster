@@ -6,12 +6,12 @@
 /* .Call calls */
 extern SEXP coord_centre_(SEXP, SEXP);
 extern SEXP coord_from_index_(SEXP, SEXP, SEXP);
-extern SEXP index_from_coord_(SEXP, SEXP, SEXP);
+extern SEXP index_from_coord_(SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"coord_centre_",     (DL_FUNC) &coord_centre_,     2},
     {"coord_from_index_", (DL_FUNC) &coord_from_index_, 3},
-    {"index_from_coord_", (DL_FUNC) &index_from_coord_, 3},
+    {"index_from_coord_", (DL_FUNC) &index_from_coord_, 4},
     {NULL, NULL, 0}
 };
 

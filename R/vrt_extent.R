@@ -37,10 +37,14 @@ extent_vrt <- function(x) {
   ySize <- as.integer(unlist(lapply(strsplit(unlist(lapply(strsplit(vrt1, "ySize=\""), "[", 2)), "\""), "[", 1)))
 
 
-  xmin <- x_from_col(dimension, extent, xOff + 1)
-  xmax <- x_from_col(dimension, extent, xOff + xSize)
-  ymin <- y_from_row(dimension, extent, yOff + 1)
-  ymax <- y_from_row(dimension, extent, yOff +  ySize)
+  ## cell centres of the first and last col/row, pushed out by half a cell to the edges
+  ## (rows count from the top, so the first row gives ymax)
+  xres <- x_res(dimension, extent)
+  yres <- y_res(dimension, extent)
+  xmin <- x_from_col(dimension, extent, xOff + 1)     - xres / 2
+  xmax <- x_from_col(dimension, extent, xOff + xSize) + xres / 2
+  ymax <- y_from_row(dimension, extent, yOff + 1)     + yres / 2
+  ymin <- y_from_row(dimension, extent, yOff + ySize) - yres / 2
   cbind(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)
 }
 

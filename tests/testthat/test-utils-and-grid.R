@@ -120,11 +120,31 @@ test_that("extent_vrt reads tile extents from bundled VRT", {
   expect_true(is.matrix(ex))
   expect_equal(ncol(ex), 4)
   expect_equal(colnames(ex), c("xmin", "xmax", "ymin", "ymax"))
+  expect_true(all(is.finite(ex)))
   ## all extents should be valid (xmax > xmin, ymax > ymin)
   expect_true(all(ex[, "xmax"] > ex[, "xmin"]))
-  ## ymin and ymax: in this VRT y_from_row gives decreasing y
-  ## so we just check they are finite
-  expect_true(all(is.finite(ex)))
+  expect_true(all(ex[, "ymax"] > ex[, "ymin"]))
+  ## first tile: DstRect xOff="702000" yOff="10800" xSize="3601" ySize="3601",
+  ## 1-degree tiles with a one-pixel overlap, so edges sit half a pixel outside 16,17,57,58
+  r <- 2.7777777777781469e-04
+  expect_equal(unname(ex[1, ]), c(16, 17, 57, 58) + c(-1, 1, -1, 1) * r / 2, tolerance = 1e-9)
+})
+
+test_that("extent_vrt tile edges are exact and tile the grid", {
+  vrt <- c('<VRTDataset rasterXSize="512" rasterYSize="512">',
+           '  <GeoTransform> 0, 1, 0, 512, 0, -1</GeoTransform>',
+           '      <DstRect xOff="0" yOff="0" xSize="256" ySize="256" />',
+           '      <DstRect xOff="256" yOff="0" xSize="256" ySize="256" />',
+           '      <DstRect xOff="0" yOff="256" xSize="256" ySize="256" />',
+           '      <DstRect xOff="256" yOff="256" xSize="256" ySize="256" />',
+           '</VRTDataset>')
+  con <- textConnection(vrt)
+  ex <- extent_vrt(con)
+  close(con)
+  expect_equal(unname(ex), rbind(c(0,   256, 256, 512),
+                                 c(256, 512, 256, 512),
+                                 c(0,   256, 0,   256),
+                                 c(256, 512, 0,   256)))
 })
 
 ## ---- plot_extent ----

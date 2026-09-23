@@ -2,10 +2,14 @@
 # include <Rinternals.h>
 # include "vaster.h"
 
-SEXP index_from_coord_(SEXP bins, SEXP range, SEXP coord) {
+// 0-based bin index of coord within range; from_max = 0 counts up from range[0]
+// (columns), from_max = 1 counts down from range[1] (rows, top first). A coord on
+// the far edge goes into the last bin, outside the range is NA.
+SEXP index_from_coord_(SEXP bins, SEXP range, SEXP coord, SEXP from_max) {
   check_size(bins);
   check_range(range);
- int nn = LENGTH(coord);
+  int nn = LENGTH(coord);
+  int down = Rf_asLogical(from_max) == 1;
   double scl = (REAL(range)[1] - REAL(range)[0])/INTEGER(bins)[0];
   SEXP out;
   out = PROTECT(Rf_allocVector(REALSXP, nn));
@@ -17,12 +21,12 @@ SEXP index_from_coord_(SEXP bins, SEXP range, SEXP coord) {
   double cmin = REAL(range)[0];
   double rbin = INTEGER(bins)[0];
   for (int i = 0; i < nn; i++) {
-    if (rcoord[i] == cmax) {
-      rout[i] = rbin - 1;
-    } else if ((rcoord[i] > cmax) || (rcoord[i] < cmin)) {
+    if ((rcoord[i] > cmax) || (rcoord[i] < cmin)) {
       rout[i] = R_NaReal;
+    } else if (rcoord[i] == (down ? cmin : cmax)) {
+      rout[i] = rbin - 1;
     } else {
-      rout[i] =    trunc((cmax - rcoord[i])/scl);
+      rout[i] = trunc((down ? (cmax - rcoord[i]) : (rcoord[i] - cmin))/scl);
     }
   }
   UNPROTECT(1);
