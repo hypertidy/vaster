@@ -1,5 +1,13 @@
 # vaster dev
 
+* New lattice-alignment functions, folded in from the mdsumner/align sketch:
+`is_aligned()`, `grid_offset()`, `snap_grid()`, `resize_grid()` and
+`grid_tiles()`. Two grids are aligned when their resolutions are commensurate
+and their origins differ by a whole number of the finer cells; the functions
+refuse to proceed otherwise, so index arithmetic between aligned grids is exact.
+One tolerance policy (`sqrt(.Machine$double.eps)`, relative) is used throughout.
+The align design doc is at `inst/design-docs/align-design.md`.
+
 * Fixed: `extent_vrt()` took ymin from the first (top) row and ymax from the last row, so
 ymin > ymax for every tile, and used cell centres as edges, so each tile was
 half a cell short on every side. The bundled NASADEM example hid the second
