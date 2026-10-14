@@ -35,12 +35,12 @@ pak::pak("hypertidy/vaster")
 Here are four numbers, that represent two positions in the plane.
 
 On their own they are very unlikely to align on a raster grid, but they
-provide a starting point for a “region of interest”. Notice in this
+provide a starting point for a "region of interest". Notice in this
 picture that the underlying discretization and the position of these
 points is unrelated, and can be arbitrary - but they are related in
 terms of describing *approximately* the same region. If we make our grid
 window too small we will miss part of the world that the points are in,
-you can see that we want to “snap out” at least one grid cell to the
+you can see that we want to "snap out" at least one grid cell to the
 left and down, to the right and up.
 
 ``` r
@@ -67,7 +67,7 @@ The `vcrop()` function is a high-level function that uses these
 underlying tools. Imagine a grid that is 120x60 and includes the whole
 world in longlat, this is described by dimension (120x60) and by extent
 (-180, 180, -90, 90). With `vcrop()` we get exactly the right snapping
-for our points, identifying the exact extent we need to “snap out” that
+for our points, identifying the exact extent we need to "snap out" that
 little bit as mentioned above. The discretization can be completely
 arbitrary, as it can be in geospatial packages.
 
@@ -93,15 +93,15 @@ imagery, or grid data, or files or anything else. vaster was originally
 based on the abstract cell functions of the old
 [raster](https://CRAN.R-project.org/package=raster), which relied on its
 internal format - these are now superseded by the
-[terra](https://CRAN.R-project.org/package=terra) package - but we don’t
+[terra](https://CRAN.R-project.org/package=terra) package - but we don't
 want to rely on its new format, or be subject to future changes so
 vaster has the logic separated from other tooling.
 
-Most functions in vaster include arguments that ‘dimension’, and
-‘extent’ (when needed) in that order.
+Most functions in vaster include arguments that 'dimension', and
+'extent' (when needed) in that order.
 
-We use the concept of “extent” which is xmin,xmax,ymin,ymax which is
-exactly the same as the concept of “bounding box (bbox)” which is
+We use the concept of "extent" which is xmin,xmax,ymin,ymax which is
+exactly the same as the concept of "bounding box (bbox)" which is
 xmin,ymin,xmax,ymax: the same thing in a different order.
 
 ## Another example
@@ -150,7 +150,7 @@ points(xy_from_cell(dm, ex, cells))
 
 <img src="man/figures/README-cells-1.png" alt="" width="100%" />
 
-Other functions return cells, here we have another kind of “snap”
+Other functions return cells, here we have another kind of "snap"
 operation, which cell does the point fall it (or which cell centre is it
 closest to).
 

@@ -64,6 +64,25 @@ align_extent(user_extent, dimension, extent, snap = "in")
 align_extent(user_extent, dimension, extent, snap = "near")
 ```
 
+The three modes differ in which way the boundary moves relative to the requested
+extent (dashed red): `"out"` grows to enclose every touched cell, `"in"` shrinks
+to only fully covered cells, and `"near"` rounds each edge to the closest
+boundary.
+
+```{r snap-modes, fig.width = 7, fig.height = 2.8, fig.alt = "Three small grid panels for snap modes out, in, and near; each shows the dashed red requested extent and the blue snapped extent. Out encloses the request, in sits inside it, near is close to it."}
+op <- par(mfrow = c(1, 3), mar = c(1, 1, 2, 1))
+for (mode in c("out", "in", "near")) {
+  a <- align_extent(user_extent, dimension, extent, snap = mode)
+  plot(NA, xlim = extent[1:2], ylim = extent[3:4], asp = 1,
+       axes = FALSE, xlab = "", ylab = "", main = sprintf('snap = "%s"', mode))
+  abline(v = x_corner(dimension, extent), h = y_corner(dimension, extent), col = "grey85")
+  rect(a[1], a[3], a[2], a[4], col = "#1C6E8C22", border = "#1C6E8C", lwd = 2)
+  rect(user_extent[1], user_extent[3], user_extent[2], user_extent[4],
+       border = "firebrick", lty = 2, lwd = 2)
+}
+par(op)
+```
+
 ## snap_extent()
 
 The `snap_extent()` function provides a simpler alignment to a fixed

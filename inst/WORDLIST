@@ -26,16 +26,15 @@ behaviour
 centre
 centres
 colour
-dimension’
 doi
 downleft
-extent’
 gdal
 geo
 georeferencing
 geospatial
 geotransform
 geotransforms
+grey
 io
 longlat
 modelled
@@ -55,6 +54,7 @@ projwin
 quadmesh
 rasterio
 rasters
+reindex
 src
 terra
 topleft

@@ -1,0 +1,102 @@
+url: https://hypertidy.github.io/vaster/
+
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#1C6E8C"
+    base_font: {google: "Inter"}
+    heading_font: {google: "Inter"}
+    code_font: {google: "JetBrains Mono"}
+
+# NOTE for maintainers (human and AI): the reference index below must list
+# every exported topic exactly once, and the articles list every vignette.
+# When you add, remove, or rename an export or a vignette, update this file to
+# match. See .posit/assistant/skills/maintaining-pkgdown for the full checklist.
+
+reference:
+- title: Package
+  contents:
+  - vaster-package
+
+- title: Grid structure
+  desc: Dimension, extent, and grid origin.
+  contents:
+  - grid
+  - origin
+
+- title: Cells & coordinates
+  desc: Map between cell index, row/column, and position.
+  contents:
+  - cells
+  - coordinates
+
+- title: Extent alignment & cropping
+  desc: Reconcile an arbitrary extent with a grid.
+  contents:
+  - align_extent
+  - snap_extent
+  - vcrop
+  - intersect_extent
+  - extent_dimension
+
+- title: Lattice alignment & tiling
+  desc: >
+    Grid-to-grid lattice relationships: exact index arithmetic between grids
+    that share a lattice. See vignette("lattice-alignment").
+  contents:
+  - is_aligned
+  - grid_offset
+  - snap_grid
+  - resize_grid
+  - grid_tiles
+
+- title: Grids from points
+  desc: Derive or fit a grid specification.
+  contents:
+  - from_xyz
+  - fit_dims
+
+- title: Neighbourhoods
+  contents:
+  - adjacency
+
+- title: GDAL & geotransform interop
+  desc: Geotransforms, VRT extents, and RasterIO windows.
+  contents:
+  - ts_te
+  - extent_vrt
+  - geo_transform0
+  - geo_world0
+  - world_to_geotransform
+  - extent_dim_to_gt
+  - gt_dim_to_extent
+  - rasterio0
+  - rasterio_idx
+  - rasterio_to_sfio
+  - sfio_to_rasterio
+
+- title: Long-form & boundary conversions
+  contents:
+  - vaster_long
+  - vaster_listxyz
+  - vaster_boundary
+  - vaster_boundary_cell
+
+- title: Plotting
+  contents:
+  - plot_extent
+  - draw_extent
+
+articles:
+- title: Get started
+  contents:
+  - grid-fundamentals
+  - cell-operations
+- title: Alignment
+  contents:
+  - extent-alignment
+  - lattice-alignment
+- title: Interop & logic
+  contents:
+  - gdal-interop
+  - grid-logic

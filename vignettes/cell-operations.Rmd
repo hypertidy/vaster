@@ -49,7 +49,28 @@ n_col(dimension)
 n_row(dimension)
 ```
 
-## Cells ↔ Coordinates
+The rest of this vignette moves between three ways of naming the same cell: its
+**cell index**, its **row/column**, and the **x,y** coordinate of its centre.
+Cell 7 of this grid, for example, is all three at once:
+
+```{r three-ways, fig.width = 5, fig.height = 4, fig.alt = "A 4x3 grid with cell numbers shown faintly; cell 7 is highlighted with a red dot at its centre, captioned cell 7 equals row 2, column 3 equals centre (2.5, 1.5)."}
+dm <- c(4L, 3L); ex <- c(0, 4, 0, 3)
+cn <- seq_len(n_cell(dm)); ctr <- xy_from_cell(dm, ex, cn)
+rc <- rowcol_from_cell(dm, ex, 7); xy7 <- xy_from_cell(dm, ex, 7)
+op <- par(mar = c(2, 1, 1, 1))
+plot(NA, xlim = c(0, 4), ylim = c(0, 3), asp = 1, axes = FALSE, xlab = "", ylab = "")
+abline(v = x_corner(dm, ex), h = y_corner(dm, ex), col = "grey85")
+rect(ex[1], ex[3], ex[2], ex[4])
+text(ctr[, 1], ctr[, 2], cn, col = "grey70")
+rect(2, 1, 3, 2, col = "#1C6E8C22", border = "#1C6E8C", lwd = 2)
+text(2.5, 1.5, "7", font = 2)
+points(xy7[1], xy7[2], pch = 19, col = "firebrick")
+mtext(sprintf("cell 7  =  row %d, col %d  =  centre (%.1f, %.1f)",
+              rc[1], rc[2], xy7[1], xy7[2]), side = 1, line = 0, cex = 0.9)
+par(op)
+```
+
+## Cells and Coordinates
 
 ### From cells to coordinates
 
@@ -92,7 +113,7 @@ xy_edge <- cbind(c(1.0, 4.0), c(2.0, 0.0))
 cell_from_xy(dimension, extent, xy_edge)
 ```
 
-## Cells ↔ Row/Column
+## Cells and Row/Column
 
 ### From cells to row/column
 
@@ -139,7 +160,7 @@ Get the **cross-product** of rows and columns (all combinations):
 cell_from_rowcol_combine(dimension, row = 1:2, col = 2:3)
 ```
 
-## Rows/Columns ↔ Coordinates
+## Rows/Columns and Coordinates
 
 Convert directly between row/column indices and coordinates:
 
@@ -157,7 +178,7 @@ col_from_x(dimension, extent, c(0.5, 2.5, 3.9))
 row_from_y(dimension, extent, c(2.5, 1.5, 0.1))
 ```
 
-## Cells ↔ Extents
+## Cells and Extents
 
 ### Extent from cells
 

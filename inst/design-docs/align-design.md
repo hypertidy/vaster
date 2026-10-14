@@ -8,9 +8,9 @@ working naming: we are stealing names from terra and vaster and not worrying abo
 
 ## What it is
 
-align is a pure R package that provides a single core object: a grid specification defined by dimension and extent. Everything else — resolution, coordinates, cell indices, row/column mappings — is derived on demand by arithmetic.
+align is a pure R package that provides a single core object: a grid specification defined by dimension and extent. Everything else - resolution, coordinates, cell indices, row/column mappings - is derived on demand by arithmetic.
 
-The grid spec is a window onto an infinite regular lattice. Crop, expand, and resize operations produce new specs on the same lattice (or an integer-related one). Content — coverage fractions, raster values, sparse indexes — references the grid by index and is not part of the grid itself.
+The grid spec is a window onto an infinite regular lattice. Crop, expand, and resize operations produce new specs on the same lattice (or an integer-related one). Content - coverage fractions, raster values, sparse indexes - references the grid by index and is not part of the grid itself.
 
 ## The object
 
@@ -57,7 +57,7 @@ Crop and Expand are conceptually different, but are complementary and symmetric,
 
 ```r
 vast(c(100L, 200L))
-# extent defaults to c(0, ncol, 0, nrow) — unit cell space
+# extent defaults to c(0, ncol, 0, nrow) - unit cell space
 ```
 
 This gives an identity mapping where column index = x coordinate and row index = y coordinate. The unit grid is pure index space with no geographic pretension.
@@ -72,7 +72,7 @@ nrow(g)          # dimension[2]
 ncell(g)         # prod(dimension)
 res(g)           # c(dx, dy) = c(diff(extent[1:2]) / ncol, diff(extent[3:4]) / nrow)
 
-# coordinate vectors — sequences, not stored arrays
+# coordinate vectors - sequences, not stored arrays
 x(g)             # xmin + (seq_len(ncol) - 0.5) * dx  (cell centres)
 y(g)             # ymax - (seq_len(nrow) - 0.5) * dy  (cell centres, top to bottom)
 
@@ -107,12 +107,12 @@ The resolution doesn't change. The new grid is a subwindow of the old one. Row/c
 ```r
 child <- crop(g, c(141, 155, -45, -35))
 offset(child, g)
-# c(col_off, row_off) — integer offset from parent origin to child origin
+# c(col_off, row_off) - integer offset from parent origin to child origin
 ```
 
 ### Expand
 
-Widen the extent. The inverse of crop — snaps outward to cell boundaries.
+Widen the extent. The inverse of crop - snaps outward to cell boundaries.
 
 ```r
 expand(g, extent)
@@ -140,7 +140,7 @@ resize(g, factor = 0.5)
 # dimension must be divisible by 1/factor
 ```
 
-`factor` must produce exact integer dimensions. This is the alignment invariant — you can't resize to a resolution that breaks the lattice.
+`factor` must produce exact integer dimensions. This is the alignment invariant - you can't resize to a resolution that breaks the lattice.
 
 ### Align check
 
@@ -166,7 +166,7 @@ tiles(g, tile_dim = c(256L, 256L))
 # all aligned to g
 ```
 
-This is pure index arithmetic — how many tiles fit, what are their extents. No data, no I/O.
+This is pure index arithmetic - how many tiles fit, what are their extents. No data, no I/O.
 
 ## What align does NOT do
 
@@ -202,7 +202,7 @@ vast <- function(dimension, extent = NULL) {
 }
 ```
 
-Consider S7 later if method dispatch gets complex. For now, S3 is fine — the operations are functions on the type, not a class hierarchy.
+Consider S7 later if method dispatch gets complex. For now, S3 is fine - the operations are functions on the type, not a class hierarchy.
 
 ### Print
 
@@ -260,7 +260,7 @@ controlledburn produces sparse runs + edges on a grid. `materialise_chunk()` nee
 4. Filter and reindex runs/edges
 5. Fill a matrix of the target's dimensions
 
-align provides steps 1–4. controlledburn does step 5.
+align provides steps 1-4. controlledburn does step 5.
 
 ### vaster
 
@@ -268,7 +268,7 @@ vaster currently implements cell-from-xy, extent alignment, dimension fitting. T
 
 ### grout
 
-grout handles tile schemes and validates spatial alignment for cloud-native raster workflows. Its tile partitioning logic (`tiles()`) belongs in or delegates to align. grout adds the I/O coordination — which tiles exist, what format, where.
+grout handles tile schemes and validates spatial alignment for cloud-native raster workflows. Its tile partitioning logic (`tiles()`) belongs in or delegates to align. grout adds the I/O coordination - which tiles exist, what format, where.
 
 ## tripEstimation / SGAT
 
@@ -285,7 +285,7 @@ parent <- as_vast(burn_result)
 tile   <- crop(parent, tile_extent)
 off    <- offset(tile, parent)
 
-# pure index operation — works in DuckDB, arrow, or base R
+# pure index operation - works in DuckDB, arrow, or base R
 runs |>
   filter(row >= off[2] + 1, row <= off[2] + nrow(tile)) |>
   filter(col_end >= off[1] + 1, col_start <= off[1] + ncol(tile)) |>
@@ -322,17 +322,17 @@ align provides `resize()` and the block-mapping arithmetic. The aggregation logi
 1. `vast()` constructor + validation + print
 2. `res()`, `ncol()`, `nrow()`, `ncell()`
 3. `x()`, `y()`, coordinate vectors
-4. `cell_from_xy()`, `xy_from_cell()`, `cell_from_rowcol()`, `rowcol_from_cell()` — the vaster core
+4. `cell_from_xy()`, `xy_from_cell()`, `cell_from_rowcol()`, `rowcol_from_cell()` - the vaster core
 5. `crop()`, `expand()` with snap-to-cell
-6. `offset()` — integer displacement between aligned grids
+6. `offset()` - integer displacement between aligned grids
 7. `is_aligned()`, `snap()`
 8. `resize()` with integer-factor validation
-9. `tiles()` — partition into subwindows
+9. `tiles()` - partition into subwindows
 10. `vast_res()` and `as_vast()` methods
 11. Update controlledburn `materialise_chunk()` to accept a `vast` target
 12. Migrate vaster's core index arithmetic to align
 
-All pure R. No compiled code. No dependencies beyond base R (wk is not needed — align has no geometry). The test suite is arithmetic identities — round-trip conversions, crop/expand symmetry, alignment invariants.
+All pure R. No compiled code. No dependencies beyond base R (wk is not needed - align has no geometry). The test suite is arithmetic identities - round-trip conversions, crop/expand symmetry, alignment invariants.
 
 ## The alignment prison
 
@@ -343,4 +343,4 @@ The invariant that makes everything work: two `vast` objects are *compatible* if
 
 If these hold, every index operation (crop, offset, resize, tile, reindex) produces exact integer results. No floating-point negotiation, no half-cell shifts, no off-by-one ambiguity.
 
-If they don't hold, align refuses to proceed. The type system prevents misaligned operations by construction. That's the prison — and it's the entire value of the package.
+If they don't hold, align refuses to proceed. The type system prevents misaligned operations by construction. That's the prison - and it's the entire value of the package.

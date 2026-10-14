@@ -168,3 +168,80 @@ test_that("single tile for a small grid", {
   expect_length(tl, 1L)
   expect_identical(tl[[1]]$dimension, c(10L, 7L))
 })
+
+test_that("tile_dim that divides evenly leaves no edge tiles", {
+  tl <- grid_tiles(c(8L, 6L), c(0, 8, 0, 6), c(4L, 2L))
+  expect_length(tl, 6L)
+  expect_true(all(vapply(tl, function(t) identical(t$dimension, c(4L, 2L)), logical(1))))
+})
+
+test_that("grid_tiles rejects non-positive tile_dim", {
+  expect_error(grid_tiles(c(10L, 10L), c(0, 10, 0, 10), 0L), "tile_dim")
+  expect_error(grid_tiles(c(10L, 10L), c(0, 10, 0, 10), c(4L, -1L)), "tile_dim")
+})
+
+## ---- invariants: symmetry, round-trips, offsets ----
+
+test_that("is_aligned is symmetric across a range of grids", {
+  cases <- list(
+    list(c(10L, 10L), c(0, 10, 0, 10), c(5L, 5L), c(2, 7, 2, 7)),
+    list(c(10L, 10L), c(0, 10, 0, 10), c(2L, 2L), c(0, 10, 0, 10)),
+    list(c(10L, 10L), c(0, 10, 0, 10), c(5L, 5L), c(2.5, 7.5, 2, 7)),
+    list(c(10L, 10L), c(0, 10, 0, 10), c(3L, 3L), c(0, 10, 0, 10)),
+    list(g_dim, g_ext, c(250L, 150L), c(145, 155, -45, -35))
+  )
+  for (cs in cases) {
+    a <- is_aligned(cs[[1]], cs[[2]], cs[[3]], cs[[4]])
+    b <- is_aligned(cs[[3]], cs[[4]], cs[[1]], cs[[2]])
+    expect_identical(a, b)
+  }
+})
+
+test_that("NULL extent means unit cell space", {
+  expect_identical(is_aligned(c(10L, 5L), NULL, c(10L, 5L), extent0(c(10L, 5L))),
+                   TRUE)
+  expect_identical(grid_offset(c(10L, 5L), NULL, c(4L, 2L), c(2, 6, 1, 3)),
+                   grid_offset(c(10L, 5L), extent0(c(10L, 5L)), c(4L, 2L), c(2, 6, 1, 3)))
+})
+
+test_that("resize round-trips for several factors, both orders", {
+  for (k in c(2, 3, 5, 0.5)) {
+    up <- resize_grid(g_dim, g_ext, k)
+    back <- resize_grid(up$dimension, up$extent, 1 / k)
+    expect_identical(back$dimension, g_dim)
+    expect_equal(back$extent, g_ext)
+  }
+})
+
+test_that("resize with a per-axis factor round-trips", {
+  up <- resize_grid(g_dim, g_ext, c(2, 3))
+  back <- resize_grid(up$dimension, up$extent, c(0.5, 1 / 3))
+  expect_identical(back$dimension, g_dim)
+  expect_equal(back$extent, g_ext)
+})
+
+test_that("snap_grid is idempotent", {
+  once <- snap_grid(c(10L, 10L), c(2.3, 7.3, 2.3, 7.3), c(10L, 10L), c(0, 10, 0, 10))
+  twice <- snap_grid(once$dimension, once$extent, c(10L, 10L), c(0, 10, 0, 10))
+  expect_equal(twice$extent, once$extent)
+  expect_identical(twice$dimension, once$dimension)
+})
+
+test_that("every tile extent is reconstructable from its offset and the parent res", {
+  tl <- grid_tiles(g_dim, g_ext, c(128L, 100L))
+  r <- c(x_res(g_dim, g_ext), y_res(g_dim, g_ext))
+  for (t in tl) {
+    off <- t$offset
+    expect_equal(t$extent[1], g_ext[1] + off[["col"]] * r[1])
+    expect_equal(t$extent[4], g_ext[4] - off[["row"]] * r[2])
+    expect_equal(t$extent[2], t$extent[1] + t$dimension[1] * r[1])
+    expect_equal(t$extent[3], t$extent[4] - t$dimension[2] * r[2])
+  }
+})
+
+test_that("tol admits a sub-tolerance shift and rejects a larger one", {
+  base_dim <- c(10L, 10L); base_ext <- c(0, 10, 0, 10)
+  tiny <- 1e-10
+  expect_true(is_aligned(base_dim, base_ext, base_dim, base_ext + c(tiny, tiny, tiny, tiny)))
+  expect_false(is_aligned(base_dim, base_ext, base_dim, base_ext + c(0.01, 0.01, 0, 0)))
+})

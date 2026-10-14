@@ -20,7 +20,7 @@ library(vaster)
 
 ## What is vaster?
  
-The **vaster** package provides pure raster grid logic without requiring actual raster data. It separates the abstract mathematical operations of raster grids—dimension, extent, cell indexing, coordinate transformations—from data formats and file I/O.
+The **vaster** package provides pure raster grid logic without requiring actual raster data. It separates the abstract mathematical operations of raster grids - dimension, extent, cell indexing, coordinate transformations - from data formats and file I/O.
  
 This is useful when you need to:
 
@@ -50,7 +50,29 @@ x_res(dimension, extent)
 y_res(dimension, extent)
 ```
 
-There is no data, no file format, no CRS—just the logical grid structure. This matches how GDAL and other tools internally represent grids.
+Every other property is read off these two vectors: the extent fixes the outer
+edges and the corners, while the dimension divides that range into cells.
+
+```{r grid-anatomy, fig.width = 5.5, fig.height = 4.2, fig.alt = "A 4x3 grid with its extent outlined and corners labelled xmin/ymax (top-left) and xmax/ymin (bottom-right); double arrows along the top and left mark ncol = 4 and nrow = 3, and one shaded cell is annotated with x_res and y_res."}
+dm <- c(4L, 3L); ex <- c(0, 100, 0, 75)
+op <- par(mar = c(1, 1, 2, 1))
+plot(NA, xlim = c(-20, 114), ylim = c(-12, 92), asp = 1, axes = FALSE, xlab = "", ylab = "")
+abline(v = x_corner(dm, ex), h = y_corner(dm, ex), col = "grey80")
+rect(ex[1], ex[3], ex[2], ex[4], lwd = 2)
+text(ex[1], ex[4] + 7, "xmin, ymax", adj = 0, col = "#1C6E8C")
+text(ex[2], ex[3] - 7, "xmax, ymin", adj = 1, col = "#1C6E8C")
+arrows(0, 85, 100, 85, code = 3, length = 0.06); text(50, 91, "ncol = 4")
+arrows(-9, 75, -9, 0, code = 3, length = 0.06); text(-16, 37.5, "nrow = 3", srt = 90)
+## one cell carries the resolution
+rect(0, 50, 25, 75, col = "#1C6E8C22", border = NA)
+arrows(0, 46, 25, 46, code = 3, length = 0.05, col = "#1C6E8C")
+text(12.5, 40, "x_res = 25", col = "#1C6E8C", cex = 0.9)
+arrows(29, 50, 29, 75, code = 3, length = 0.05, col = "#1C6E8C")
+text(33, 62.5, "y_res = 25", col = "#1C6E8C", cex = 0.9, adj = 0)
+par(op)
+```
+
+There is no data, no file format, no CRS - just the logical grid structure. This matches how GDAL and other tools internally represent grids.
 
 ## Cell Numbering Convention
 
@@ -82,6 +104,25 @@ cells <- seq_len(n_cell(dimension))
 xy_from_cell(dimension, extent, cells)
 ```
 
+The arrows trace the numbering: cell 1 is at the top-left origin, counting along
+each row before dropping to the next.
+
+```{r cell-numbering, fig.width = 5, fig.height = 4, fig.alt = "A 4x3 grid with cells numbered 1 to 12 at their centres, left to right then top to bottom; a dot marks the top-left origin at cell 1 and faint arrows along each row show the row-wise counting direction."}
+dm <- c(4L, 3L); ex <- c(0, 4, 0, 3)
+cn <- seq_len(n_cell(dm)); ctr <- xy_from_cell(dm, ex, cn)
+op <- par(mar = c(1, 1, 1, 1))
+plot(NA, xlim = c(0, 4), ylim = c(0, 3), asp = 1, axes = FALSE, xlab = "", ylab = "")
+abline(v = x_corner(dm, ex), h = y_corner(dm, ex), col = "grey80")
+rect(ex[1], ex[3], ex[2], ex[4])
+for (r in 1:3) {
+  y <- unique(ctr[row_from_cell(dm, cn) == r, 2])
+  arrows(0.15, y, 3.85, y, length = 0.06, col = "#1C6E8C44")
+}
+text(ctr[, 1], ctr[, 2], cn, font = 2)
+points(0, 3, pch = 19, col = "#1C6E8C")
+par(op)
+```
+
 ## Resolution and Origin
 
 **Resolution** is the cell size in x and y directions:
@@ -100,7 +141,7 @@ The **origin** is the point where cell boundaries align. By default, vaster uses
 origin(dimension, extent)
 ```
 
-Understanding the origin is important for aligning multiple grids—covered in detail in `vignette("extent-alignment")`.
+Understanding the origin is important for aligning multiple grids - covered in detail in `vignette("extent-alignment")`.
 
 ## Extent Properties
 

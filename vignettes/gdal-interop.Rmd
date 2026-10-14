@@ -58,7 +58,7 @@ gt
 
 The GeoTransform tells us:
 
-- Upper-left corner is at `(0, 50)` — note y is at the top
+- Upper-left corner is at `(0, 50)` - note y is at the top
 - Pixel width is `10` units
 - Pixel height is `-10` units (negative because y decreases downward)
 
@@ -142,6 +142,30 @@ This tells you:
 - Start at row `r rio[2]` (0-based offset)
 - Read `r rio[3]` columns
 - Read `r rio[4]` rows
+
+The window is measured in **pixel space**: offsets count from the top-left pixel
+(0, 0), with the row offset increasing downward, and the sizes are counts of
+columns and rows to read.
+
+```{r rasterio-window, fig.width = 5.5, fig.height = 4.2, fig.alt = "A 12x8 grid with a highlighted read window. The pixel origin (0,0) is marked at the top-left; arrows show xoff = 3 columns right and yoff = 2 rows down to the window, which spans xsize = 6 columns and ysize = 3 rows."}
+rdm <- c(12L, 8L); rex <- c(0, 12, 0, 8)
+xoff <- 3L; yoff <- 2L; xsize <- 6L; ysize <- 3L
+op <- par(mar = c(1, 1, 1, 1))
+plot(NA, xlim = c(-1.8, 12), ylim = c(0, 9.6), asp = 1, axes = FALSE, xlab = "", ylab = "")
+abline(v = x_corner(rdm, rex), h = y_corner(rdm, rex), col = "grey85")
+rect(rex[1], rex[3], rex[2], rex[4])
+wx <- c(xoff, xoff + xsize); wy <- c(rex[4] - (yoff + ysize), rex[4] - yoff)
+rect(wx[1], wy[1], wx[2], wy[2], col = "#1C6E8C22", border = "#1C6E8C", lwd = 2)
+points(0, 8, pch = 19, col = "#1C6E8C")
+text(0, 9.4, "pixel origin (0, 0), top-left", adj = 0, col = "#1C6E8C", cex = 0.9)
+arrows(0, 8.5, xoff, 8.5, length = 0.06); text(xoff / 2, 8.9, "xoff = 3", cex = 0.9)
+arrows(-0.9, 8, -0.9, rex[4] - yoff, length = 0.06); text(-1.4, 7, "yoff = 2", srt = 90, cex = 0.9)
+arrows(wx[1], wy[1] - 0.5, wx[2], wy[1] - 0.5, code = 3, length = 0.05, col = "#1C6E8C")
+text(mean(wx), wy[1] - 1.1, "xsize = 6", col = "#1C6E8C", cex = 0.9)
+arrows(wx[2] + 0.4, wy[1], wx[2] + 0.4, wy[2], code = 3, length = 0.05, col = "#1C6E8C")
+text(wx[2] + 0.8, mean(wy), "ysize = 3", col = "#1C6E8C", srt = 90, cex = 0.9)
+par(op)
+```
 
 ### Using with vapour or stars
 
@@ -264,8 +288,8 @@ cat(wf, sep = "\n")
 |----------|---------|
 | `geo_transform0()` | Convert to GDAL GeoTransform (6-element) |
 | `geo_world0()` | Convert to world file format (6-element) |
-| `gt_dim_to_extent()` | GeoTransform + dimension → extent |
-| `extent_dim_to_gt()` | Extent + dimension → GeoTransform |
+| `gt_dim_to_extent()` | GeoTransform + dimension -> extent |
+| `extent_dim_to_gt()` | Extent + dimension -> GeoTransform |
 | `rasterio0()` | Compute GDAL RasterIO window parameters |
 | `rasterio_to_sfio()` | Convert to sf/stars 1-based RasterIO |
 | `extent_vrt()` | Extract extent from VRT file |
