@@ -41,14 +41,39 @@ library(vaster)
 set.seed(1)
 x <- c(sort(runif(2, -20, 160)), sort(runif(2, -80, 10)))
 names(x) <- c("xmin", "xmax", "ymin", "ymax")
-print(x)
+x
 #>       xmin       xmax       ymin       ymax 
 #>  27.791559  46.982302 -28.443197   1.738701
-plot(matrix(x, ncol = 2))
-grid()
+
+## a shared palette for the plots below
+col_fore <- "#1C6E8C"
+col_roi <- "firebrick"
+col_grid <- "grey85"
+
+op <- par(mar = c(3, 3, 1, 1), mgp = c(1.8, 0.6, 0), bty = "n")
+## pad the view so the corner labels have room
+padx <- diff(range(x[1:2])) * 0.2
+pady <- diff(range(x[3:4])) * 0.2
+plot(x[1:2], x[3:4], type = "n", asp = 1, xlab = "x", ylab = "y",
+     xlim = range(x[1:2]) + c(-padx, padx),
+     ylim = range(x[3:4]) + c(-pady, pady))
+## an arbitrary lattice the points know nothing about
+abline(v = seq(-40, 180, by = 20), h = seq(-100, 40, by = 20), col = col_grid)
+## the region of interest implied by the two points
+rect(x[1], x[3], x[2], x[4], border = col_roi, lty = 2, lwd = 2)
+points(x[1:2], x[3:4], pch = 19, col = col_roi)
+text(x[1], x[3], "(xmin, ymin)", pos = 1, col = col_roi, cex = 0.8)
+text(x[2], x[4], "(xmax, ymax)", pos = 3, col = col_roi, cex = 0.8)
 ```
 
-![](reference/figures/README-vaster-1.png)
+![Two points on an arbitrary background lattice, joined by a dashed red
+rectangle marking the region of interest they
+imply.](reference/figures/README-vaster-1.png)
+
+``` r
+
+par(op)
+```
 
 This is where vaster comes in, tools to relate arbitrary point locations
 to an underlying grid.
@@ -69,20 +94,32 @@ packages.
 
 ``` r
 
-## all we need is a extent and dimension, we want to align to that grid
-v <- vcrop(x,  c(120, 60), extent = c(-180, 180, -90, 90))
-plot(NA, xlim = v$extent[1:2], ylim = v$extent[3:4], asp = "")
+## all we need is an extent and dimension, we want to align to that grid
+v <- vcrop(x, c(120, 60), extent = c(-180, 180, -90, 90))
 g_along <- function(x, n) seq(x[1], x[2], length.out = n + 1)
-abline(v = v$extent[1:2], h = v$extent[3:4], lwd = 2)
-abline(v = g_along(v$extent[1:2], v$dimension[1]), h = g_along(v$extent[3:4], v$dimension[2]), col = "grey")
 
-
-
-## these points were used to crop the existing grid, they don't define its alignment
-points(x[1:2], x[3:4], pch = "+")
+op <- par(mar = c(3, 3, 1, 1), mgp = c(1.8, 0.6, 0), bty = "n")
+plot(NA, xlim = v$extent[1:2], ylim = v$extent[3:4], asp = 1, xlab = "x", ylab = "y")
+abline(v = g_along(v$extent[1:2], v$dimension[1]),
+       h = g_along(v$extent[3:4], v$dimension[2]), col = col_grid)
+## the grid-aligned extent vcrop() returns
+rect(v$extent[1], v$extent[3], v$extent[2], v$extent[4], border = col_fore, lwd = 2)
+## the points cropped the grid; they don't define its alignment
+rect(x[1], x[3], x[2], x[4], border = col_roi, lty = 2, lwd = 2)
+points(x[1:2], x[3:4], pch = 3, col = col_roi)
+legend("topleft", inset = 0.02, bty = "n", cex = 0.9,
+       legend = c("requested", "snapped (vcrop)"),
+       col = c(col_roi, col_fore), lty = c(2, 1), lwd = 2)
 ```
 
-![](reference/figures/README-vaster1-1.png)
+![The requested region (dashed red) and the grid-aligned extent vcrop()
+snaps outward to (teal), over the world grid
+cells.](reference/figures/README-vaster1-1.png)
+
+``` r
+
+par(op)
+```
 
 That is the core of vaster - this is *raster logic* that exists in
 geospatial libraries and packages, but it has use on its own without any
@@ -116,11 +153,19 @@ argument.
 ex <- c(-180, 180, -90, 90)
 dm <- c(40, 36)
 
-plot_extent(ex, lwd = 5, border = "firebrick")
-abline(v = x_corner(dm, ex), h = y_corner(dm, ex))
+op <- par(mar = c(3, 3, 1, 1), mgp = c(1.8, 0.6, 0), bty = "n")
+plot_extent(ex, border = NA)
+abline(v = x_corner(dm, ex), h = y_corner(dm, ex), col = col_grid)
+plot_extent(ex, border = col_fore, lwd = 2, add = TRUE)
 ```
 
-![](reference/figures/README-world-1.png)
+![A 40 by 36 world grid: faint grey cell boundaries inside a teal extent
+outline.](reference/figures/README-world-1.png)
+
+``` r
+
+par(op)
+```
 
 With
 [`x_corner()`](https://hypertidy.github.io/vaster/reference/coordinates.md),
@@ -135,11 +180,21 @@ Now add the centre points.
 
 ``` r
 
-plot_extent(ex)
-points(x_centre(dm, ex), rep(y_centre(dm, ex)[1], length.out = dm[1]))
+op <- par(mar = c(3, 3, 1, 1), mgp = c(1.8, 0.6, 0), bty = "n")
+plot_extent(ex, border = NA)
+abline(v = x_corner(dm, ex), h = y_corner(dm, ex), col = col_grid)
+plot_extent(ex, border = col_fore, lwd = 2, add = TRUE)
+points(x_centre(dm, ex), rep(y_centre(dm, ex)[1], length.out = dm[1]),
+       pch = 19, cex = 0.6, col = col_fore)
 ```
 
-![](reference/figures/README-points-1.png)
+![The world grid with the cell-centre points of the top row marked in
+teal.](reference/figures/README-points-1.png)
+
+``` r
+
+par(op)
+```
 
 We only get the margins from x_corner/x_centre so we go to a cell based
 function,
@@ -153,11 +208,18 @@ geospatial tools).
 
 ## how many cells?
 cells <- seq_len(prod(dm))
-plot_extent(ex)
-points(xy_from_cell(dm, ex, cells))
+op <- par(mar = c(3, 3, 1, 1), mgp = c(1.8, 0.6, 0), bty = "n")
+plot_extent(ex, border = col_fore, lwd = 2)
+points(xy_from_cell(dm, ex, cells), pch = 19, cex = 0.3, col = col_fore)
 ```
 
-![](reference/figures/README-cells-1.png)
+![Every cell-centre point of the world grid, drawn as small teal dots
+inside the extent.](reference/figures/README-cells-1.png)
+
+``` r
+
+par(op)
+```
 
 Other functions return cells, here we have another kind of “snap”
 operation, which cell does the point fall it (or which cell centre is it
@@ -165,14 +227,32 @@ closest to).
 
 ``` r
 
+set.seed(4827)
 xy <- cbind(runif(50, -180, 180), runif(50, -90, 90))
 cells <- cell_from_xy(dm, ex, xy)
-plot_extent(ex)
-points(xy_from_cell(dm, ex, cells), col = "red")
-points(xy, pch = "+")
+ctr <- xy_from_cell(dm, ex, cells)
+
+op <- par(mar = c(3, 3, 1, 1), mgp = c(1.8, 0.6, 0), bty = "n")
+plot_extent(ex, border = NA)
+abline(v = x_corner(dm, ex), h = y_corner(dm, ex), col = col_grid)
+plot_extent(ex, border = col_fore, lwd = 2, add = TRUE)
+## each query point "snaps" to its cell centre
+segments(xy[, 1], xy[, 2], ctr[, 1], ctr[, 2], col = "grey60")
+points(ctr, pch = 19, cex = 0.7, col = col_fore)
+points(xy, pch = 3, col = col_roi)
+legend("bottomleft", inset = 0.02, bty = "n", cex = 0.9,
+       legend = c("query point", "cell centre"),
+       col = c(col_roi, col_fore), pch = c(3, 19))
 ```
 
-![](reference/figures/README-query-1.png)
+![Random query points (red crosses) each joined by a line to the centre
+of the cell they fall in (teal
+dots).](reference/figures/README-query-1.png)
+
+``` r
+
+par(op)
+```
 
 ## Code of Conduct
 
