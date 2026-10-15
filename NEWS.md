@@ -1,7 +1,10 @@
 # vaster 0.7.0
 
+* `extent_vrt()` now parses VRT XML with the xml2 package (a new suggested
+  dependency) instead of ad hoc string splitting (#16). Output is unchanged.
+
 * New "vaster and related tools" vignette, lining vaster up against GDAL/terra,
-  odc.geo's `GeoBox`, rasterio point rasterization, and ImageMagick crop
+  odc.geo `GeoBox`, rasterio point rasterization, and ImageMagick crop
   geometry (#18, #10).
 
 * `vaster_listxyz()` gains a `corner` argument to return cell-corner (boundary)

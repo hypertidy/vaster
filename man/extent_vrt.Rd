@@ -7,7 +7,7 @@
 extent_vrt(x)
 }
 \arguments{
-\item{x}{url or file path to VRT file}
+\item{x}{url, file path, or text connection to a VRT file}
 }
 \value{
 a matrix of 4 columns, xmin,xmax,ymin,ymax
@@ -19,12 +19,17 @@ windows in a VRT. These can be arbitrary to a specific grid, but generally are u
 \details{
 Each VRT raster element records it's relative position within the grid, so we grid logic
 to expand the actual extent of each element, and return those as a matrix of xmin,xmax,ymin,ymax.
+
+The VRT XML is parsed with the \pkg{xml2} package, which must be installed
+(it is a suggested dependency).
 }
 \examples{
+\dontshow{if (requireNamespace("xml2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 #src <- "https://opentopography.s3.sdsc.edu/raster/NASADEM/NASADEM_be.vrt"
 src <- gzfile(system.file("extdata/NASADEM_be.vrt.gz", package = "vaster"), "rt")
 ## read VRT from a URL or file (we use a connection here to keep package example small)
 ex <- extent_vrt(src)
 close(src)
 plot_extent(ex)
+\dontshow{\}) # examplesIf}
 }

@@ -114,6 +114,7 @@ test_that("vaster_boundary_cell for single row", {
 ## ---- extent_vrt ----
 
 test_that("extent_vrt reads tile extents from bundled VRT", {
+  skip_if_not_installed("xml2")
   src <- gzfile(system.file("extdata/NASADEM_be.vrt.gz", package = "vaster"), "rt")
   ex <- extent_vrt(src)
   close(src)
@@ -131,6 +132,7 @@ test_that("extent_vrt reads tile extents from bundled VRT", {
 })
 
 test_that("extent_vrt tile edges are exact and tile the grid", {
+  skip_if_not_installed("xml2")
   vrt <- c('<VRTDataset rasterXSize="512" rasterYSize="512">',
            '  <GeoTransform> 0, 1, 0, 512, 0, -1</GeoTransform>',
            '      <DstRect xOff="0" yOff="0" xSize="256" ySize="256" />',
