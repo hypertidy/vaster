@@ -74,6 +74,7 @@ reference:
   - rasterio_idx
   - rasterio_to_sfio
   - sfio_to_rasterio
+  - magick_geometry
 
 - title: Long-form & boundary conversions
   contents:
@@ -99,4 +100,5 @@ articles:
 - title: Interop & logic
   contents:
   - gdal-interop
+  - related-tools
   - grid-logic

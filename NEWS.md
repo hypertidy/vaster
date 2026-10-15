@@ -1,5 +1,9 @@
 # vaster (development version)
 
+* New "vaster and related tools" vignette, lining vaster up against GDAL/terra,
+  odc.geo's `GeoBox`, rasterio point rasterization, and ImageMagick crop
+  geometry (#18, #10).
+
 * `vaster_listxyz()` gains a `corner` argument to return cell-corner (boundary)
   coordinates (length `ncol + 1` / `nrow + 1`) rather than cell centres (#9).
 

@@ -1,0 +1,158 @@
+---
+title: "vaster and related tools"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vaster and related tools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(vaster)
+```
+
+## Overview
+
+vaster is deliberately small: a grid is a `dimension` and an `extent`, and every
+operation is arithmetic on those six numbers. Many other tools carry the same
+grid logic bundled with data, formats, or a CRS. This vignette lines vaster up
+against a few of them, so you can see which vaster function stands in for a
+concept you may already know.
+
+The comparison chunks that call external packages (odc.geo, rasterio, magick,
+reproj) are shown but not run here; the vaster chunks run.
+
+## GDAL, terra, stars
+
+GDAL represents a grid with a 6-element geotransform; terra and stars wrap that.
+vaster converts to and from the same representation without an object or a file.
+The [GDAL interoperability](gdal-interop.html) vignette covers this in full;
+briefly:
+
+```{r}
+dimension <- c(360, 180)
+extent <- c(-180, 180, -90, 90)
+
+geo_transform0(dimension, extent)
+```
+
+A terra `SpatRaster` or stars object carries exactly this `dimension`/`extent`
+(plus a CRS and, usually, data). When you only need the grid arithmetic -
+cell indices, crop windows, coordinates - vaster does it without constructing
+one.
+
+## odc.geo GeoBox
+
+[odc.geo](https://odc-geo.readthedocs.io/)'s `GeoBox` is a grid specification:
+a shape (dimension), an affine transform (extent + resolution), and a CRS.
+vaster is the first two of those - it holds no CRS. For the geometry, vaster's
+`vaster_boundary()` reproduces `GeoBox.boundary()`: a coordinate for every cell
+corner around the perimeter, which is what you densify before reprojecting so
+the warped outline stays faithful.
+
+```{r geobox, fig.width = 6, fig.height = 3.2, fig.alt = "The perimeter coordinates of an 8x5 grid, one point at every cell corner around the edge."}
+dimension <- c(8, 5)
+extent <- c(-2e6, 2.25e6, -5e6, -1e6)
+
+b <- vaster_boundary(dimension, extent)
+head(b)
+
+op <- par(mar = c(3, 3, 1, 1), mgp = c(1.8, 0.6, 0))
+plot(b, type = "o", pch = 19, cex = 0.6, asp = 1,
+     col = "#1C6E8C", xlab = "x", ylab = "y")
+par(op)
+```
+
+The equivalent in odc.geo, and the reprojection that motivates the densified
+boundary, would be:
+
+```{python, eval = FALSE}
+from odc.geo.geobox import GeoBox
+g = GeoBox.from_bbox((-2_000_000, -5_000_000, 2_250_000, -1_000_000),
+                     "epsg:3577", resolution=1000)
+g.boundary(100)   # perimeter points, like vaster_boundary()
+```
+
+```{r, eval = FALSE}
+## vaster boundary -> lon/lat with reproj (reproj is not a vaster dependency)
+lonlat <- reproj::reproj_xy(vaster_boundary(dimension, extent),
+                            "OGC:CRS84", source = "EPSG:3577")
+plot(lonlat, type = "l")
+```
+
+`vaster_boundary_cell()` gives the same traversal as cell indices, handy for
+pulling boundary values out of a coordinate array.
+
+## Rasterizing points to a grid
+
+A common rasterio recipe turns scattered points into a count (or value) grid by
+mapping each point to a pixel and accumulating. In vaster that is
+`cell_from_xy()` to get the cell, then `tabulate()` to count - no raster object
+and no I/O:
+
+```{r rasterize, fig.width = 6.5, fig.height = 3.6, fig.alt = "A coarse global count grid shaded from light to dark where more of the overlaid points fall."}
+set.seed(3162)
+pts <- cbind(x = rnorm(3000, 30, 60), y = rnorm(3000, -10, 35))
+
+dimension <- c(72, 36)
+extent <- c(-180, 180, -90, 90)
+
+cell <- cell_from_xy(dimension, extent, pts)
+counts <- tabulate(cell, nbins = n_cell(dimension))
+
+## arrange cell-order counts into image() form (vaster_listxyz handles orientation)
+m <- matrix(counts, nrow = dimension[2], ncol = dimension[1], byrow = TRUE)
+xyz <- vaster_listxyz(dimension, extent, m)
+
+op <- par(mar = c(3, 3, 1, 1), mgp = c(1.8, 0.6, 0))
+image(xyz, col = hcl.colors(24, "YlOrRd", rev = TRUE), asp = 1,
+      xlab = "x", ylab = "y")
+points(pts, pch = ".", col = "#00000055")
+par(op)
+```
+
+The rasterio version builds an affine transform and calls `rowcol()` per point;
+the grid logic is identical. Use `vaster_listxyz(..., corner = TRUE)` if you want
+cell boundaries rather than centres for the `x`/`y` vectors.
+
+## magick (pixel-space crops)
+
+ImageMagick addresses an image as a pixel grid with a top-left origin and a
+geometry string `WIDTHxHEIGHT+XOFF+YOFF` - the same convention as GDAL RasterIO.
+`magick_geometry()` formats a crop extent into that string:
+
+```{r}
+magick_geometry(c(360, 180), c(-180, 180, -90, 90), c(110, 155, -45, -10))
+```
+
+which you can hand straight to magick:
+
+```{r, eval = FALSE}
+library(magick)
+img <- image_read("world.png")
+image_crop(img, magick_geometry(c(360, 180), c(-180, 180, -90, 90),
+                                c(110, 155, -45, -10)))
+```
+
+It is the pixel-space sibling of `rasterio0()` / `rasterio_to_sfio()`; only the
+output format differs.
+
+## Summary
+
+| Other tool | Concept | vaster |
+|------------|---------|--------|
+| GDAL / terra / stars | geotransform, grid object | `geo_transform0()`, `dimension`/`extent` |
+| odc.geo `GeoBox` | grid spec + boundary | `dimension`/`extent`, `vaster_boundary()` |
+| rasterio | rasterize points | `cell_from_xy()` + `tabulate()` |
+| ImageMagick | crop geometry string | `magick_geometry()` |
+
+The common thread: these tools bundle grid logic with data, formats, or a CRS.
+vaster keeps just the logic, so you can compute cells, coordinates, crops, and
+boundaries up front and hand the results to whichever tool does the I/O.
