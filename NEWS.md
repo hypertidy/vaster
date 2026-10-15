@@ -1,4 +1,4 @@
-# vaster (development version)
+# vaster 0.7.0
 
 * New "vaster and related tools" vignette, lining vaster up against GDAL/terra,
   odc.geo's `GeoBox`, rasterio point rasterization, and ImageMagick crop
@@ -14,8 +14,6 @@
   string (`"WIDTHxHEIGHT+XOFF+YOFF"`) for use with `magick::image_crop()`. It is
   the pixel-space sibling of `rasterio0()`, built on `vcrop()` and
   `grid_offset()` (#5).
-
-# vaster 0.7.0
 
 * New lattice-alignment functions, folded in from the mdsumner/align sketch:
 `is_aligned()`, `grid_offset()`, `snap_grid()`, `resize_grid()` and
