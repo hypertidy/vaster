@@ -247,3 +247,42 @@ geotransform_to_world <- function(x) {
   sh <- x[c(3L, 5L)]
   geo_world0(px, ul, sh)
 }
+
+#' magick geometry string for a grid crop
+#'
+#' Format a crop window as an ImageMagick "geometry" string
+#' `"WIDTHxHEIGHT+XOFF+YOFF"`, suitable for `magick::image_crop()`. This is a
+#' sibling of [rasterio0()]: magick addresses an image as a pixel grid with a
+#' top-left origin and 0-based offsets, the same convention GDAL RasterIO uses,
+#' so the window is pure grid logic with no pixels read.
+#'
+#' The crop extent is snapped to the grid with [vcrop()] (so the result always
+#' lands on cell boundaries), and the pixel offset is the [grid_offset()] of the
+#' snapped window within the parent grid. With `crop = NULL` the geometry covers
+#' the whole grid.
+#'
+#' @inheritParams grid
+#' @param crop extent `c(xmin, xmax, ymin, ymax)` to crop to, or `NULL` for the
+#'   whole grid
+#' @param snap how to snap the crop to cell boundaries, passed to [vcrop()]
+#' @return length-1 character string `"WIDTHxHEIGHT+XOFF+YOFF"`
+#' @seealso [rasterio0()], [vcrop()], [grid_offset()]
+#' @export
+#' @examples
+#' ## whole grid
+#' magick_geometry(c(360, 180), c(-180, 180, -90, 90))
+#' ## a cropped window (Australia-ish)
+#' magick_geometry(c(360, 180), c(-180, 180, -90, 90), c(110, 155, -45, -10))
+magick_geometry <- function(dimension, extent = NULL, crop = NULL, snap = "out") {
+  extent <- extent %||% extent0(dimension)
+  .check_args(dimension, extent)
+  if (is.null(crop)) {
+    off <- c(col = 0L, row = 0L)
+    dim_out <- as.integer(dimension)
+  } else {
+    v <- vcrop(crop, dimension, extent, snap = snap)
+    off <- grid_offset(dimension, extent, v$dimension, v$extent)
+    dim_out <- v$dimension
+  }
+  sprintf("%dx%d+%d+%d", dim_out[1L], dim_out[2L], off[["col"]], off[["row"]])
+}

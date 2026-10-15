@@ -1,3 +1,13 @@
+# vaster (development version)
+
+* New `x_center()` and `y_center()`, US-spelling aliases for `x_centre()` and
+  `y_centre()` (#8).
+
+* New `magick_geometry()` to format a grid crop as an ImageMagick geometry
+  string (`"WIDTHxHEIGHT+XOFF+YOFF"`) for use with `magick::image_crop()`. It is
+  the pixel-space sibling of `rasterio0()`, built on `vcrop()` and
+  `grid_offset()` (#5).
+
 # vaster 0.7.0
 
 * New lattice-alignment functions, folded in from the mdsumner/align sketch:

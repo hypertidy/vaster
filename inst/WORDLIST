@@ -32,11 +32,13 @@ gdal
 geo
 georeferencing
 geospatial
+ImageMagick
 geotransform
 geotransforms
 grey
 io
 longlat
+magick
 modelled
 ncol
 ncols

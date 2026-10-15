@@ -159,3 +159,14 @@ test_that("plot_extent vectorised", {
   plot_extent(exts)
   expect_true(TRUE)
 })
+
+## ---- centre / center aliases ----
+
+test_that("x_center / y_center alias x_centre / y_centre", {
+  dm <- c(10, 5); ex <- c(0, 100, 0, 50)
+  expect_identical(x_center(dm, ex), x_centre(dm, ex))
+  expect_identical(y_center(dm, ex), y_centre(dm, ex))
+  ## default extent path
+  expect_identical(x_center(dm), x_centre(dm))
+  expect_identical(y_center(dm), y_centre(dm))
+})

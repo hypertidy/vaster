@@ -6,6 +6,8 @@
 \alias{y_corner}
 \alias{x_centre}
 \alias{y_centre}
+\alias{x_center}
+\alias{y_center}
 \alias{x_from_col}
 \alias{y_from_row}
 \alias{col_from_x}
@@ -20,6 +22,10 @@ y_corner(dimension, extent = NULL)
 x_centre(dimension, extent = NULL)
 
 y_centre(dimension, extent = NULL)
+
+x_center(dimension, extent = NULL)
+
+y_center(dimension, extent = NULL)
 
 x_from_col(dimension, extent = NULL, col)
 
@@ -66,11 +72,17 @@ xy coordinate (centre) of grid
 \description{
 Functions that work with coordinates.
 }
+\details{
+\code{x_center()} and \code{y_center()} are US-spelling aliases for
+\code{x_centre()} and \code{y_centre()}.
+}
 \examples{
 x_corner(c(10, 5), c(0, 10, 0, 5))
 y_corner(c(10, 5), c(0, 10, 0, 5))
 x_centre(c(10, 5), c(0, 10, 0, 5))
 y_centre(c(10, 5), c(0, 10, 0, 5))
+x_center(c(10, 5), c(0, 10, 0, 5))
+y_center(c(10, 5), c(0, 10, 0, 5))
 x_from_col(c(10, 5), c(0, 10, 0, 5), 2:3)
 y_from_row(c(10, 5), c(0, 10, 0, 5), 2:3)
 col_from_x(c(10, 5), c(0, 10, 0, 5), 3.5 + 1:2)

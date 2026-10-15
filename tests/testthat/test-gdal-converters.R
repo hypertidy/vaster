@@ -101,3 +101,23 @@ test_that("raster_sfio with downsampling factor", {
   expect_equal(sfio$nBufXSize, 50, ignore_attr = TRUE)
   expect_equal(sfio$nBufYSize, 25, ignore_attr = TRUE)
 })
+
+## ---- magick_geometry ----
+
+test_that("magick_geometry covers the whole grid by default", {
+  expect_identical(magick_geometry(c(360, 180), c(-180, 180, -90, 90)),
+                   "360x180+0+0")
+  ## extent = NULL (unit cell space) still works
+  expect_identical(magick_geometry(c(4, 3)), "4x3+0+0")
+})
+
+test_that("magick_geometry window matches vcrop + grid_offset", {
+  dm <- c(360, 180); ex <- c(-180, 180, -90, 90); roi <- c(110, 155, -45, -10)
+  v <- vcrop(roi, dm, ex)
+  off <- grid_offset(dm, ex, v$dimension, v$extent)
+  expect_identical(
+    magick_geometry(dm, ex, roi),
+    sprintf("%dx%d+%d+%d", v$dimension[1], v$dimension[2], off[["col"]], off[["row"]])
+  )
+  expect_identical(magick_geometry(dm, ex, roi), "45x35+290+100")
+})

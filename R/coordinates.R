@@ -68,6 +68,20 @@ y_centre <- function(dimension, extent = NULL) {
   seq(yl[1L] + resy/2, yl[2L] - resy/2, length.out = n_row(dimension))
 }
 
+#' @name coordinates
+#' @details `x_center()` and `y_center()` are US-spelling aliases for
+#'   `x_centre()` and `y_centre()`.
+#' @export
+#' @examples
+#' x_center(c(10, 5), c(0, 10, 0, 5))
+x_center <- function(dimension, extent = NULL) x_centre(dimension, extent)
+
+#' @name coordinates
+#' @export
+#' @examples
+#' y_center(c(10, 5), c(0, 10, 0, 5))
+y_center <- function(dimension, extent = NULL) y_centre(dimension, extent)
+
 
 #' @name coordinates
 #' @return x coordinate of col (centre)
