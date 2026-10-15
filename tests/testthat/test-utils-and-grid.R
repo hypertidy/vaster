@@ -170,3 +170,19 @@ test_that("x_center / y_center alias x_centre / y_centre", {
   expect_identical(x_center(dm), x_centre(dm))
   expect_identical(y_center(dm), y_centre(dm))
 })
+
+## ---- vaster_listxyz corner option ----
+
+test_that("vaster_listxyz returns centres or corners", {
+  dm <- c(10, 5); ex <- c(0, 10, 0, 5)
+  ctr <- vaster_listxyz(dm, ex)
+  cor <- vaster_listxyz(dm, ex, corner = TRUE)
+  expect_length(ctr$x, 10); expect_length(ctr$y, 5)
+  expect_length(cor$x, 11); expect_length(cor$y, 6)
+  ## the z matrix is the same either way
+  expect_identical(ctr$z, cor$z)
+  expect_equal(cor$x, x_corner(dm, ex))
+  expect_equal(cor$y, y_corner(dm, ex))
+  expect_false(is.unsorted(cor$x))
+  expect_false(is.unsorted(cor$y))
+})

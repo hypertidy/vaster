@@ -1,5 +1,8 @@
 # vaster (development version)
 
+* `vaster_listxyz()` gains a `corner` argument to return cell-corner (boundary)
+  coordinates (length `ncol + 1` / `nrow + 1`) rather than cell centres (#9).
+
 * New `x_center()` and `y_center()`, US-spelling aliases for `x_centre()` and
   `y_centre()` (#8).
 

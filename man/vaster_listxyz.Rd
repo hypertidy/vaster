@@ -4,7 +4,7 @@
 \alias{vaster_listxyz}
 \title{Image xyz list}
 \usage{
-vaster_listxyz(dimension, extent = NULL, data = NULL)
+vaster_listxyz(dimension, extent = NULL, data = NULL, corner = FALSE)
 }
 \arguments{
 \item{dimension}{integer ncol, nrow}
@@ -12,6 +12,8 @@ vaster_listxyz(dimension, extent = NULL, data = NULL)
 \item{extent}{numeric extent xmin,xmax,ymin,ymax}
 
 \item{data}{data values (length of the product of 'dimension')}
+
+\item{corner}{return cell corner coordinates rather than cell centres}
 }
 \value{
 list with elements x,y,z as per \link[graphics:image]{graphics::image}
@@ -21,8 +23,15 @@ Generate list of x and y rectilinear coordinates with z matrix.
 }
 \details{
 The rectilinear coordinates are degenerate (just a product of extent/dimension).
+
+By default \code{x} and \code{y} are the cell \emph{centres} (length \code{ncol} and \code{nrow}). With
+\code{corner = TRUE} they are the cell \emph{corners} (length \code{ncol + 1} and \code{nrow + 1}),
+the other form \code{\link[graphics:image]{graphics::image()}} accepts, where \code{x}/\code{y} are the cell
+boundaries. The \code{z} matrix is the same in both cases.
 }
 \examples{
 vaster_listxyz(c(10, 5), c(0, 10, 0, 5))
+## cell corners (boundaries) instead of centres
+vaster_listxyz(c(10, 5), c(0, 10, 0, 5), corner = TRUE)
 ## see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
 }

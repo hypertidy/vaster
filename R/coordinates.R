@@ -200,16 +200,25 @@ vaster_long <- function(dimension, extent = NULL, data = NULL, raster_order = TR
 #' Generate list of x and y rectilinear coordinates with z matrix.
 #'
 #' The rectilinear coordinates are degenerate (just a product of extent/dimension).
+#'
+#' By default `x` and `y` are the cell *centres* (length `ncol` and `nrow`). With
+#' `corner = TRUE` they are the cell *corners* (length `ncol + 1` and `nrow + 1`),
+#' the other form [graphics::image()] accepts, where `x`/`y` are the cell
+#' boundaries. The `z` matrix is the same in both cases.
+#'
 #' @inheritParams grid
 #' @param data data values (length of the product of 'dimension')
+#' @param corner return cell corner coordinates rather than cell centres
 #'
 #' @return list with elements x,y,z as per [graphics::image]
 #' @export
 #'
 #' @examples
 #' vaster_listxyz(c(10, 5), c(0, 10, 0, 5))
+#' ## cell corners (boundaries) instead of centres
+#' vaster_listxyz(c(10, 5), c(0, 10, 0, 5), corner = TRUE)
 #' ## see https://gist.github.com/mdsumner/b844766f28910a3f87dc2c8a398a3a13
-vaster_listxyz <- function(dimension, extent = NULL, data = NULL) {
+vaster_listxyz <- function(dimension, extent = NULL, data = NULL, corner = FALSE) {
   extent <- extent %||% extent0(dimension)
   .check_args(dimension, extent)
 
@@ -220,8 +229,14 @@ vaster_listxyz <- function(dimension, extent = NULL, data = NULL) {
     message("multi array not supported, this is trad image( ) format")
     data <- data[,,1L]  ## should warn
   }
-  list(x = x_from_col(dimension, extent = extent, seq_len(dimension[1])),
-       y = rev(y_from_row(dimension, extent = extent, seq_len(dimension[2]))), z = t(data[nrow(data):1, ]))
+  if (corner) {
+    x <- x_corner(dimension, extent = extent)
+    y <- y_corner(dimension, extent = extent)
+  } else {
+    x <- x_from_col(dimension, extent = extent, seq_len(dimension[1]))
+    y <- rev(y_from_row(dimension, extent = extent, seq_len(dimension[2])))
+  }
+  list(x = x, y = y, z = t(data[nrow(data):1, ]))
 }
 
 #' Grid boundary in native resolution
